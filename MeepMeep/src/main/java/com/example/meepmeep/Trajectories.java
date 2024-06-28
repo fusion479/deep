@@ -2,12 +2,23 @@ package com.example.meepmeep;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.noahbres.meepmeep.roadrunner.DriveShim;
+
+import org.firstinspires.ftc.teamcode.roadrunner.Drive;
 
 public class Trajectories {
     private final Color color;
+    private DriveShim shim;
+    private Drive mecanum;
 
-    public Trajectories(Color color) {
+    public Trajectories(Color color, DriveShim shim) {
         this.color = color;
+        this.shim = shim;
+    }
+
+    public Trajectories(Color color, Drive mecanum) {
+        this.color = color;
+        this.mecanum = mecanum;
     }
 
     public Pose2d reflectY(Pose2d pose) {
