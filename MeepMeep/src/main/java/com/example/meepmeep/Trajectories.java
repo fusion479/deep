@@ -1,5 +1,6 @@
 package com.example.meepmeep;
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.roadrunner.DriveShim;
@@ -25,6 +26,12 @@ public class Trajectories {
 
     public Vector2d reflectY(Vector2d vector) {
         return this.color == Color.RED ? new Vector2d(vector.x, -vector.y) : vector;
+    }
+
+    public Action EXAMPLE_PATH(Pose2d pose) {
+        return this.shim == null ?
+                this.mecanum.actionBuilder(pose).lineToX(10).build() :
+                this.shim.actionBuilder(pose).lineToX(10).build();
     }
 
     public enum Color {
