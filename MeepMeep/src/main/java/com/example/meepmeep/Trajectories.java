@@ -4,8 +4,6 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.roadrunner.DriveShim;
 
-import org.firstinspires.ftc.teamcode.roadrunner.Drive;
-
 public class Trajectories {
     private final Color color;
     private DriveShim shim;
