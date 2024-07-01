@@ -12,13 +12,14 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 @Config
 public class Pipeline extends OpenCvPipeline {
+    // H: 0-179, S: 0-255, V: 0-255
     // BLUE COLOR FILTERS
-    public static final int BLUE_LOW_RED = 40, BLUE_LOW_GREEN = 40, BLUE_LOW_BLUE = 0;
-    public static final int BLUE_HIGH_RED = 180, BLUE_HIGH_GREEN = 255, BLUE_HIGH_BLUE = 180;
+    public static final int BLUE_LOW_HUE = 40, BLUE_LOW_SAT = 40, BLUE_LOW_VAL = 0;
+    public static final int BLUE_HIGH_HUE = 180, BLUE_HIGH_SAT = 255, BLUE_HIGH_VAL = 180;
 
     // RED COLOR FILTERS
-    public static final int RED_LOW_RED = 0, RED_LOW_GREEN = 120, RED_LOW_BLUE = 0;
-    public static final int RED_HIGH_RED = 255, RED_HIGH_GREEN = 255, RED_HIGH_BLUE = 255;
+    public static final int RED_LOW_HUE = 0, RED_LOW_SAT = 120, RED_LOW_VAL = 0;
+    public static final int RED_HIGH_HUE = 255, RED_HIGH_SAT = 255, RED_HIGH_VAL = 255;
 
     // RECT ATTRIBUTES
     public static final int RIGHT_RECT_X = 565, RIGHT_RECT_Y = 125;
@@ -37,11 +38,11 @@ public class Pipeline extends OpenCvPipeline {
 
     public Pipeline(Trajectories.Color color) {
         if (color == Trajectories.Color.RED) {
-            LOW_FILTER = new Scalar(RED_LOW_RED, RED_LOW_GREEN, RED_LOW_BLUE);
-            HIGH_FILTER = new Scalar(RED_HIGH_RED, RED_HIGH_GREEN, RED_HIGH_BLUE);
+            LOW_FILTER = new Scalar(RED_LOW_HUE, RED_LOW_SAT, RED_LOW_VAL);
+            HIGH_FILTER = new Scalar(RED_HIGH_HUE, RED_HIGH_SAT, RED_HIGH_VAL);
         } else {
-            LOW_FILTER = new Scalar(BLUE_LOW_RED, BLUE_LOW_GREEN, BLUE_LOW_BLUE);
-            HIGH_FILTER = new Scalar(BLUE_HIGH_RED, BLUE_HIGH_GREEN, BLUE_HIGH_BLUE);
+            LOW_FILTER = new Scalar(BLUE_LOW_HUE, BLUE_LOW_SAT, BLUE_LOW_VAL);
+            HIGH_FILTER = new Scalar(BLUE_HIGH_HUE, BLUE_HIGH_SAT, BLUE_HIGH_VAL);
         }
     }
 
