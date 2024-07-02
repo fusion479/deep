@@ -9,35 +9,35 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
+import org.firstinspires.ftc.teamcode.utils.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 @TeleOp(name = "Camera Test", group = "TeleOp")
-public class CameraTest extends CommandOpMode {
+public class CameraTest extends OpModeCore {
     private Camera camera;
-    private MultipleTelemetry multipleTelemetry;
 
     public void initialize() {
-        this.multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        this.camera = new Camera(Trajectories.Color.RED, super.hardwareMap, this.multipleTelemetry);
+        this.camera = new Camera(Trajectories.Color.RED, super.hardwareMap, super.getTelemetry());
     }
 
 
     @Override
     public void runOpMode() {
         CommandScheduler.getInstance().enable();
-
         this.initialize();
 
         while (!isStarted()) {
-            this.multipleTelemetry.addData("Detected Region: ", this.camera.getRegion());
-            this.multipleTelemetry.update();
+            super.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
+            super.getTelemetry().update();
         }
+        this.camera.stopStreaming();
 
         super.waitForStart();
         while (!isStopRequested() && opModeIsActive()) {
+            super.resetTimer();
             CommandScheduler.getInstance().run();
 
-            this.multipleTelemetry.update();
+            super.log();
         }
 
 

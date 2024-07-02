@@ -7,16 +7,14 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.utils.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 @TeleOp(name = "Main", group = "TeleOp")
-public class Main extends CommandOpMode {
+public class Main extends OpModeCore {
     private CommandRobot robot;
-    private MultipleTelemetry multipleTelemetry;
 
     public void initialize() {
-        this.multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-
         this.robot = new CommandRobot(
                 RobotCore.Type.TELEOP
         );
@@ -31,11 +29,12 @@ public class Main extends CommandOpMode {
 
         super.waitForStart();
         while (!isStopRequested() && opModeIsActive()) {
+            super.resetTimer();
             CommandScheduler.getInstance().run();
 
             this.robot.updateTriggers();
 
-            this.multipleTelemetry.update();
+            super.log();
         }
 
 

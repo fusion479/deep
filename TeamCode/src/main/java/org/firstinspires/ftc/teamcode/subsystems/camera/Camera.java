@@ -40,6 +40,11 @@ public class Camera extends SubsystemCore {
         });
     }
 
+    public void stopStreaming() {
+        this.camera.stopStreaming();
+        this.camera.closeCameraDevice();
+    }
+
     public int getRegion() {
         return this.pipeline.getRegion();
     }
