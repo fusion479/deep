@@ -32,13 +32,15 @@ public class Pipeline extends OpenCvPipeline {
     public Scalar LOW_FILTER, HIGH_FILTER;
     public static double TOLERANCE = 0.5;
 
-    private final Mat output = new Mat();
+    // ATTRIBUTES
+    private final Mat output;
     private int region;
-
     private final Trajectories.Color color;
 
     public Pipeline(Trajectories.Color color) {
         this.color = color;
+        this.output = new Mat();
+        this.region = 0;
     }
 
     @Override
