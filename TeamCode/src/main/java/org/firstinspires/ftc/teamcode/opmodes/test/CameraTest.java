@@ -1,16 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.example.meepmeep.Trajectories;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
 import org.firstinspires.ftc.teamcode.utils.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 @TeleOp(name = "Camera Test", group = "TeleOp")
 public class CameraTest extends OpModeCore {
@@ -31,12 +26,13 @@ public class CameraTest extends OpModeCore {
             super.getTelemetry().update();
         }
         this.camera.stopStreaming();
+        this.camera.initPortal(super.hardwareMap);
 
-        super.waitForStart();
         while (!isStopRequested() && opModeIsActive()) {
             super.resetTimer();
             CommandScheduler.getInstance().run();
 
+            this.camera.logTagPose();
             super.log();
         }
 
