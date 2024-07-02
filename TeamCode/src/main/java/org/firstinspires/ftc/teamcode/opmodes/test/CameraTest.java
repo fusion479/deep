@@ -40,9 +40,6 @@ public class CameraTest extends OpModeCore {
             super.log();
         }
 
-
-        CommandScheduler.getInstance().cancelAll();
-        CommandScheduler.getInstance().disable();
-        CommandScheduler.getInstance().reset();
+        super.end();
     }
 }

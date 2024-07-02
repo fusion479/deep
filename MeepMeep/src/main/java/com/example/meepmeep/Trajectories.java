@@ -28,7 +28,7 @@ public class Trajectories {
         return this.color == Color.RED ? new Vector2d(vector.x, -vector.y) : vector;
     }
 
-    public Action EXAMPLE_PATH(Pose2d pose) {
+    Action EXAMPLE_PATH(Pose2d pose) {
         return this.shim == null ?
                 this.mecanum.actionBuilder(pose).lineToX(10).build() :
                 this.shim.actionBuilder(pose).lineToX(10).build();

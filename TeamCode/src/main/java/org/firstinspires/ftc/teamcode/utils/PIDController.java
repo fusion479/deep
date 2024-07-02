@@ -8,6 +8,7 @@ public class PIDController {
     private final ElapsedTime timer = new ElapsedTime();
     private double target = 0;
     private double integralSum = 0, lastError = 0;
+    private double allowedError = 0;
 
     public PIDController(double kP) {
         this.kP = kP;
@@ -28,27 +29,34 @@ public class PIDController {
     }
 
     public double getTarget() {
-        return target;
+        return this.target;
     }
 
     public void setTarget(double target) {
         this.target = target;
-        lastError = 0;
+        this.lastError = 0;
+    }
+
+    public void setAllowedError(double error) {
+        this.allowedError = error;
     }
 
     public double calculate(double reference) {
-        double error = target - reference;
-        double derivative = (error - lastError) / timer.seconds();
-        integralSum = integralSum + (error * timer.seconds());
+        double error = this.target - reference;
+        double derivative = (error - this.lastError) / this.timer.seconds();
+        this.integralSum = this.integralSum + (error * this.timer.seconds());
 
-        lastError = error;
-        timer.reset();
+        this.lastError = error;
+        this.timer.reset();
 
-        return (kP * error) + (kI * integralSum) + (kD * derivative);
+        return (this.kP * error) + (this.kI * this.integralSum) + (this.kD * derivative);
     }
 
     public double getLastError() {
-        return lastError;
+        return this.lastError;
     }
 
+    public boolean isFinished() {
+        return Math.abs(this.lastError) >= this.allowedError;
+    }
 }
