@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems.camera;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.example.meepmeep.Trajectories;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -14,14 +15,15 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Config
 public class Camera extends SubsystemCore {
     private final Pipeline pipeline;
-    private OpenCvCamera camera;
+    private final OpenCvCamera camera;
 
-    public Camera(Trajectories.Color color) {
+    public Camera(Trajectories.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
+        super(telemetry);
         this.pipeline = new Pipeline(color);
-    }
 
-    public void initCamera(HardwareMap hwMap) {
         int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+
+        // Initialize the camera
         this.camera = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "camera"), cameraMonitorViewId);
         this.camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
