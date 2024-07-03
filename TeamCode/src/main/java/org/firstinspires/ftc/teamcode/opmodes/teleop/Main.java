@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -29,7 +26,7 @@ public class Main extends OpModeCore {
 
         super.waitForStart();
         while (!isStopRequested() && opModeIsActive()) {
-            super.resetTimer();
+            super.resetPeriod();
             CommandScheduler.getInstance().run();
 
             this.robot.updateTriggers();
@@ -37,9 +34,6 @@ public class Main extends OpModeCore {
             super.log();
         }
 
-
-        CommandScheduler.getInstance().cancelAll();
-        CommandScheduler.getInstance().disable();
-        CommandScheduler.getInstance().reset();
+        super.end();
     }
 }

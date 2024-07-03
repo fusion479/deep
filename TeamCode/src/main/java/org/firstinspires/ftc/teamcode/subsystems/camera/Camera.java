@@ -5,6 +5,7 @@ import android.util.Size;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.example.meepmeep.Constants;
 import com.example.meepmeep.Trajectories;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -86,6 +87,14 @@ public class Camera extends SubsystemCore {
             super.getTelemetry().addData("Pitch: ", detection.ftcPose.pitch);
             super.getTelemetry().addData("Yaw: ", detection.ftcPose.yaw);
             super.getTelemetry().addData("Roll: ", detection.ftcPose.roll);
+            super.getTelemetry().addData("Tag Pose X on Field: ", detection.metadata.fieldPosition.getData()[0]);
+            super.getTelemetry().addData("Tag Pose Y on Field: ", detection.metadata.fieldPosition.getData()[1]);
+
+            double x = detection.metadata.fieldPosition.getData()[0] - detection.ftcPose.y - Constants.ROBOT_LENGTH;
+            double y = detection.metadata.fieldPosition.getData()[1] + detection.ftcPose.x;
+            double bearing = Math.toRadians(detection.ftcPose.bearing);
+
+            super.getTelemetry().addData("Robot Pose: ", "(" + x + ", " + y + ", " + bearing + ")");
         }
     }
 

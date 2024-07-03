@@ -17,7 +17,7 @@ public class PathVisualizer {
 
         Trajectories trajectories = new Trajectories(Trajectories.Color.BLUE, myBot.getDrive());
 
-        myBot.runAction(trajectories.EXAMPLE_PATH(new Pose2d(0, 0, 0)));
+        myBot.runAction(trajectories.EXAMPLE_PATH(new Pose2d(40.23248100280762, 26.693198919296265, 0.13489691367384427)));
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
