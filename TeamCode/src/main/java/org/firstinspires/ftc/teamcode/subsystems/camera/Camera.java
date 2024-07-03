@@ -5,11 +5,13 @@ import android.util.Size;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.example.meepmeep.Constants;
 import com.example.meepmeep.Trajectories;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utils.SubsystemCore;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -89,12 +91,26 @@ public class Camera extends SubsystemCore {
             super.getTelemetry().addData("Roll: ", detection.ftcPose.roll);
             super.getTelemetry().addData("Tag Pose X on Field: ", detection.metadata.fieldPosition.getData()[0]);
             super.getTelemetry().addData("Tag Pose Y on Field: ", detection.metadata.fieldPosition.getData()[1]);
+            super.getTelemetry().addData("Tag ID: ", detection.id);
 
             double x = detection.metadata.fieldPosition.getData()[0] - detection.ftcPose.y - Constants.ROBOT_LENGTH;
             double y = detection.metadata.fieldPosition.getData()[1] + detection.ftcPose.x;
             double bearing = Math.toRadians(detection.ftcPose.bearing);
 
             super.getTelemetry().addData("Robot Pose: ", "(" + x + ", " + y + ", " + bearing + ")");
+        }
+    }
+
+    public void relocalize(MecanumDrive drive) {
+        if (this.processor.getDetections().size() > 0) {
+            AprilTagDetection detection = this.processor.getDetections().get(0);
+
+            drive.pose = new Pose2d(
+                    detection.metadata.fieldPosition.getData()[0] - detection.ftcPose.y - Constants.CENTER_TO_CAMERA,
+                    detection.metadata.fieldPosition.getData()[1] + detection.ftcPose.x,
+                    Math.toRadians(detection.ftcPose.bearing)
+            );
+
         }
     }
 
