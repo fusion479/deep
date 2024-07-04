@@ -18,7 +18,7 @@ public class Main extends OpModeCore {
                 RobotCore.Type.TELEOP
         );
 
-        super.setBulks();
+        super.enableBulkReads();
     }
 
 
@@ -31,7 +31,7 @@ public class Main extends OpModeCore {
         super.logStartUp();
 
         while (!isStopRequested() && opModeIsActive()) {
-            super.bulkRead();
+            super.bulkReads();
             CommandScheduler.getInstance().run();
 
             this.robot.updateTriggers();

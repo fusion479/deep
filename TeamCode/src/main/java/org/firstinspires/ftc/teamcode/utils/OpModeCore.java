@@ -36,7 +36,7 @@ public abstract class OpModeCore extends CommandOpMode {
         CommandScheduler.getInstance().reset();
     }
 
-    public void bulkRead() {
+    public void bulkReads() {
         for (LynxModule hub : this.hubs) {
             hub.clearBulkCache();
         }
@@ -56,7 +56,7 @@ public abstract class OpModeCore extends CommandOpMode {
         }
     }
 
-    public void setBulks() {
+    public void enableBulkReads() {
         for (LynxModule hub : this.hubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }

@@ -23,7 +23,7 @@ public class CameraTest extends OpModeCore {
         this.camera = new Camera(Trajectories.Color.RED, super.hardwareMap, super.getTelemetry());
         this.drive = new MecanumDrive(super.hardwareMap, new Pose2d(0, 0, 0));
 
-        super.setBulks();
+        super.enableBulkReads();
     }
 
 
@@ -42,7 +42,7 @@ public class CameraTest extends OpModeCore {
 
         super.logStartUp();
         while (!isStopRequested() && opModeIsActive()) {
-            super.bulkRead();
+            super.bulkReads();
             CommandScheduler.getInstance().run();
 
             this.camera.relocalize(this.drive);
