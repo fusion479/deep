@@ -36,7 +36,8 @@ public abstract class OpModeCore extends CommandOpMode {
         }
 
         for (DcMotorEx motor : this.motors) {
-            int encoderPos = motor.getCurrentPosition();
+            motor.getCurrentPosition();
+            motor.getVelocity();
         }
     }
 
