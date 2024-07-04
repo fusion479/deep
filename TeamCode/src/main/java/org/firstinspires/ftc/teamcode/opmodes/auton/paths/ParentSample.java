@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.paths;
 
 import com.example.meepmeep.Trajectories;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.AutonPathGen;
 import org.firstinspires.ftc.teamcode.utils.OpModeCore;
