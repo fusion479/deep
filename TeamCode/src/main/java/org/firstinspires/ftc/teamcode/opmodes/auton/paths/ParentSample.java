@@ -1,29 +1,47 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.paths;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ftc.Actions;
+import com.example.meepmeep.Positions;
 import com.example.meepmeep.Trajectories;
 
-import org.firstinspires.ftc.teamcode.utils.AutonPathGen;
+import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
 import org.firstinspires.ftc.teamcode.utils.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
-public class ParentSample extends AutonPathGen {
+public class ParentSample {
+    public final Trajectories trajectories;
+    public final CommandRobot robot;
+    private final OpModeCore opMode;
+    private final Camera camera;
+    private final MultipleTelemetry telemetry;
+    private int region;
+
     public ParentSample(Trajectories.Color color, OpModeCore opMode) {
-        super(color, opMode);
+        this.telemetry = new MultipleTelemetry(opMode.telemetry, FtcDashboard.getInstance().getTelemetry());
+        this.opMode = opMode;
+        this.robot = new CommandRobot(RobotCore.Type.AUTON, opMode.hardwareMap, Positions.START_POS, this.telemetry);
+        this.camera = new Camera(color, opMode.hardwareMap, this.telemetry);
+        this.trajectories = new Trajectories(color);
     }
 
-    public void generatePaths() {
-        // Declare paths/actions
-        // ...
-
-        while (!super.opMode.isStarted()) {
-            super.opMode.getTelemetry().addData("Detected Region: ", super.camera.getRegion());
-            super.opMode.getTelemetry().update();
+    public void generate() {
+        while (!this.opMode.isStarted()) {
+            this.opMode.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
+            this.opMode.getTelemetry().update();
+            this.region = this.camera.getRegion();
         }
-        super.camera.stopStreaming();
-
-        // ...
+        this.camera.stopStreaming();
     }
 
-    public void runPaths() {
-        // ...
+    public void run() {
+        Action pathOne = region == 1 || region == 2 ?
+                trajectories.pathOne(this.robot.drive.actionBuilder(Positions.START_POS)) :
+                trajectories.pathTwo(this.robot.drive.actionBuilder(Positions.START_POS));
+
+        Actions.runBlocking(pathOne);
     }
 }

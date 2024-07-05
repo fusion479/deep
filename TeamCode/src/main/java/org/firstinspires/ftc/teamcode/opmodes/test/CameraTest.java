@@ -42,11 +42,10 @@ public class CameraTest extends OpModeCore {
 
         super.logStartUp();
         while (!isStopRequested() && opModeIsActive()) {
-            super.bulkReads();
+            super.resetCycle();
             CommandScheduler.getInstance().run();
 
             this.camera.relocalize(this.drive);
-            this.drive.updatePoseEstimate();
 
             TelemetryPacket packet = new TelemetryPacket();
             packet.fieldOverlay().setStroke("#3F51B5");

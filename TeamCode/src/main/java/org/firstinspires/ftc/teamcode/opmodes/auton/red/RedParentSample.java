@@ -12,17 +12,16 @@ public class RedParentSample extends OpModeCore {
     @Override
     public void initialize() {
         this.auto = new ParentSample(Trajectories.Color.RED, this);
-        this.auto.generatePaths();
     }
 
     @Override
     public void runOpMode() {
         CommandScheduler.getInstance().enable();
-
         this.initialize();
-        waitForStart();
+        this.auto.generate();
 
-        this.auto.runPaths();
+        waitForStart();
+        this.auto.run();
 
         super.end();
     }

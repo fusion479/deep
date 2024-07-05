@@ -7,11 +7,9 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 public class Trajectories {
     private final Color color;
-    private final TrajectoryActionBuilder builder;
 
-    public Trajectories(Color color, TrajectoryActionBuilder builder) {
+    public Trajectories(Color color) {
         this.color = color;
-        this.builder = builder;
     }
 
     public Pose2d reflectY(Pose2d pose) {
@@ -26,12 +24,16 @@ public class Trajectories {
         return this.color == Color.RED ? Math.toRadians(360) - theta : theta;
     }
 
-    public Action pathOne() {
-        return this.builder.lineToX(10).build();
+    public Action pathOne(TrajectoryActionBuilder builder) {
+        return builder.lineToX(10).build();
     }
 
-    public Action pathTwo() {
-        return this.builder.lineToX(20).build();
+    public Action pathTwo(TrajectoryActionBuilder builder) {
+        return builder.lineToX(20).build();
+    }
+
+    public Action pathThree(TrajectoryActionBuilder builder) {
+        return builder.lineToX(30).build();
     }
 
     public enum Color {

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.paths;
 
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.meepmeep.Trajectories;
 
 import org.firstinspires.ftc.teamcode.utils.OpModeCore;
@@ -10,16 +12,11 @@ public class ChildSample extends ParentSample {
     }
 
     @Override
-    public void generatePaths() {
-        super.generatePaths();
+    public void run() {
+        super.run();
 
-        // ...
-    }
+        Action pathTwo = super.trajectories.pathThree(super.robot.drive.actionBuilder(super.robot.drive.pose));
 
-    @Override
-    public void runPaths() {
-        super.runPaths();
-
-        // ...
+        Actions.runBlocking(pathTwo);
     }
 }

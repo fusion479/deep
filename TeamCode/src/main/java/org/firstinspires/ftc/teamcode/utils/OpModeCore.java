@@ -4,26 +4,24 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
 import java.util.List;
 
+@Photon
 public abstract class OpModeCore extends CommandOpMode {
     private final MultipleTelemetry multipleTelemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
     private final ElapsedTime period = new ElapsedTime();
     private final ElapsedTime startUp = new ElapsedTime();
 
-    // INITIALIZE HUBS FOR BULK READING
-    private final List<LynxModule> hubs = super.hardwareMap.getAll(LynxModule.class);
-    private final List<DcMotorEx> motors = super.hardwareMap.getAll(DcMotorEx.class);
-    private final List<ServoEx> servos = super.hardwareMap.getAll(ServoEx.class);
-    private final List<ColorRangeSensor> sensors = super.hardwareMap.getAll(ColorRangeSensor.class);
+    // DECLARE VARS FOR BULK READING
+    private List<LynxModule> hubs;
+    private List<DcMotorEx> motors;
+    private List<ColorRangeSensor> sensors;
 
     public void logCycles() {
         this.multipleTelemetry.addData("Period (Seconds / 1 Cycle): ", this.period.seconds());
@@ -43,20 +41,14 @@ public abstract class OpModeCore extends CommandOpMode {
 
         for (DcMotorEx motor : this.motors) {
             motor.getCurrentPosition();
-            motor.getVelocity();
-        }
-
-        for (ServoEx servo : this.servos) {
-            servo.getPosition();
-            servo.getAngle();
-        }
-
-        for (ColorRangeSensor sensor : this.sensors) {
-            sensor.getDistance(DistanceUnit.MM);
         }
     }
 
     public void enableBulkReads() {
+        this.hubs = super.hardwareMap.getAll(LynxModule.class);
+        this.motors = super.hardwareMap.getAll(DcMotorEx.class);
+        this.sensors = super.hardwareMap.getAll(ColorRangeSensor.class);
+
         for (LynxModule hub : this.hubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }

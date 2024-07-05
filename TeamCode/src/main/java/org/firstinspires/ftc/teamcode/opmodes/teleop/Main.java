@@ -1,24 +1,26 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
-@Photon
 @TeleOp(name = "Main", group = "TeleOp")
 public class Main extends OpModeCore {
     private CommandRobot robot;
 
     public void initialize() {
         this.robot = new CommandRobot(
-                RobotCore.Type.TELEOP
+                RobotCore.Type.TELEOP,
+                hardwareMap,
+                new Pose2d(0, 0, 0),
+                new MultipleTelemetry(super.telemetry, FtcDashboard.getInstance().getTelemetry())
         );
-
-        super.enableBulkReads();
     }
 
 
@@ -31,7 +33,7 @@ public class Main extends OpModeCore {
         super.logStartUp();
 
         while (!isStopRequested() && opModeIsActive()) {
-            super.bulkReads();
+            super.resetCycle();
             CommandScheduler.getInstance().run();
 
             this.robot.updateTriggers();

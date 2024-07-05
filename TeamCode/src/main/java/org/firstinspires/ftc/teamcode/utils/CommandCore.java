@@ -4,13 +4,10 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 public class CommandCore extends CommandBase {
-    private MultipleTelemetry multipleTelemetry;
+    private final MultipleTelemetry multipleTelemetry;
 
     public CommandCore(MultipleTelemetry multipleTelemetry) {
         this.multipleTelemetry = multipleTelemetry;
-    }
-
-    public CommandCore() {
     }
 
     public MultipleTelemetry getTelemetry() {

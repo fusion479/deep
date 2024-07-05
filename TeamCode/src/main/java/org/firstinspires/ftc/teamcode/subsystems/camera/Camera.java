@@ -111,6 +111,7 @@ public class Camera extends SubsystemCore {
                     Math.toRadians(detection.ftcPose.bearing)
             );
 
+            drive.updatePoseEstimate();
         }
     }
 

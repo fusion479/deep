@@ -15,10 +15,11 @@ public class PathVisualizer {
                 .build();
 
 
-        Trajectories trajectories = new Trajectories(Trajectories.Color.BLUE, myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0)));
+        Trajectories trajectories = new Trajectories(Trajectories.Color.BLUE);
 
-        myBot.runAction(trajectories.pathOne());
-        myBot.runAction(trajectories.pathTwo());
+        myBot.runAction(trajectories.pathOne(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
+        myBot.runAction(trajectories.pathTwo(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
+        myBot.runAction(trajectories.pathThree(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
