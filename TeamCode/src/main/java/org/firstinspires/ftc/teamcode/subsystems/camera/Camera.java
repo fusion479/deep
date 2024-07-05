@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.meepmeep.Constants;
 import com.example.meepmeep.Trajectories;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -101,7 +102,7 @@ public class Camera extends SubsystemCore {
         }
     }
 
-    public void relocalize(MecanumDrive drive) {
+    public void relocalize(MecanumDrive drive, int id) {
         if (this.processor.getDetections().size() > 0) {
             AprilTagDetection detection = this.processor.getDetections().get(0);
 
@@ -112,6 +113,27 @@ public class Camera extends SubsystemCore {
             );
 
             drive.updatePoseEstimate();
+        }
+    }
+
+    public void driveToTag(MecanumDrive drive, int id) {
+        AprilTagDetection desiredTag = null;
+
+        for (AprilTagDetection tag : this.processor.getDetections()) {
+            if (tag.id == id) {
+                desiredTag = tag;
+                break;
+            }
+        }
+
+        if (desiredTag != null) {
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .splineToLinearHeading(
+                                    new Pose2d(desiredTag.metadata.fieldPosition.getData()[0],
+                                            desiredTag.metadata.fieldPosition.getData()[1],
+                                            Math.toRadians(0)), Math.toRadians(0))
+            );
         }
     }
 
