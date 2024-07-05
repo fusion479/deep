@@ -8,11 +8,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 public class CommandRobot extends RobotCore {
-    public final MecanumDrive drive;
-
     public CommandRobot(Type type, HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry) {
-        super(type, telemetry);
-        this.drive = new MecanumDrive(hwMap, startPose);
+        super(type, telemetry, new MecanumDrive(hwMap, startPose));
     }
 
     @Override

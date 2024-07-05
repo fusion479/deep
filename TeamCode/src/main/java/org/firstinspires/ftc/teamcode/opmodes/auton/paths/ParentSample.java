@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.utils.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 public class ParentSample {
-    public final Trajectories trajectories;
-    public final CommandRobot robot;
+    private final Trajectories trajectories;
+    private final CommandRobot robot;
     private final OpModeCore opMode;
     private final Camera camera;
     private final MultipleTelemetry telemetry;
@@ -28,6 +28,14 @@ public class ParentSample {
         this.trajectories = new Trajectories(color);
     }
 
+    public CommandRobot getRobot() {
+        return this.robot;
+    }
+
+    public Trajectories getTrajectories() {
+        return this.trajectories;
+    }
+
     public void generate() {
         while (!this.opMode.isStarted()) {
             this.opMode.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
@@ -39,8 +47,8 @@ public class ParentSample {
 
     public void run() {
         Action pathOne = region == 1 || region == 2 ?
-                trajectories.pathOne(this.robot.drive.actionBuilder(Positions.START_POS)) :
-                trajectories.pathTwo(this.robot.drive.actionBuilder(Positions.START_POS));
+                trajectories.pathOne(this.robot.getDrive().actionBuilder(Positions.START_POS)) :
+                trajectories.pathTwo(this.robot.getDrive().actionBuilder(Positions.START_POS));
 
         Actions.runBlocking(pathOne);
     }

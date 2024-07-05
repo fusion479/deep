@@ -102,7 +102,7 @@ public class Camera extends SubsystemCore {
         }
     }
 
-    public void relocalize(MecanumDrive drive, int id) {
+    public void relocalize(MecanumDrive drive) {
         if (this.processor.getDetections().size() > 0) {
             AprilTagDetection detection = this.processor.getDetections().get(0);
 
@@ -130,9 +130,14 @@ public class Camera extends SubsystemCore {
             Actions.runBlocking(
                     drive.actionBuilder(drive.pose)
                             .splineToLinearHeading(
-                                    new Pose2d(desiredTag.metadata.fieldPosition.getData()[0],
+                                    new Pose2d(
+                                            desiredTag.metadata.fieldPosition.getData()[0],
                                             desiredTag.metadata.fieldPosition.getData()[1],
-                                            Math.toRadians(0)), Math.toRadians(0))
+                                            Math.toRadians(0)
+                                    ),
+                                    Math.toRadians(0)
+                            )
+                            .build()
             );
         }
     }
