@@ -29,6 +29,5 @@ public class Drivetrain extends SubsystemCore {
                 ),
                 -gamepad.getRightX()
         ));
-        this.drive.updatePoseEstimate();
     }
 }
