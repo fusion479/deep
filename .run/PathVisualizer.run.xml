@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="PathVisualizer" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.example.meepmeep.PathVisualizer" />
-    <module name="commandrr1-template.MeepMeep.main" />
+    <module name="commandrr1-template.PathVisualizer.main" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

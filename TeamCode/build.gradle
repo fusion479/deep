@@ -31,9 +31,9 @@ repositories {
 dependencies {
     implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
+    implementation project(path: ':PathVisualizer')
 
     // IMPORT MEEPMEEP VARS
-    implementation project(path: ':MeepMeep')
 
     // FTCLIB
     implementation 'org.ftclib.ftclib:core:2.0.1'
