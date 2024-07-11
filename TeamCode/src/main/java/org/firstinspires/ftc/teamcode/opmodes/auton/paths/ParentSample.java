@@ -38,14 +38,14 @@ public class ParentSample {
 
     public void generate() {
         while (this.opMode.opModeInInit()) {
-            this.opMode.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
-            this.opMode.getTelemetry().update();
             this.region = this.camera.getRegion();
+            this.opMode.getTelemetry().addData("Detected Region: ", this.region);
+            this.opMode.getTelemetry().update();
         }
     }
 
     public void run() {
-        Action pathOne = region == 1 || region == 2 ?
+        Action pathOne = this.region == 1 || this.region == 2 ?
                 trajectories.pathOne(this.robot.getDrive().actionBuilder(Positions.START_POS)) :
                 trajectories.pathTwo(this.robot.getDrive().actionBuilder(Positions.START_POS));
 

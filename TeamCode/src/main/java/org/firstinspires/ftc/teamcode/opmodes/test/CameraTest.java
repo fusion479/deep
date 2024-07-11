@@ -34,9 +34,10 @@ public class CameraTest extends OpModeCore {
             super.getTelemetry().update();
         }
         super.resetStartUp();
+        this.camera.startTagProcessor();
 
         super.logStartUp();
-        while (!isStopRequested() && opModeIsActive()) {
+        while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 

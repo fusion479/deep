@@ -11,6 +11,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 @Config
@@ -36,14 +37,14 @@ public class PropProcessor implements VisionProcessor {
     private final Trajectories.Color color;
 
     // PIPELINE VARIABLES
-    public Rect RIGHT_RECT, LEFT_RECT; // Initialize vars during loop to update on dashboard
-    public Scalar LOW_FILTER, HIGH_FILTER;
+    private Rect RIGHT_RECT, LEFT_RECT; // Initialize vars during loop to update on dashboard
+    private Scalar LOW_FILTER, HIGH_FILTER;
     private int region;
 
     public PropProcessor(Trajectories.Color color) {
         this.color = color;
         this.output = new Mat();
-        this.region = 0;
+        this.region = 2;
     }
 
     @Override
@@ -51,8 +52,9 @@ public class PropProcessor implements VisionProcessor {
     }
 
     @Override
-    public Mat processFrame(Mat input, long _) {
-        Imgproc.cvtColor(input, output, Imgproc.COLOR_BGR2HSV);
+    public Object processFrame(Mat frame, long captureTimeNanos) {
+        Imgproc.cvtColor(frame, output, Imgproc.COLOR_BGR2HSV);
+        Imgproc.blur(output, output, new Size(5, 5));
 
         RIGHT_RECT = new Rect(RIGHT_RECT_X, RIGHT_RECT_Y, RECT_WIDTH, RECT_HEIGHT);
         LEFT_RECT = new Rect(LEFT_RECT_X, LEFT_RECT_Y, RECT_WIDTH, RECT_HEIGHT);
@@ -76,15 +78,16 @@ public class PropProcessor implements VisionProcessor {
         } else if (Core.sumElems(output.submat(RIGHT_RECT)).val[0] / RIGHT_RECT.area() / 255 > TOLERANCE) {
             Imgproc.rectangle(output, RIGHT_RECT, new Scalar(200, 255, 255), 7);
             this.region = 3;
-        } else {
-            this.region = 2;
         }
 
-        return output;
+        output.copyTo(frame);
+        output.release();
+
+        return null;
     }
 
     public int getRegion() {
-        return region;
+        return this.region;
     }
 
     @Override

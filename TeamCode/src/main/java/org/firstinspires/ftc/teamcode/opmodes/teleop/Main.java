@@ -32,7 +32,7 @@ public class Main extends OpModeCore {
         super.resetStartUp();
         super.logStartUp();
 
-        while (!isStopRequested() && opModeIsActive()) {
+        while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 

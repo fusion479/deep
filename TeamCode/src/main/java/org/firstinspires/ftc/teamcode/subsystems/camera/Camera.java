@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems.camera;
 
 import android.util.Size;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -28,19 +29,18 @@ public class Camera extends SubsystemCore {
 
         this.propProcessor = new PropProcessor(color);
 
-        this.tagProcessor = new AprilTagProcessor.Builder()
-                .setDrawAxes(true)
-                .setDrawCubeProjection(true)
-                .setDrawTagID(true)
-                .setDrawTagOutline(true)
-                .build();
+        this.tagProcessor = new AprilTagProcessor.Builder().build();
 
         this.portal = new VisionPortal.Builder()
                 .setCamera(hwMap.get(WebcamName.class, "camera"))
                 .setCameraResolution(new Size(640, 480))
-                .addProcessor(this.propProcessor)
-                .enableLiveView(true)
+                .addProcessor(new PropProcessor(color))
+                .addProcessor(tagProcessor)
                 .build();
+
+        this.portal.setProcessorEnabled(tagProcessor, false);
+
+        FtcDashboard.getInstance().startCameraStream(this.portal, 1);
     }
 
     public void logTagPose() {
@@ -106,6 +106,11 @@ public class Camera extends SubsystemCore {
                             .build()
             );
         }
+    }
+
+    public void startTagProcessor() {
+        this.portal.setProcessorEnabled(this.propProcessor, false);
+        this.portal.setProcessorEnabled(this.tagProcessor, true);
     }
 
     public int getRegion() {
