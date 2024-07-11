@@ -22,8 +22,6 @@ public class CameraTest extends OpModeCore {
     public void initialize() {
         this.camera = new Camera(Trajectories.Color.RED, super.hardwareMap, super.getTelemetry());
         this.drive = new MecanumDrive(super.hardwareMap, new Pose2d(0, 0, 0));
-
-        super.enableBulkReads();
     }
 
 
@@ -31,14 +29,11 @@ public class CameraTest extends OpModeCore {
     public void runOpMode() {
         this.initialize();
 
-        while (!isStarted()) {
+        while (super.opModeInInit()) {
             super.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
             super.getTelemetry().update();
         }
         super.resetStartUp();
-
-        this.camera.stopStreaming();
-        this.camera.initPortal(super.hardwareMap);
 
         super.logStartUp();
         while (!isStopRequested() && opModeIsActive()) {

@@ -37,12 +37,11 @@ public class ParentSample {
     }
 
     public void generate() {
-        while (!this.opMode.isStarted()) {
+        while (this.opMode.opModeInInit()) {
             this.opMode.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
             this.opMode.getTelemetry().update();
             this.region = this.camera.getRegion();
         }
-        this.camera.stopStreaming();
     }
 
     public void run() {

@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode.subsystems.camera;
 
+import android.graphics.Canvas;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.example.meepmeep.Trajectories;
 
+import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
+import org.firstinspires.ftc.vision.VisionProcessor;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 @Config
-public class Pipeline extends OpenCvPipeline {
+public class PropProcessor implements VisionProcessor {
     // H: 0-179, S: 0-255, V: 0-255
     // BLUE COLOR FILTERS
     public static int BLUE_LOW_HUE = 40, BLUE_LOW_SAT = 40, BLUE_LOW_VAL = 0;
@@ -26,25 +29,29 @@ public class Pipeline extends OpenCvPipeline {
     public static int LEFT_RECT_X = 0, LEFT_RECT_Y = 125;
 
     public static int RECT_WIDTH = 75, RECT_HEIGHT = 125;
-
-    // PIPELINE VARIABLES
-    public Rect RIGHT_RECT, LEFT_RECT; // Initialize vars during loop to update on dashboard
-    public Scalar LOW_FILTER, HIGH_FILTER;
     public static double TOLERANCE = 0.5;
 
     // ATTRIBUTES
     private final Mat output;
-    private int region;
     private final Trajectories.Color color;
 
-    public Pipeline(Trajectories.Color color) {
+    // PIPELINE VARIABLES
+    public Rect RIGHT_RECT, LEFT_RECT; // Initialize vars during loop to update on dashboard
+    public Scalar LOW_FILTER, HIGH_FILTER;
+    private int region;
+
+    public PropProcessor(Trajectories.Color color) {
         this.color = color;
         this.output = new Mat();
         this.region = 0;
     }
 
     @Override
-    public Mat processFrame(Mat input) {
+    public void init(int width, int height, CameraCalibration calibration) {
+    }
+
+    @Override
+    public Mat processFrame(Mat input, long _) {
         Imgproc.cvtColor(input, output, Imgproc.COLOR_BGR2HSV);
 
         RIGHT_RECT = new Rect(RIGHT_RECT_X, RIGHT_RECT_Y, RECT_WIDTH, RECT_HEIGHT);
@@ -78,5 +85,9 @@ public class Pipeline extends OpenCvPipeline {
 
     public int getRegion() {
         return region;
+    }
+
+    @Override
+    public void onDrawFrame(Canvas canvas, int onscreenWidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
     }
 }

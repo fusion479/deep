@@ -15,7 +15,9 @@ public class ChildSample extends ParentSample {
     public void run() {
         super.run();
 
-        Action pathTwo = super.getTrajectories().pathThree(super.getRobot().getDrive().actionBuilder(super.getRobot().getDrive().pose));
+        Action pathTwo = super.getTrajectories().pathThree(super.getRobot()
+                .getDrive()
+                .actionBuilder(super.getRobot().getDrive().pose));
 
         Actions.runBlocking(pathTwo);
     }

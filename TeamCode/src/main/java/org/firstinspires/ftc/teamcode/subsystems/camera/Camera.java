@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.subsystems.camera;
 
 import android.util.Size;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -17,69 +16,36 @@ import org.firstinspires.ftc.teamcode.utils.SubsystemCore;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Config
 public class Camera extends SubsystemCore {
-    // COLOR FILTER
-    private final Pipeline pipeline;
-    private final OpenCvCamera camera;
-
-    // APRILTAG
-    private final AprilTagProcessor processor;
-    private VisionPortal portal;
+    private final AprilTagProcessor tagProcessor;
+    private final PropProcessor propProcessor;
+    private final VisionPortal portal;
 
     public Camera(Trajectories.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
         super(telemetry);
-        this.pipeline = new Pipeline(color);
 
-        int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
+        this.propProcessor = new PropProcessor(color);
 
-        // Initialize the color camera
-        this.camera = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "camera"), cameraMonitorViewId);
-        this.camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                camera.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
-                FtcDashboard.getInstance().startCameraStream(camera, 60);
-                camera.setPipeline(pipeline);
-            }
-
-            @Override
-            public void onError(int errorCode) {
-                Camera.super.getTelemetry().addLine("Error occured with camera initialization.");
-            }
-        });
-
-        // Initialize the apriltag processor and vision portal
-        this.processor = new AprilTagProcessor.Builder()
+        this.tagProcessor = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
                 .setDrawCubeProjection(true)
                 .setDrawTagID(true)
                 .setDrawTagOutline(true)
                 .build();
-    }
 
-    public void stopStreaming() {
-        this.camera.stopStreaming();
-        this.camera.closeCameraDevice();
-    }
-
-    public void initPortal(HardwareMap hwMap) {
         this.portal = new VisionPortal.Builder()
-                .addProcessor(this.processor)
                 .setCamera(hwMap.get(WebcamName.class, "camera"))
                 .setCameraResolution(new Size(640, 480))
+                .addProcessor(this.propProcessor)
+                .enableLiveView(true)
                 .build();
-
-        FtcDashboard.getInstance().startCameraStream(this.portal, 60);
     }
 
     public void logTagPose() {
-        if (this.processor.getDetections().size() > 0) {
-            AprilTagDetection detection = this.processor.getDetections().get(0);
+        if (this.tagProcessor.getDetections().size() > 0) {
+            AprilTagDetection detection = this.tagProcessor.getDetections().get(0);
 
             super.getTelemetry().addData("X: ", detection.ftcPose.x);
             super.getTelemetry().addData("Y: ", detection.ftcPose.y);
@@ -103,8 +69,8 @@ public class Camera extends SubsystemCore {
     }
 
     public void relocalize(MecanumDrive drive) {
-        if (this.processor.getDetections().size() > 0) {
-            AprilTagDetection detection = this.processor.getDetections().get(0);
+        if (this.tagProcessor.getDetections().size() > 0) {
+            AprilTagDetection detection = this.tagProcessor.getDetections().get(0);
 
             drive.pose = new Pose2d(
                     detection.metadata.fieldPosition.getData()[0] - detection.ftcPose.y - Constants.CENTER_TO_CAMERA,
@@ -119,7 +85,7 @@ public class Camera extends SubsystemCore {
     public void driveToTag(MecanumDrive drive, int id) {
         AprilTagDetection desiredTag = null;
 
-        for (AprilTagDetection tag : this.processor.getDetections()) {
+        for (AprilTagDetection tag : this.tagProcessor.getDetections()) {
             if (tag.id == id) {
                 desiredTag = tag;
                 break;
@@ -143,6 +109,6 @@ public class Camera extends SubsystemCore {
     }
 
     public int getRegion() {
-        return this.pipeline.getRegion();
+        return this.propProcessor.getRegion();
     }
 }
