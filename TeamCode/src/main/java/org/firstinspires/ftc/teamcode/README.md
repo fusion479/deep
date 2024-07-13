@@ -1,4 +1,4 @@
-## 3. Naming Conventions
+## Naming Conventions
 
 We will be discussing naming conventions throughout the standards, so let's set the stage with a few
 basics:
@@ -33,7 +33,7 @@ basics:
   understand and prone to bugs because other developers, or you, will misread your code while they
   are modifying it and make difficult to detect errors.
 
-### 3.1. Package Naming
+### Package Naming
 
 There are several rules associated with the naming of packages. In order, these rules are:
 
@@ -46,7 +46,7 @@ There are several rules associated with the naming of packages. In order, these 
   the previous packages, they would be named **com.kmstechnology.demoapp.persistence**, *
   *com.kmstechnology.demoapp.ui**
 
-### 3.2. Class Naming
+### Class Naming
 
 The standard Java convention is to use a full English descriptor starting with the first letter
 capitalized using mixed case for the rest of the name. Class names shall be in singular form.
@@ -69,7 +69,7 @@ public class OrderItem {
 }
 ```
 
-### 3.3. Interface Naming
+### Interface Naming
 
 The Interface shares the same naming with Class.
 
@@ -86,7 +86,7 @@ public interface UserService {
 }
 ```
 
-### 3.4. Enumeration Naming
+### Enumeration Naming
 
 The Enumeration shares the same naming with Class. All enumeration items should be all words
 capitalized.
@@ -101,7 +101,7 @@ public enum RecordStatus {
 }
 ```
 
-### 3.5. Operation Naming
+### Operation Naming
 
 Operations should be named using a full English description, using mixed case with the first letter
 of any non-initial word capitalized. It is also common practice for the first word of an operation
@@ -183,7 +183,7 @@ public void execute(Command command){
         }
 ```
 
-### 3.6. Field Naming
+### Field Naming
 
 You should use a full English descriptor to name your fields to make it obvious what the field
 represents. Fields that are collections, such as arrays or vectors, should be given names that are
@@ -225,7 +225,7 @@ For the logger, it should be followed the form:
 private static final Logger Logger=LoggerFactory.getLogger(<ClassName>.class);
 ```
 
-### 3.7. Local Variable Naming
+### Local Variable Naming
 
 In general, local variables are named following the same conventions as used for fields, in other
 words use full English descriptors with the first letter of any non-initial word in uppercase.
@@ -296,7 +296,7 @@ List<User> users=new ArrayList<User>();
         Map<String, User> usersByEmails=new HashMap<String, User>();
 ```
 
-### 3.8. Exception Naming
+### Exception Naming
 
 Exceptions should be name with a short name describing the error suffixed by the word **Exception**
 
