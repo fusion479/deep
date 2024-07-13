@@ -29,9 +29,6 @@ public class Main extends OpModeCore {
         CommandScheduler.getInstance().enable();
 
         super.waitForStart();
-        super.resetStartUp();
-        super.logStartUp();
-
         while (super.opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

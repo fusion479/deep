@@ -31,11 +31,8 @@ public class CameraTest extends OpModeCore {
             super.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
             super.getTelemetry().update();
         }
-        super.resetStartUp();
         this.camera.startTagProcessor();
 
-        super.logStartUp();
-        super.getTelemetry().update();
         while (super.opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

@@ -58,14 +58,6 @@ public abstract class OpModeCore extends CommandOpMode {
         this.period.reset();
     }
 
-    public void resetStartUp() {
-        this.startUp.reset();
-    }
-
-    public void logStartUp() {
-        this.multipleTelemetry.addData("Start Up Time: ", this.startUp.milliseconds());
-    }
-
     public MultipleTelemetry getTelemetry() {
         return this.multipleTelemetry;
     }
