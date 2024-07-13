@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems.camera;
 import android.graphics.Canvas;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.example.meepmeep.Trajectories;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
@@ -35,13 +36,15 @@ public class PropProcessor implements VisionProcessor {
     // ATTRIBUTES
     private final Mat output;
     private final Trajectories.Color color;
+    private final MultipleTelemetry telemetry;
 
     // PIPELINE VARIABLES
     private Rect RIGHT_RECT, LEFT_RECT; // Initialize vars during loop to update on dashboard
     private Scalar LOW_FILTER, HIGH_FILTER;
     private int region;
 
-    public PropProcessor(Trajectories.Color color) {
+    public PropProcessor(Trajectories.Color color, MultipleTelemetry telemetry) {
+        this.telemetry = telemetry;
         this.color = color;
         this.output = new Mat();
         this.region = 2;
@@ -72,6 +75,7 @@ public class PropProcessor implements VisionProcessor {
         Imgproc.rectangle(output, LEFT_RECT, new Scalar(60, 255, 255), 3);
         Imgproc.rectangle(output, RIGHT_RECT, new Scalar(60, 255, 255), 3);
 
+        this.region = 3;
         if (Core.sumElems(output.submat(LEFT_RECT)).val[0] / LEFT_RECT.area() / 255 > TOLERANCE) {
             Imgproc.rectangle(output, LEFT_RECT, new Scalar(200, 255, 255), 7);
             this.region = 1;

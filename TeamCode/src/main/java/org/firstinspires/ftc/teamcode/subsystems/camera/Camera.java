@@ -27,20 +27,19 @@ public class Camera extends SubsystemCore {
     public Camera(Trajectories.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
         super(telemetry);
 
-        this.propProcessor = new PropProcessor(color);
+        this.propProcessor = new PropProcessor(color, telemetry);
 
         this.tagProcessor = new AprilTagProcessor.Builder().build();
 
         this.portal = new VisionPortal.Builder()
                 .setCamera(hwMap.get(WebcamName.class, "camera"))
                 .setCameraResolution(new Size(640, 480))
-                .addProcessor(new PropProcessor(color))
-                .addProcessor(tagProcessor)
+                .addProcessors(this.propProcessor, tagProcessor)
                 .build();
 
-        this.portal.setProcessorEnabled(tagProcessor, false);
+        this.portal.setProcessorEnabled(this.tagProcessor, false);
 
-        FtcDashboard.getInstance().startCameraStream(this.portal, 1);
+        FtcDashboard.getInstance().startCameraStream(this.portal, 0);
     }
 
     public void logTagPose() {
