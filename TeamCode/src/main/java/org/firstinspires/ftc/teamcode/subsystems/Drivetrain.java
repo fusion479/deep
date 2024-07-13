@@ -30,4 +30,8 @@ public class Drivetrain extends SubsystemCore {
                 -gamepad.getRightX()
         ));
     }
+
+    public MecanumDrive getDrive() {
+        return drive;
+    }
 }
