@@ -15,7 +15,14 @@ public class EnhancedColorSensor {
     public void startThread(boolean stop) {
         new Thread(() -> {
             while (!stop) {
-                this.distance = this.sensor.getDistance(DistanceUnit.MM);
+                try {
+                    synchronized (this.sensor) {
+                        this.distance = this.sensor.getDistance(DistanceUnit.MM);
+                    }
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }
