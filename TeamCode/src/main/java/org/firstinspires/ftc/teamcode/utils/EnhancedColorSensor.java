@@ -19,7 +19,7 @@ public class EnhancedColorSensor {
                     synchronized (this.sensor) {
                         this.distance = this.sensor.getDistance(DistanceUnit.MM);
                     }
-                    Thread.sleep(10);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
