@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.SubsystemCore;
 
 @Config
 public class Drivetrain extends SubsystemCore {
-    public final MecanumDrive drive;
+    private final MecanumDrive drive;
 
     public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose2d startPose) {
         super(telemetry);

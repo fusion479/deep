@@ -7,13 +7,14 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.drivetrain.ManualDrive;
+import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.RobotCore;
 
 public class CommandRobot extends RobotCore {
     private final Drivetrain drivetrain;
-    private final GamepadEx gamepad1;
-    private final GamepadEx gamepad2;
+    private GamepadEx gamepad1;
+    private GamepadEx gamepad2;
 
     public CommandRobot(Type type, HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2) {
         super(type, telemetry);
@@ -21,6 +22,16 @@ public class CommandRobot extends RobotCore {
         this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
+    }
+
+    public CommandRobot(Type type, HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry) {
+        super(type, telemetry);
+
+        this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
+    }
+
+    public MecanumDrive getDrive() {
+        return this.drivetrain.getDrive();
     }
 
     @Override
