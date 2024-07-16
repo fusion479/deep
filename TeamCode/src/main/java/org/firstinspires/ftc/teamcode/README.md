@@ -108,18 +108,18 @@ of any non-initial word capitalized. It is also common practice for the first wo
 name to be a strong, active verb.
 
 ```java
-public void execute(Command command){
-        // ...
-        }
+public void execute(Command command) {
+    // ...
+}
 
-public void exportUsers(List<User> users,OutputStream output){
-        // ...
-        }
+public void exportUsers(List<User> users, OutputStream output) {
+    // ...
+}
 
-public boolean authenticate(String username,String password){
-        // ...
-        return false;
-        }
+public boolean authenticate(String username, String password) {
+    // ...
+    return false;
+}
 ```
 
 **Getters**
@@ -132,13 +132,13 @@ instead of get.
 private boolean active;
 private String email;
 
-public boolean isActive(){
-        return active;
-        }
+public boolean isActive() {
+    return active;
+}
 
-public String getEmail(){
-        return email;
-        }
+public String getEmail() {
+    return email;
+}
 ```
 
 **Setters**
@@ -147,13 +147,13 @@ Setters, also known as mutators, are operations that modify the values of a fiel
 the word **set** to the name of the field, regardless of the field type.
 
 ```java
-public void setActive(boolean active){
-        this.active=active;
-        }
+public void setActive(boolean active) {
+    this.active = active;
+}
 
-public void setEmail(String email){
-        this.email=email;
-        }
+public void setEmail(String email) {
+    this.email = email;
+}
 ```
 
 **Collections Naming Accessors**
@@ -177,10 +177,11 @@ name is the same with field name.
 
 ```java
 private Command command;
-public void execute(Command command){
-        this.command=command;
-        // ...
-        }
+
+public void execute(Command command) {
+    this.command = command;
+    // ...
+}
 ```
 
 ### Field Naming
@@ -204,9 +205,9 @@ classes. The recognized convention is to use full English words, all in uppercas
 between the words.
 
 ```java
-public static final double MINIMUM_BALANCE=10.0;
-public static final int MAX_FILE_SIZE=10*1024;
-public static final Date DEFAULT_START_DATE=new Date();
+public static final double MINIMUM_BALANCE = 10.0;
+public static final int MAX_FILE_SIZE = 10 * 1024;
+public static final Date DEFAULT_START_DATE = new Date();
 ```
 
 Replace all Magic Numbers / Strings with named constants to give them a meaningful name when meaning
@@ -216,13 +217,13 @@ For the class that implemented **Serializable** interface, the **serialVersionUI
 be followed the form:
 
 ```java
-private static final long serialVersionUID=<yyyyMMdd>L;
+private static final long serialVersionUID =<yyyyMMdd>L;
 ```
 
 For the logger, it should be followed the form:
 
 ```java
-private static final Logger Logger=LoggerFactory.getLogger(<ClassName>.class);
+private static final Logger Logger = LoggerFactory.getLogger( < ClassName >.class);
 ```
 
 ### Local Variable Naming
@@ -239,18 +240,30 @@ member function the common convention is to use **input** and **output** for the
 streams, respectively.
 
 ```java
-InputStream input=null;
-        OutputStream output=null;
+InputStream input = null;
+OutputStream output = null;
         try{
-        input=new FileInputStream("...");
-        output=new FileOutputStream("...");
+input=new
 
-        IOUtils.copy(input,output);
-        }catch(IOException e){
+FileInputStream("...");
+
+output=new
+
+FileOutputStream("...");
+
+        IOUtils.
+
+copy(input, output);
+        }catch(
+IOException e){
         // ...
         }finally{
-        IOUtils.cLoseQuietLy(output);
-        IOUtils.cLoseQuietLy(input);
+        IOUtils.
+
+cLoseQuietLy(output);
+        IOUtils.
+
+cLoseQuietLy(input);
         }
 ```
 
@@ -261,8 +274,11 @@ C/C++, in Java programming the use of **i**, **j**, or **k**, is acceptable for 
 you use these names for loop counters, use them consistently.
 
 ```java
-for(int i=1;i<MAX_ROWS; i++){
-        for(int j=1;j<MAX_COLUMNS; j++){
+for(int i = 1;
+i<MAX_ROWS;i++){
+        for(
+int j = 1;
+j<MAX_COLUMNS;j++){
         // ... 
         }
         // ...
@@ -291,9 +307,9 @@ of all non-initial words capitalized.
 For a map, It should be followed the pattern **valuesByKeys**
 
 ```java
-List<User> users=new ArrayList<User>();
-        Command[]commands=new Command[MAX_COMMANDS];
-        Map<String, User> usersByEmails=new HashMap<String, User>();
+List<User> users = new ArrayList<User>();
+Command[] commands = new Command[MAX_COMMANDS];
+Map<String, User> usersByEmails = new HashMap<String, User>();
 ```
 
 ### Exception Naming
@@ -313,3 +329,11 @@ public class AuthenticationFailedException extends Exception {
     // ...
 }
 ```
+
+## Faster Loop Times
+
+1. drive.update pose is very slow, use it sparingly.
+2. thread harware components that use i2c ports.
+3. periodic methods should be used sparingly
+4. photon?
+5. bulk reads and writes are faster than individual reads and writes.
