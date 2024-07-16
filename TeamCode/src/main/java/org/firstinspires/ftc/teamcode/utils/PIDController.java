@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class PIDController {
 
-    private final double kP, kI, kD;
+    private double kP, kI, kD;
     private final ElapsedTime timer = new ElapsedTime();
     private double target = 0;
     private double integralSum = 0, lastError = 0;
@@ -39,6 +39,12 @@ public class PIDController {
 
     public void setAllowedError(double error) {
         this.allowedError = error;
+    }
+
+    public void setCoefficients(double kP, double kI, double kD) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
     }
 
     public double calculate(double reference) {
