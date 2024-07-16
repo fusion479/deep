@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.utils;
+package org.firstinspires.ftc.teamcode.utils.hardware;
 
+import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -12,9 +13,9 @@ public class EnhancedColorSensor {
         this.sensor = sensor;
     }
 
-    public void startThread(boolean stop) {
+    public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
-            while (!stop) {
+            while (!opMode.isStopRequested()) {
                 try {
                     synchronized (this.sensor) {
                         this.distance = this.sensor.getDistance(DistanceUnit.MM);

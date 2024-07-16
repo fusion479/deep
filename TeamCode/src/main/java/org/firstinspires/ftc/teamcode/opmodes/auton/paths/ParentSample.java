@@ -9,8 +9,8 @@ import com.example.meepmeep.Trajectories;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
-import org.firstinspires.ftc.teamcode.utils.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.RobotCore;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 public class ParentSample {
     private final Trajectories trajectories;

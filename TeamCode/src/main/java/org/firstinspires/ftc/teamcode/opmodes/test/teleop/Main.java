@@ -7,8 +7,8 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.utils.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.RobotCore;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 @TeleOp(name = "Main", group = "TeleOp")
 public class Main extends OpModeCore {

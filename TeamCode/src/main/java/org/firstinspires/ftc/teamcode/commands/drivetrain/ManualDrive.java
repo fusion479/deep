@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.utils.CommandCore;
+import org.firstinspires.ftc.teamcode.utils.commands.CommandCore;
 
 public class ManualDrive extends CommandCore {
     private final Drivetrain drivetrain;

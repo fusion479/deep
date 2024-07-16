@@ -5,7 +5,7 @@ import com.example.meepmeep.Trajectories;
 
 import org.firstinspires.ftc.teamcode.opmodes.auton.paths.ChildSample;
 import org.firstinspires.ftc.teamcode.opmodes.auton.paths.ParentSample;
-import org.firstinspires.ftc.teamcode.utils.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class RedChildSample extends OpModeCore {
     private ParentSample auto;

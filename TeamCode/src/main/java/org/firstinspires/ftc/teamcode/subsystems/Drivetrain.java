@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utils.SubsystemCore;
+import org.firstinspires.ftc.teamcode.utils.commands.SubsystemCore;
 
 @Config
 public class Drivetrain extends SubsystemCore {

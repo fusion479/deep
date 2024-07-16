@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.meepmeep.Trajectories;
 
-import org.firstinspires.ftc.teamcode.utils.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class ChildSample extends ParentSample {
     public ChildSample(Trajectories.Color color, OpModeCore opMode) {
