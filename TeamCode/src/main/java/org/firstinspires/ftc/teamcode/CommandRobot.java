@@ -44,6 +44,6 @@ public class CommandRobot extends RobotCore {
 
     @Override
     public void startThreads(CommandOpMode opMode) {
-        this.drivetrain.manualDrive(this.gamepad1, opMode);
+        this.drivetrain.asyncDrive(this.gamepad1, opMode);
     }
 }
