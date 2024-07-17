@@ -31,4 +31,9 @@ public class EnhancedColorSensor {
     public double getDistance() {
         return this.distance;
     }
+
+
+    public void enableLed(boolean enable) {
+        this.sensor.enableLed(enable);
+    }
 }
