@@ -15,7 +15,7 @@ public class EnhancedColorSensor {
 
     public void asyncRead(CommandOpMode opMode) {
         new Thread(() -> {
-            while (!opMode.isStopRequested()) {
+            while (opMode.opModeIsActive()) {
                 try {
                     synchronized (this.sensor) {
                         this.distance = this.sensor.getDistance(DistanceUnit.MM);

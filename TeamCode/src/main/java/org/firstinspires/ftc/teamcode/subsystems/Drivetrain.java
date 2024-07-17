@@ -24,14 +24,20 @@ public class Drivetrain extends SubsystemCore {
 
     public void asyncDrive(final GamepadEx gamepad, CommandOpMode opMode) {
         new Thread(() -> {
-            while (opMode.opModeIsActive())
-                this.drive.setDrivePowers(new PoseVelocity2d(
-                        new Vector2d(
-                                -gamepad.getLeftY(),
-                                gamepad.getLeftX()
-                        ),
-                        -gamepad.getRightX()
-                ));
+            try {
+                while (opMode.opModeIsActive())
+                    synchronized (this.drive) {
+                        this.drive.setDrivePowers(new PoseVelocity2d(
+                                new Vector2d(
+                                        -gamepad.getLeftY(),
+                                        gamepad.getLeftX()
+                                ),
+                                -gamepad.getRightX()));
+                    }
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }).start();
     }
 
