@@ -2,15 +2,15 @@ package org.firstinspires.ftc.teamcode.opmodes.teleop;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 @TeleOp(name = "Main", group = "TeleOp")
-public class Main extends CommandOpMode {
+public class Main extends OpModeCore {
     private CommandRobot robot;
     private MultipleTelemetry multipleTelemetry;
 
@@ -24,8 +24,6 @@ public class Main extends CommandOpMode {
                 super.gamepad1,
                 super.gamepad2
         );
-
-        this.robot.startThreads(this);
     }
 
     @Override
@@ -33,19 +31,19 @@ public class Main extends CommandOpMode {
         CommandScheduler.getInstance().enable();
 
         this.initialize();
-
         super.waitForStart();
+
+        this.robot.startThreads(this);
         while (!isStopRequested() && opModeIsActive()) {
+            super.resetCycle();
             CommandScheduler.getInstance().run();
 
             this.robot.updateTriggers();
 
-            this.multipleTelemetry.update();
+            super.logCycles();
+            super.getTelemetry().update();
         }
 
-
-        CommandScheduler.getInstance().cancelAll();
-        CommandScheduler.getInstance().disable();
-        CommandScheduler.getInstance().reset();
+        super.end();
     }
 }

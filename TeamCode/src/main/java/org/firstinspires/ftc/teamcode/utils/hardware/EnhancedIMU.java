@@ -20,8 +20,13 @@ public class EnhancedIMU {
     public void asyncRead(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
-                synchronized (this.imu) {
-                    this.angles = this.imu.getRobotYawPitchRollAngles();
+                try {
+                    synchronized (this.imu) {
+                        this.angles = this.imu.getRobotYawPitchRollAngles();
+                    }
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();

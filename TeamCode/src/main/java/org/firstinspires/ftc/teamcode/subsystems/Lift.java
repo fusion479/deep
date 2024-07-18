@@ -42,18 +42,18 @@ public class Lift extends SubsystemCore {
 
     public void asyncPower(CommandOpMode opMode) {
         new Thread(() -> {
-            try {
-                while (opMode.opModeIsActive()) {
+            while (opMode.opModeIsActive()) {
+                try {
                     synchronized (this.leftMotor) {
                         this.leftMotor.setPower(this.controller.calculate(this.leftMotor.getCurrentPosition()));
                     }
                     synchronized (this.rightMotor) {
                         this.rightMotor.setPower(this.controller.calculate(this.rightMotor.getCurrentPosition()));
                     }
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                Thread.sleep(50);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }).start();
     }
