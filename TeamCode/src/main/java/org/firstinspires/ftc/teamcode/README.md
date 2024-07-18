@@ -334,6 +334,6 @@ public class AuthenticationFailedException extends Exception {
 
 1. drive.update pose is very slow, use it sparingly.
 2. thread harware components that use i2c ports.
-3. periodic methods should be used sparingly
+3. periodic methods and default commands should be used sparingly
 4. photon?
 5. bulk reads and writes are faster than individual reads and writes.
