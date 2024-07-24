@@ -13,27 +13,24 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 public class ParentSample {
-    private final Trajectories trajectories;
-    private final CommandRobot robot;
-    private final OpModeCore opMode;
-    private final Camera camera;
-    private final MultipleTelemetry telemetry;
-    private int region;
+    // Easily-accessed, inherited variables
+    public final Trajectories trajectories;
+    public final CommandRobot robot;
 
-    public ParentSample(Trajectories.Color color, OpModeCore opMode) {
+    private final Positions positions;
+    private final Camera camera;
+    private final OpModeCore opMode;
+    private final MultipleTelemetry telemetry;
+
+    public int region;
+
+    public ParentSample(Positions.Color color, OpModeCore opMode) {
         this.telemetry = new MultipleTelemetry(opMode.telemetry, FtcDashboard.getInstance().getTelemetry());
         this.opMode = opMode;
-        this.robot = new CommandRobot(RobotCore.Type.AUTON, opMode.hardwareMap, Positions.START_POS, this.telemetry);
         this.camera = new Camera(color, opMode.hardwareMap, this.telemetry);
         this.trajectories = new Trajectories(color);
-    }
-
-    public CommandRobot getRobot() {
-        return this.robot;
-    }
-
-    public Trajectories getTrajectories() {
-        return this.trajectories;
+        this.positions = new Positions(color);
+        this.robot = new CommandRobot(RobotCore.Type.AUTON, opMode.hardwareMap, this.positions.START_POS, this.telemetry);
     }
 
     public void generate() {
@@ -46,8 +43,8 @@ public class ParentSample {
 
     public void run() {
         Action pathOne = this.region == 1 || this.region == 2 ?
-                trajectories.pathOne(this.robot.getDrive().actionBuilder(Positions.START_POS)) :
-                trajectories.pathTwo(this.robot.getDrive().actionBuilder(Positions.START_POS));
+                trajectories.pathOne(this.robot.getDrive().actionBuilder(this.positions.START_POS)) :
+                trajectories.pathTwo(this.robot.getDrive().actionBuilder(this.positions.START_POS));
 
         Actions.runBlocking(pathOne);
     }

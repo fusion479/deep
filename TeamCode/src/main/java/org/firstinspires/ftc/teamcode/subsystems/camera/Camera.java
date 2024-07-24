@@ -8,7 +8,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.example.meepmeep.Constants;
-import com.example.meepmeep.Trajectories;
+import com.example.meepmeep.Positions;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -24,7 +24,7 @@ public class Camera extends SubsystemCore {
     private final PropProcessor propProcessor;
     private final VisionPortal portal;
 
-    public Camera(Trajectories.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
+    public Camera(Positions.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
         super(telemetry);
 
         this.propProcessor = new PropProcessor(color, telemetry);

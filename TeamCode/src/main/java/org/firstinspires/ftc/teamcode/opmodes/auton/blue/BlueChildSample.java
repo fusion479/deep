@@ -1,18 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.blue;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.example.meepmeep.Trajectories;
+import com.example.meepmeep.Positions;
 
 import org.firstinspires.ftc.teamcode.opmodes.auton.paths.ChildSample;
-import org.firstinspires.ftc.teamcode.opmodes.auton.paths.ParentSample;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class BlueChildSample extends OpModeCore {
-    private ParentSample auto;
+    private ChildSample auto;
 
     @Override
     public void initialize() {
-        this.auto = new ChildSample(Trajectories.Color.BLUE, this);
+        this.auto = new ChildSample(Positions.Color.BLUE, this);
     }
 
     @Override
