@@ -40,7 +40,7 @@ public class Lift extends SubsystemCore {
         this.rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    public void asyncPower(CommandOpMode opMode) {
+    public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {
@@ -55,5 +55,16 @@ public class Lift extends SubsystemCore {
                     e.printStackTrace();
                 }
         }).start();
+    }
+
+    @Override
+    public void periodic() {
+        if (!this.controller.isFinished()) {
+            this.leftMotor.setPower(this.controller.calculate(this.leftMotor.getCurrentPosition()));
+            this.rightMotor.setPower(this.controller.calculate(this.rightMotor.getCurrentPosition()));
+        } else {
+            this.rightMotor.setPower(kG);
+            this.leftMotor.setPower(kG);
+        }
     }
 }

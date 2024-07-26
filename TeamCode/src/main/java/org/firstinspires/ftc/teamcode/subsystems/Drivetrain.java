@@ -22,7 +22,7 @@ public class Drivetrain extends SubsystemCore {
         this.drive = new MecanumDrive(hwMap, startPose);
     }
 
-    public void asyncDrive(final GamepadEx gamepad, CommandOpMode opMode) {
+    public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {

@@ -10,12 +10,11 @@ public class PathVisualizer {
         MeepMeep meepMeep = new MeepMeep(800);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
 
-        Trajectories trajectories = new Trajectories(Trajectories.Color.BLUE);
+        Trajectories trajectories = new Trajectories(Positions.Color.BLUE);
 
         myBot.runAction(trajectories.pathOne(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
         myBot.runAction(trajectories.pathTwo(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));

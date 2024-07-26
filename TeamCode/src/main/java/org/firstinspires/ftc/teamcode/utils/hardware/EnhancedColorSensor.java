@@ -13,7 +13,7 @@ public class EnhancedColorSensor {
         this.sensor = sensor;
     }
 
-    public void asyncRead(CommandOpMode opMode) {
+    public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
                 try {

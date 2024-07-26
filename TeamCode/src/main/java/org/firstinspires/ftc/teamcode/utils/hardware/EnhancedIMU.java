@@ -17,7 +17,7 @@ public class EnhancedIMU {
         this.imu.resetYaw(); // Don't know
     }
 
-    public void asyncRead(CommandOpMode opMode) {
+    public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
                 try {

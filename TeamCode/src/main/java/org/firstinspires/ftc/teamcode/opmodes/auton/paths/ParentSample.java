@@ -13,7 +13,6 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 public class ParentSample {
-    // Easily-accessed, inherited variables
     public final Trajectories trajectories;
     public final CommandRobot robot;
 
