@@ -10,7 +10,6 @@ import com.example.meepmeep.Trajectories;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 public class ParentSample {
     public final Trajectories trajectories;
@@ -29,14 +28,14 @@ public class ParentSample {
         this.camera = new Camera(color, opMode.hardwareMap, this.telemetry);
         this.trajectories = new Trajectories(color);
         this.positions = new Positions(color);
-        this.robot = new CommandRobot(RobotCore.Type.AUTON, opMode.hardwareMap, this.positions.START_POS, this.telemetry);
+        this.robot = new CommandRobot(opMode.hardwareMap, this.positions.START_POS, this.telemetry, opMode);
     }
 
     public void generate() {
         while (this.opMode.opModeInInit()) {
             this.region = this.camera.getRegion();
-            this.opMode.getTelemetry().addData("Detected Region: ", this.region);
-            this.opMode.getTelemetry().update();
+            this.opMode.multipleTelemetry.addData("Detected Region: ", this.region);
+            this.opMode.multipleTelemetry.update();
         }
     }
 

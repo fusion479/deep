@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
-import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
 @TeleOp(name = "Main", group = "TeleOp")
 public class Main extends OpModeCore {
@@ -18,11 +17,11 @@ public class Main extends OpModeCore {
         this.multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         this.robot = new CommandRobot(
-                RobotCore.Type.TELEOP,
                 super.hardwareMap,
                 this.multipleTelemetry,
                 super.gamepad1,
-                super.gamepad2
+                super.gamepad2,
+                this
         );
     }
 
@@ -33,7 +32,6 @@ public class Main extends OpModeCore {
         this.initialize();
         super.waitForStart();
 
-        this.robot.startThreads(this);
         while (!isStopRequested() && opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
@@ -41,7 +39,7 @@ public class Main extends OpModeCore {
             this.robot.updateTriggers();
 
             super.logCycles();
-            super.getTelemetry().update();
+            super.telemetry.update();
         }
 
         super.end();

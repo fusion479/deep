@@ -27,6 +27,7 @@ public class GamepadTrigger {
         this.multipleTelemetry = multipleTelemetry;
     }
 
+    // TODO: Thread?
     public void update() {
         if (!isReleased) {
             this.isReleased = true;

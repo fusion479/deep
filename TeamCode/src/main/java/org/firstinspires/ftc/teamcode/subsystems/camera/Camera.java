@@ -7,25 +7,26 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.example.meepmeep.Constants;
 import com.example.meepmeep.Positions;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utils.commands.SubsystemCore;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 @Config
-public class Camera extends SubsystemCore {
+public class Camera extends SubsystemBase {
     private final AprilTagProcessor tagProcessor;
     private final PropProcessor propProcessor;
     private final VisionPortal portal;
+    private final MultipleTelemetry telemetry;
 
     public Camera(Positions.Color color, HardwareMap hwMap, MultipleTelemetry telemetry) {
-        super(telemetry);
+        this.telemetry = telemetry;
 
         this.propProcessor = new PropProcessor(color, telemetry);
 
@@ -46,24 +47,24 @@ public class Camera extends SubsystemCore {
         if (this.tagProcessor.getDetections().size() > 0) {
             AprilTagDetection detection = this.tagProcessor.getDetections().get(0);
 
-            super.getTelemetry().addData("X: ", detection.ftcPose.x);
-            super.getTelemetry().addData("Y: ", detection.ftcPose.y);
-            super.getTelemetry().addData("Z: ", detection.ftcPose.z);
-            super.getTelemetry().addData("Range: ", detection.ftcPose.range);
-            super.getTelemetry().addData("Elevation: ", detection.ftcPose.elevation);
-            super.getTelemetry().addData("Bearing: ", detection.ftcPose.bearing);
-            super.getTelemetry().addData("Pitch: ", detection.ftcPose.pitch);
-            super.getTelemetry().addData("Yaw: ", detection.ftcPose.yaw);
-            super.getTelemetry().addData("Roll: ", detection.ftcPose.roll);
-            super.getTelemetry().addData("Tag Pose X on Field: ", detection.metadata.fieldPosition.getData()[0]);
-            super.getTelemetry().addData("Tag Pose Y on Field: ", detection.metadata.fieldPosition.getData()[1]);
-            super.getTelemetry().addData("Tag ID: ", detection.id);
+            this.telemetry.addData("X: ", detection.ftcPose.x);
+            this.telemetry.addData("Y: ", detection.ftcPose.y);
+            this.telemetry.addData("Z: ", detection.ftcPose.z);
+            this.telemetry.addData("Range: ", detection.ftcPose.range);
+            this.telemetry.addData("Elevation: ", detection.ftcPose.elevation);
+            this.telemetry.addData("Bearing: ", detection.ftcPose.bearing);
+            this.telemetry.addData("Pitch: ", detection.ftcPose.pitch);
+            this.telemetry.addData("Yaw: ", detection.ftcPose.yaw);
+            this.telemetry.addData("Roll: ", detection.ftcPose.roll);
+            this.telemetry.addData("Tag Pose X on Field: ", detection.metadata.fieldPosition.getData()[0]);
+            this.telemetry.addData("Tag Pose Y on Field: ", detection.metadata.fieldPosition.getData()[1]);
+            this.telemetry.addData("Tag ID: ", detection.id);
 
             double x = detection.metadata.fieldPosition.getData()[0] - detection.ftcPose.y - Constants.ROBOT_LENGTH;
             double y = detection.metadata.fieldPosition.getData()[1] + detection.ftcPose.x;
             double bearing = Math.toRadians(detection.ftcPose.bearing);
 
-            super.getTelemetry().addData("Robot Pose: ", "(" + x + ", " + y + ", " + bearing + ")");
+            this.telemetry.addData("Robot Pose: ", "(" + x + ", " + y + ", " + bearing + ")");
         }
     }
 

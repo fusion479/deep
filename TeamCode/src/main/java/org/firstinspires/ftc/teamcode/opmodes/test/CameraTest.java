@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.example.meepmeep.Trajectories;
+import com.example.meepmeep.Positions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.roadrunner.Drawing;
@@ -18,7 +18,7 @@ public class CameraTest extends OpModeCore {
     private MecanumDrive drive;
 
     public void initialize() {
-        this.camera = new Camera(Trajectories.Color.RED, super.hardwareMap, super.getTelemetry());
+        this.camera = new Camera(Positions.Color.RED, super.hardwareMap, super.multipleTelemetry);
         this.drive = new MecanumDrive(super.hardwareMap, new Pose2d(0, 0, 0));
     }
 
@@ -28,8 +28,8 @@ public class CameraTest extends OpModeCore {
         this.initialize();
 
         while (super.opModeInInit()) {
-            super.getTelemetry().addData("Detected Region: ", this.camera.getRegion());
-            super.getTelemetry().update();
+            super.multipleTelemetry.addData("Detected Region: ", this.camera.getRegion());
+            super.multipleTelemetry.update();
         }
         this.camera.startTagProcessor();
 
@@ -46,7 +46,7 @@ public class CameraTest extends OpModeCore {
 
             this.camera.logTagPose();
             super.logCycles();
-            super.getTelemetry().update();
+            super.multipleTelemetry.update();
         }
 
         super.end();

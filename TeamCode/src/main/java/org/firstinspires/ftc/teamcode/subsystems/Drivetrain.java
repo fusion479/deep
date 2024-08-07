@@ -6,18 +6,19 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utils.commands.SubsystemCore;
 
 @Config
-public class Drivetrain extends SubsystemCore {
+public class Drivetrain extends SubsystemBase {
     private final MecanumDrive drive;
+    private final MultipleTelemetry telemetry;
 
     public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose2d startPose) {
-        super(telemetry);
+        this.telemetry = telemetry;
 
         this.drive = new MecanumDrive(hwMap, startPose);
     }

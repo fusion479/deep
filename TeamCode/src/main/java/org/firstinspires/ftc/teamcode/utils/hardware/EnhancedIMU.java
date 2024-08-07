@@ -14,7 +14,7 @@ public class EnhancedIMU {
         this.imu = imu;
 
         this.imu.initialize(new IMU.Parameters(orientation));
-        this.imu.resetYaw(); // Don't know
+        this.imu.resetYaw();
     }
 
     public void startThread(CommandOpMode opMode) {

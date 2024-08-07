@@ -10,46 +10,48 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.utils.commands.RobotCore;
 
-public class CommandRobot extends RobotCore {
+public class CommandRobot {
     private final Drivetrain drivetrain;
     private final Lift lift;
+    private final MultipleTelemetry telemetry;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
 
     // TELEOP
-    public CommandRobot(Type type, HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2) {
-        super(type, telemetry); // TODO: get rid of type and check for gamepad?
-
+    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, CommandOpMode opMode) {
+        this.telemetry = telemetry;
         this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose2d(0, 0, 0));
         this.lift = new Lift(hwMap, telemetry);
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
+
+        this.configureControls();
+
+        // start teleop threads
+        this.drivetrain.startThread(this.gamepad1, opMode);
+        this.updateTriggers();
+
     }
 
     // AUTON
-    public CommandRobot(Type type, HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry) {
-        super(type, telemetry);
-
+    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, CommandOpMode opMode) {
+        this.telemetry = telemetry;
         this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
         this.lift = new Lift(hwMap, telemetry);
+
+        // start auto threads
     }
 
     public MecanumDrive getDrive() {
         return this.drivetrain.getDrive();
     }
 
-    @Override
-    public void configureCommands() {
+    public void configureControls() {
+        // controls
     }
 
-    @Override
     public void updateTriggers() {
-    }
-
-    @Override
-    public void startThreads(CommandOpMode opMode) {
-        this.drivetrain.startThread(this.gamepad1, opMode);
+        // thread
     }
 }
