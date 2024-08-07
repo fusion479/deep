@@ -19,7 +19,7 @@ public class CommandRobot {
     private GamepadEx gamepad2;
 
     // TELEOP
-    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, CommandOpMode opMode) {
+    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2) {
         this.telemetry = telemetry;
         this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose2d(0, 0, 0));
         this.lift = new Lift(hwMap, telemetry);
@@ -27,20 +27,13 @@ public class CommandRobot {
         this.gamepad2 = new GamepadEx(gamepad2);
 
         this.configureControls();
-
-        // start teleop threads
-        this.drivetrain.startThread(this.gamepad1, opMode);
-        this.updateTriggers();
-
     }
 
     // AUTON
-    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, CommandOpMode opMode) {
+    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
         this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
         this.lift = new Lift(hwMap, telemetry);
-
-        // start auto threads
     }
 
     public MecanumDrive getDrive() {
@@ -51,7 +44,13 @@ public class CommandRobot {
         // controls
     }
 
-    public void updateTriggers() {
-        // thread
+    public void startTeleopThreads(CommandOpMode opMode) {
+        this.drivetrain.startThread(this.gamepad1, opMode);
+        this.lift.startThread(opMode);
+        // update triggers
+    }
+
+    public void startAutonThreads(CommandOpMode opMode) {
+        this.lift.startThread(opMode);
     }
 }

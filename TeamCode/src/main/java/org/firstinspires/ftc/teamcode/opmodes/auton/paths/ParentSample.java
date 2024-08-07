@@ -28,7 +28,11 @@ public class ParentSample {
         this.camera = new Camera(color, opMode.hardwareMap, this.telemetry);
         this.trajectories = new Trajectories(color);
         this.positions = new Positions(color);
-        this.robot = new CommandRobot(opMode.hardwareMap, this.positions.START_POS, this.telemetry, opMode);
+        this.robot = new CommandRobot(opMode.hardwareMap, this.positions.START_POS, this.telemetry);
+    }
+
+    public void startThreads() {
+        this.robot.startAutonThreads(this.opMode);
     }
 
     public void generate() {

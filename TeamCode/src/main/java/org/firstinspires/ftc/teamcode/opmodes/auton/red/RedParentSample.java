@@ -21,6 +21,7 @@ public class RedParentSample extends OpModeCore {
         this.auto.generate();
 
         waitForStart();
+        this.auto.startThreads();
         this.auto.run();
 
         super.end();
