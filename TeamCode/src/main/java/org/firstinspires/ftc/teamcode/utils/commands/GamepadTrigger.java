@@ -28,6 +28,18 @@ public class GamepadTrigger {
         this.multipleTelemetry = multipleTelemetry;
     }
 
+    public void update() {
+        if (!isReleased) {
+            this.isReleased = true;
+            command.accept(0);
+        }
+
+        if (this.gamepad.getTrigger(this.trigger) > 0) {
+            this.isReleased = false;
+            command.accept(this.gamepad.getTrigger(this.trigger));
+        }
+    }
+
     public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             try {
