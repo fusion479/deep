@@ -32,16 +32,17 @@ public class GamepadTrigger {
         new Thread(() -> {
             try {
                 while (opMode.opModeIsActive()) {
-                    if (!isReleased) {
-                        this.isReleased = true;
-                        command.accept(0);
-                    }
+                    synchronized (this) {
+                        if (!isReleased) {
+                            this.isReleased = true;
+                            command.accept(0);
+                        }
 
-                    if (this.gamepad.getTrigger(this.trigger) > 0) {
-                        this.isReleased = false;
-                        command.accept(this.gamepad.getTrigger(this.trigger));
+                        if (this.gamepad.getTrigger(this.trigger) > 0) {
+                            this.isReleased = false;
+                            command.accept(this.gamepad.getTrigger(this.trigger));
+                        }
                     }
-
                     Thread.sleep(50);
                 }
             } catch (Exception e) {
