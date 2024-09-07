@@ -20,7 +20,8 @@ public class Main extends OpModeCore {
                 super.hardwareMap,
                 this.multipleTelemetry,
                 super.gamepad1,
-                super.gamepad2
+                super.gamepad2,
+                this
         );
     }
 
@@ -31,7 +32,6 @@ public class Main extends OpModeCore {
         this.initialize();
         super.waitForStart();
 
-        this.robot.startTeleopThreads(this);
         while (!isStopRequested() && opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
