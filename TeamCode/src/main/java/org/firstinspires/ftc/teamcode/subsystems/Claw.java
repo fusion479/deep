@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Claw extends SubsystemBase {
     public static double OPEN = 0.5;
     public static double CLOSE = 0.0;
-    public static double UP = 0.5;
+    public static double UP = 1;
+    public static double READY = 0.5;
     public static double DOWN = 0.0;
     private final Servo servo, leftPivot, rightPivot;
     private final DcMotorEx motor;

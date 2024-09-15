@@ -11,6 +11,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 public class Lift extends SubsystemBase {
+    public static double BOTTOM = 0;
+    public static double LOWBASKET = 0;
+    public static double HIGHBASKET = 0;
+    public static double LOWRUNG = 0;
+    public static double HIGHRUNG = 0;
+    public static double INCREMENT = 150;
     // PID Constants & Controller
     public static double kP = 0;
     public static double kI = 0;
@@ -58,6 +64,20 @@ public class Lift extends SubsystemBase {
                 }
         }).start();
     }
+
+    public void setTarget(double target) {
+        this.controller.setTarget(target);
+    }
+
+    public boolean isFinished() {
+        return this.controller.isFinished();
+    }
+
+    public double getTarget() {
+        return this.controller.getTarget();
+    }
+
+
 
     // TODO: Test threads, if threads work remove
     @Override
