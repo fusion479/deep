@@ -31,17 +31,14 @@ public class PIDController {
         this.kG = kG;
     }
 
-    public double getTarget() {
-        return this.target;
+
+    public void setCoefficients(double kP) {
+        this.kP = kP;
     }
 
-    public void setTarget(double target) {
-        this.target = target;
-        this.lastError = 0;
-    }
-
-    public void setAllowedError(double error) {
-        this.allowedError = error;
+    public void setCoefficients(double kP, double kI) {
+        this.kP = kP;
+        this.kI = kI;
     }
 
     public void setCoefficients(double kP, double kI, double kD) {
@@ -50,13 +47,11 @@ public class PIDController {
         this.kD = kD;
     }
 
-    public void setCoefficients(double kP, double kI) {
+    public void setCoefficients(double kP, double kI, double kD, double kG) {
         this.kP = kP;
         this.kI = kI;
-    }
-
-    public void setCoefficients(double kP) {
-        this.kP = kP;
+        this.kD = kD;
+        this.kG = kG;
     }
 
     public double calculate(double reference) {
@@ -70,11 +65,24 @@ public class PIDController {
         return (this.kP * error) + (this.kI * this.integralSum) + (this.kD * derivative) + kG;
     }
 
+    public void setAllowedError(double error) {
+        this.allowedError = error;
+    }
+
     public double getLastError() {
         return this.lastError;
     }
 
     public boolean isFinished() {
         return Math.abs(this.lastError) >= this.allowedError;
+    }
+
+    public double getTarget() {
+        return this.target;
+    }
+
+    public void setTarget(double target) {
+        this.target = target;
+        this.lastError = 0;
     }
 }
