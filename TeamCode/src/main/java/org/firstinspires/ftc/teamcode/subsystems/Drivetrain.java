@@ -14,6 +14,11 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 @Config
 public class Drivetrain extends SubsystemBase {
+    public static double MAX_ACCEL = 0.5;
+    public static double MAX_ANGULAR_ACCEL = 0.5;
+    public static double MAX_VEL = 1;
+    public static double MAX_ANGULAR_VEL = 1;
+
     private final MecanumDrive drive;
     private final MultipleTelemetry telemetry;
 
@@ -27,13 +32,18 @@ public class Drivetrain extends SubsystemBase {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {
+                    // TODO: Check if this works
                     synchronized (this.drive) {
+                        double yPower = Math.max(-MAX_ACCEL, Math.min(MAX_ACCEL, -gamepad.getLeftY()));
+                        double xPower = Math.max(-MAX_ACCEL, Math.min(MAX_ACCEL, gamepad.getLeftX()));
+                        double angPower = Math.max(-MAX_ANGULAR_ACCEL, Math.min(MAX_ANGULAR_ACCEL, -gamepad.getRightX()));
+
                         this.drive.setDrivePowers(new PoseVelocity2d(
                                 new Vector2d(
-                                        -gamepad.getLeftY(),
-                                        gamepad.getLeftX()
+                                        angPower * MAX_ANGULAR_VEL,
+                                        xPower * MAX_VEL
                                 ),
-                                -gamepad.getRightX()));
+                                yPower * MAX_VEL));
                     }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
