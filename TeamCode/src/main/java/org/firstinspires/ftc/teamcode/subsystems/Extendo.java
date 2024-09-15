@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
-public class Lift extends SubsystemBase {
+public class Extendo extends SubsystemBase {
     // PID Constants & Controller
     public static double kP = 0;
     public static double kI = 0;
@@ -23,11 +23,11 @@ public class Lift extends SubsystemBase {
 
     private final MultipleTelemetry telemetry;
 
-    public Lift(HardwareMap hwMap, MultipleTelemetry telemetry) {
+    public Extendo(HardwareMap hwMap, MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.rightMotor = hwMap.get(DcMotorEx.class, "liftRight");
-        this.leftMotor = hwMap.get(DcMotorEx.class, "liftLeft");
+        this.rightMotor = hwMap.get(DcMotorEx.class, "extendoRight");
+        this.leftMotor = hwMap.get(DcMotorEx.class, "extendoLeft");
 
         this.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
