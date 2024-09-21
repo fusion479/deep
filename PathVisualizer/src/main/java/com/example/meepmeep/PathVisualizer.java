@@ -20,7 +20,7 @@ public class PathVisualizer {
         myBot.runAction(trajectories.pathTwo(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
         myBot.runAction(trajectories.pathThree(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
