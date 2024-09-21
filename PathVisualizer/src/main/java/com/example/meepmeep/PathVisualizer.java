@@ -14,7 +14,7 @@ public class PathVisualizer {
                 .build();
 
 
-        Trajectories trajectories = new Trajectories(Positions.Color.BLUE);
+        Trajectories trajectories = new Trajectories();
 
         myBot.runAction(trajectories.pathOne(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
         myBot.runAction(trajectories.pathTwo(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));

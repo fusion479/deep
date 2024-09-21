@@ -3,12 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -23,32 +21,68 @@ import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class CommandRobot {
-    public final Command ready, accepting, scoreHighBasket, scoreHighRung, scoreLowBasket, scoreLowRung, score, liftlower, liftraise, extendolower, extendoraise;
+    private final MultipleTelemetry telemetry;
+
     private final Drivetrain drivetrain;
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
-    private final MultipleTelemetry telemetry;
+
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
 
+    private final OpModeCore opMode;
+
+    public Command ready, accepting, scoreHighBasket, scoreHighRung, scoreLowBasket, scoreLowRung, score, liftLower, liftRaise, extendoLower, extendoRaise;
+
     // TELEOP
-    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, CommandOpMode opMode) {
+    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode) {
         this.telemetry = telemetry;
+
         this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose2d(0, 0, 0));
         this.lift = new Lift(hwMap, telemetry);
         this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
+
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.configureControls();
-        this.drivetrain.startThread(this.gamepad1, opMode);
-        this.lift.startThread(opMode);
+        this.opMode = opMode;
 
+        this.configureCommands();
+        this.configureControls();
+
+        // TODO: Implement triggers for claw motors
+    }
+
+    // AUTON
+    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
+        this.telemetry = telemetry;
+
+        this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
+        this.lift = new Lift(hwMap, telemetry);
+        this.extendo = new Extendo(hwMap, telemetry);
+        this.claw = new Claw(hwMap, telemetry);
+
+        this.opMode = opMode;
+
+        this.configureCommands();
+    }
+
+    public MecanumDrive getDrive() {
+        return this.drivetrain.getDrive();
+    }
+
+    public void startThreads() {
+        this.drivetrain.startThread(this.gamepad1, this.opMode);
+        this.lift.startThread(this.opMode);
+        // TODO: Add in more threads if needed
+    }
+
+    public void configureCommands() {
         this.ready = new SequentialCommandGroup(
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new PivotSetPosition(this.telemetry, this.claw, Claw.READY),
@@ -102,42 +136,26 @@ public class CommandRobot {
                 new LiftSetPosition(this.telemetry, this.lift, Lift.BOTTOM)
         );
 
-        this.liftraise = new SequentialCommandGroup(
+        this.liftRaise = new SequentialCommandGroup(
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new LiftIncrement(this.lift, Lift.INCREMENT)
         );
 
-        this.liftlower = new SequentialCommandGroup(
+        this.liftLower = new SequentialCommandGroup(
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new LiftIncrement(this.lift, -Lift.INCREMENT)
         );
 
-        this.extendoraise = new SequentialCommandGroup(
+        this.extendoRaise = new SequentialCommandGroup(
                 new ExtendoIncrement(this.extendo, Extendo.INCREMENT)
         );
 
-        this.extendolower = new SequentialCommandGroup(
+        this.extendoLower = new SequentialCommandGroup(
                 new ExtendoIncrement(this.extendo, -Extendo.INCREMENT)
         );
-
-        //todo: implement triggers for claw motors
     }
 
-    // AUTON
-//    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, CommandOpMode opMode) {
-//        this.telemetry = telemetry;
-//        this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
-//        this.lift = new Lift(hwMap, telemetry);
-//        this.extendo = new Extendo(hwMap, telemetry);
-//        this.claw = new Claw(hwMap, telemetry);
-//        this.lift.startThread(opMode);
-//    }
-
-    public MecanumDrive getDrive() {
-        return this.drivetrain.getDrive();
-    }
-
+    // TODO: Configure controls for gamepad (talk with driveteam)
     public void configureControls() {
-        // controls
     }
 }
