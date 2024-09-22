@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.claw;
+package org.firstinspires.ftc.teamcode.opmodes.teleop.commands.claw;
 
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -22,6 +22,7 @@ public class ClawSetPosition extends CommandBase {
     public void initialize() {
         this.claw.setPosition(position);
     }
+
     @Override
     public boolean isFinished() {
         return true;

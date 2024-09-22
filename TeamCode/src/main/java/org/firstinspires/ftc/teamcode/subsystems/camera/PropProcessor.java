@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.example.meepmeep.Positions;
 
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.firstinspires.ftc.vision.VisionProcessor;
@@ -35,7 +34,7 @@ public class PropProcessor implements VisionProcessor {
 
     // ATTRIBUTES
     private final Mat output;
-    private final Positions.Color color;
+    private final Camera.Color color;
     private final MultipleTelemetry telemetry;
 
     // PIPELINE VARIABLES
@@ -43,7 +42,7 @@ public class PropProcessor implements VisionProcessor {
     private Scalar LOW_FILTER, HIGH_FILTER;
     private int region;
 
-    public PropProcessor(Positions.Color color, MultipleTelemetry telemetry) {
+    public PropProcessor(Camera.Color color, MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
         this.color = color;
         this.output = new Mat();
@@ -62,7 +61,7 @@ public class PropProcessor implements VisionProcessor {
         RIGHT_RECT = new Rect(RIGHT_RECT_X, RIGHT_RECT_Y, RECT_WIDTH, RECT_HEIGHT);
         LEFT_RECT = new Rect(LEFT_RECT_X, LEFT_RECT_Y, RECT_WIDTH, RECT_HEIGHT);
 
-        if (this.color == Positions.Color.RED) {
+        if (this.color == Camera.Color.RED) {
             LOW_FILTER = new Scalar(RED_LOW_HUE, RED_LOW_SAT, RED_LOW_VAL);
             HIGH_FILTER = new Scalar(RED_HIGH_HUE, RED_HIGH_SAT, RED_HIGH_VAL);
         } else {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.lift;
+package org.firstinspires.ftc.teamcode.opmodes.teleop.commands.lift;
 
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -23,6 +23,7 @@ public class LiftSetPosition extends CommandBase {
     public void initialize() {
         this.lift.setTarget(position);
     }
+
     @Override
     public boolean isFinished() {
         return this.lift.isFinished();

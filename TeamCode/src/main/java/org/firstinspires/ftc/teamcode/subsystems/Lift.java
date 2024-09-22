@@ -11,23 +11,24 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 public class Lift extends SubsystemBase {
-    public static double BOTTOM = 0;
-    public static double LOWBASKET = 0;
-    public static double HIGHBASKET = 0;
-    public static double LOWRUNG = 0;
-    public static double HIGHRUNG = 0;
+    public static double ACCEPTING = 0;
+    public static double LOW_BASKET = 0;
+    public static double HIGH_BASKET = 0;
+    public static double LOW_RUNG = 0;
+    public static double HIGH_RUNG = 0;
     public static double INCREMENT = 150;
-    // PID Constants & Controller
+
+    private final MultipleTelemetry telemetry;
+
     public static double kP = 0;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
+
     private final PIDController controller = new PIDController(kP, kI, kD, kG);
 
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
-
-    private final MultipleTelemetry telemetry;
 
     public Lift(HardwareMap hwMap, MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
@@ -46,6 +47,9 @@ public class Lift extends SubsystemBase {
 
         this.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         this.rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        // TODO: Tune allowed error
+        this.controller.setAllowedError(10);
     }
 
     public void startThread(CommandOpMode opMode) {
@@ -65,20 +69,6 @@ public class Lift extends SubsystemBase {
         }).start();
     }
 
-    public void setTarget(double target) {
-        this.controller.setTarget(target);
-    }
-
-    public boolean isFinished() {
-        return this.controller.isFinished();
-    }
-
-    public double getTarget() {
-        return this.controller.getTarget();
-    }
-
-
-
     // TODO: Test threads, if threads work remove
     @Override
     public void periodic() {
@@ -89,5 +79,17 @@ public class Lift extends SubsystemBase {
             this.rightMotor.setPower(kG);
             this.leftMotor.setPower(kG);
         }
+    }
+
+    public void setTarget(double target) {
+        this.controller.setTarget(target);
+    }
+
+    public double getTarget() {
+        return this.controller.getTarget();
+    }
+
+    public boolean isFinished() {
+        return this.controller.isFinished();
     }
 }

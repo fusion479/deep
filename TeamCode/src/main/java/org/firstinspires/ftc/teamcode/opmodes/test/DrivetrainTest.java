@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 
-@TeleOp(name = "Drivetrain Test", group = "Test")
+@TeleOp(name = "Drivetrain Test")
 public class DrivetrainTest extends OpModeCore {
     private Drivetrain drive;
     private GamepadEx gamepad;

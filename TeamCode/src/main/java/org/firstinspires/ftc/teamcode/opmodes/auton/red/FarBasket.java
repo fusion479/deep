@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode.opmodes.auton.red;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "Far Basket", group = "Auton")
+@Autonomous(name = "Red Far Basket")
 public class FarBasket extends OpModeCore {
     private CommandRobot robot;
 
