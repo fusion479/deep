@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleop.commands.claw;
+package org.firstinspires.ftc.teamcode.commands.claw;
 
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;

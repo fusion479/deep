@@ -10,9 +10,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.opmodes.teleop.commands.claw.ClawSetPosition;
-import org.firstinspires.ftc.teamcode.opmodes.teleop.commands.extendo.ExtendoSetPosition;
-import org.firstinspires.ftc.teamcode.opmodes.teleop.commands.lift.LiftSetPosition;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSetPosition;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
