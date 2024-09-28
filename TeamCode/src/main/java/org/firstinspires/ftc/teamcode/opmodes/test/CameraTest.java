@@ -1,50 +1,42 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.roadrunner.Drawing;
-import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystems.camera.Camera;
+import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Camera Test")
 public class CameraTest extends OpModeCore {
-    public static int COLOR = 0; // 0 for red, 1 for blue
+    private Claw claw;
+    private GamepadEx gamepad;
+    private GamepadTrigger intake, outtake;
 
-    private Camera camera;
-    private MecanumDrive drive;
-
+    @Override
     public void initialize() {
-        this.camera = new Camera(CameraTest.COLOR == 0 ? Camera.Color.RED : Camera.Color.BLUE, super.hardwareMap, super.multipleTelemetry);
-        this.drive = new MecanumDrive(super.hardwareMap, new Pose2d(0, 0, 0));
+        this.gamepad = new GamepadEx(super.gamepad1);
+        this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
+
+        this.intake = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, this.claw::setClawPower, this.gamepad);
+        this.outtake = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, (d) -> this.claw.setClawPower(-d), this.gamepad);
     }
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         this.initialize();
+        CommandScheduler.getInstance().enable();
 
-        while (super.opModeInInit()) {
-            super.multipleTelemetry.addData("Detected Region: ", this.camera.getRegion());
-            super.multipleTelemetry.update();
-        }
-        this.camera.startTagProcessor();
+        super.waitForStart();
 
-        while (super.opModeIsActive()) {
+        this.intake.startThread(this);
+        this.outtake.startThread(this);
+        while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
-            this.camera.relocalize(this.drive);
-
-            TelemetryPacket packet = new TelemetryPacket();
-            packet.fieldOverlay().setStroke("#3F51B5");
-            Drawing.drawRobot(packet.fieldOverlay(), drive.pose);
-            FtcDashboard.getInstance().sendTelemetryPacket(packet);
-
-            this.camera.logTagPose();
             super.logCycles();
             super.multipleTelemetry.update();
         }
