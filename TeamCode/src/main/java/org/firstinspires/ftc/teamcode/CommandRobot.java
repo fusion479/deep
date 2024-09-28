@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class CommandRobot {
@@ -35,6 +37,7 @@ public class CommandRobot {
 
     public Command ready, accepting, scoreHighBasket, scoreHighRung, scoreLowBasket, scoreLowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
 
+    public GamepadTrigger intakeAccept, intakeReject;
     // TELEOP
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode) {
         this.telemetry = telemetry;
@@ -51,6 +54,9 @@ public class CommandRobot {
 
         this.configureCommands();
         this.configureControls();
+
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setClawPower(-d), this.gamepad2);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setClawPower, this.gamepad2);
 
         // TODO: Implement triggers for claw motors
     }
