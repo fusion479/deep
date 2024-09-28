@@ -10,19 +10,14 @@ public final class Trajectories {
        ---------------------------------------
     */
     public static Action pathOne(TrajectoryActionBuilder builder) {
-        return builder
-                .splineToLinearHeading(
-                        Positions.vectorToPose(Positions.modifyPose(Positions.RED.GENERAL.BASKET,
-                                        Constants.ROBOT_LENGTH / 2,
-                                        Constants.ROBOT_WIDTH / 2),
-                                Math.toRadians(90)),
-                        Math.toRadians(90))
-                .setReversed(true)
-                .splineToLinearHeading(Positions.vectorToPose(Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP, 225), 90)
-                .setReversed(false)
-                .splineToLinearHeading(Positions.vectorToPose(Positions.modifyPose(Positions.RED.GENERAL.BASKET, Constants.ROBOT_LENGTH / 2, Constants.ROBOT_WIDTH / 2), 180), 180)
-                .setReversed(true)
-                .splineToLinearHeading(Positions.vectorToPose(Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP, 160), 90)
+        return builder.lineToX(Positions.modifyPose(Positions.RED.GENERAL.BASKET,
+                        Constants.ROBOT_LENGTH,
+                        0).x)
+                .splineToLinearHeading(Positions.vectorToPose(
+                        Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
+                        Math.toRadians(270)),
+                        Math.toRadians(180))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, 275)
                 .build();
     }
 

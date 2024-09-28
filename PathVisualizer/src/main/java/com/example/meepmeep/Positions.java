@@ -3,6 +3,8 @@ package com.example.meepmeep;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import java.awt.Robot;
+
 
 public final class Positions {
     public static Vector2d modifyPose(Vector2d pose, double dX, double dY) {
@@ -22,13 +24,20 @@ public final class Positions {
             Pose2d START = new Pose2d(
                     -Constants.TILE_LENGTH * 1.5,
                     -Constants.FIELD_LENGTH + Constants.ROBOT_LENGTH/2,
-                    Math.toRadians(90));
+                    Math.toRadians(180));
 
             Vector2d SPIKEMARK_SETUP = new Vector2d(
-                    -Constants.FIELD_LENGTH + Constants.TILE_LENGTH/2,
+                    -Constants.FIELD_LENGTH + 12.25, //(23 - 20 - 1.5 = 1.5) ((23 - 1.5) / 2 + 1.5 = 12.25)
                     -Constants.FIELD_LENGTH + Constants.TILE_LENGTH
                     );
 
+            Pose2d SCORE_SETUP = new Pose2d(
+                    -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4,
+                    -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4,
+                    Math.toRadians(225)
+            );
+            double SPIKEMARK1_ANGLE = Math.atan(22/10) + Math.PI;
+            double SPIKEMARK3_ANGLE = 0;
         }
 
         interface FAR_BASKET {
