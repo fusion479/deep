@@ -32,12 +32,12 @@ public final class Positions {
                     );
 
             Pose2d SCORE_SETUP = new Pose2d(
-                    -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4,
+                    -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4 - 0.4,
                     -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4,
                     Math.toRadians(225)
             );
             double SPIKEMARK1_ANGLE = Math.atan(22/10) + Math.PI;
-            double SPIKEMARK3_ANGLE = 0;
+            double SPIKEMARK3_ANGLE = Math.atan(22/-10);
         }
 
         interface FAR_BASKET {
