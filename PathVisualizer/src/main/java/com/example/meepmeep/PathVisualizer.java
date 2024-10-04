@@ -16,8 +16,8 @@ public class PathVisualizer {
 
         Trajectories trajectories = new Trajectories();
 
-        myBot.runAction(trajectories.redClose(myBot.getDrive().actionBuilder(Positions.RED.CLOSE_BASKET.START)));
-//        myBot.runAction(trajectories.redFar(myBot.getDrive().actionBuilder(Positions.RED.FAR_BASKET.START)));
+//        myBot.runAction(trajectories.redClose(myBot.getDrive().actionBuilder(Positions.RED.CLOSE_BASKET.START)));
+        myBot.runAction(trajectories.redFar(myBot.getDrive().actionBuilder(Positions.RED.FAR_BASKET.START)));
 //        myBot.runAction(trajectories.blueClose(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
 //        myBot.runAction(trajectories.blueFar(myBot.getDrive().actionBuilder(new Pose2d(0, 0, 0))));
 

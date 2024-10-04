@@ -15,25 +15,28 @@ public final class Trajectories {
                 .splineToLinearHeading(Positions.vectorToPose(
                         Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
                         Math.toRadians(270)),
-                        Math.toRadians(180))
-                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(285))
+                        Math.toRadians(210))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
-                                Positions.RED.CLOSE_BASKET.SPIKEMARK1_ANGLE),
+                                Positions.RED.GENERAL.SPIKEMARK1_ANGLE),
                         Math.toRadians(180))
-                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(285))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
-                                Positions.RED.CLOSE_BASKET.SPIKEMARK3_ANGLE),
+                                Positions.RED.GENERAL.SPIKEMARK3_ANGLE),
                         Math.toRadians(180))
-                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(285))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
                 .build();
     }
 
     public static Action redFar(TrajectoryActionBuilder builder) {
-        return builder.lineToX(Positions.modifyPose(Positions.RED.GENERAL.BASKET,
-                        Constants.ROBOT_LENGTH,
-                        0).x)
+        return builder.splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(180))
+                .splineToLinearHeading(Positions.vectorToPose(Positions.RED.FAR_BASKET.SPIKEMARK_SETUP, Math.toRadians(270)), Math.toRadians(330))
+                .turnTo(Positions.RED.GENERAL.SPIKEMARK1_ANGLE)
+                .turnTo(Math.toRadians(270))
+                .turnTo(Positions.RED.GENERAL.SPIKEMARK3_ANGLE)
+                .turnTo(Math.toRadians(270))
                 .build();
     }
 
