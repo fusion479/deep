@@ -56,9 +56,9 @@ public final class Positions {
             );
 
             Pose2d SUBMERSIBLE_SETUP = new Pose2d(
-                    1.5 * Constants.TILE_LENGTH,
-                    0.5 * Constants.TILE_LENGTH,
-                    Math.toRadians(0)
+                    0,
+                    -Constants.TILE_LENGTH * 2 + Constants.ROBOT_LENGTH/2,
+                    Math.toRadians(270)
             );
         }
 
@@ -113,6 +113,12 @@ public final class Positions {
             Vector2d SPIKEMARK_SETUP = new Vector2d(
                     -Constants.FIELD_LENGTH + Constants.TILE_LENGTH/2 + 2.5,
                     Constants.FIELD_LENGTH - Constants.TILE_LENGTH
+            );
+
+            Pose2d SUBMERSIBLE_SETUP = new Pose2d(
+                    0,
+                    Constants.TILE_LENGTH * 2 - Constants.ROBOT_LENGTH/2,
+                    Math.toRadians(90)
             );
         }
 
