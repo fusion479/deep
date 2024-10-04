@@ -16,17 +16,24 @@ public final class Trajectories {
                         Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
                         Math.toRadians(270)),
                         Math.toRadians(210))
+                .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
                                 Positions.RED.GENERAL.SPIKEMARK1_ANGLE),
                         Math.toRadians(180))
+                .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
                                 Positions.RED.GENERAL.SPIKEMARK3_ANGLE),
                         Math.toRadians(180))
+                .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(273))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SUBMERSIBLE_SETUP, Math.toRadians(90))
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(Positions.RED.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(180))
                 .build();
     }
 
@@ -46,17 +53,24 @@ public final class Trajectories {
                                 Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
                                 Math.toRadians(90)),
                         Math.toRadians(30))
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
                                 Positions.BLUE.GENERAL.SPIKEMARK1_ANGLE),
                         Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
                 .splineToLinearHeading(Positions.vectorToPose(
                                 Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
                                 Positions.BLUE.GENERAL.SPIKEMARK3_ANGLE),
                         Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SUBMERSIBLE_SETUP, Math.toRadians(270))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(0))
                 .build();
     }
 

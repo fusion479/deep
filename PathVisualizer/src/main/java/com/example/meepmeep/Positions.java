@@ -36,6 +36,12 @@ public final class Positions {
                     -Constants.FIELD_LENGTH + 3 * Constants.TILE_LENGTH/ 4,
                     Math.toRadians(225)
             );
+
+            Pose2d SUBMERSIBLE_SETUP = new Pose2d(
+                    -1.5 * Constants.TILE_LENGTH,
+                    -0.5 * Constants.TILE_LENGTH,
+                    Math.toRadians(180)
+            );
         }
 
         interface FAR_BASKET {
@@ -47,6 +53,12 @@ public final class Positions {
             Vector2d SPIKEMARK_SETUP = new Vector2d(
                     Constants.FIELD_LENGTH - Constants.TILE_LENGTH/2 - 2.5,
                     -Constants.FIELD_LENGTH + Constants.TILE_LENGTH
+            );
+
+            Pose2d SUBMERSIBLE_SETUP = new Pose2d(
+                    1.5 * Constants.TILE_LENGTH,
+                    0.5 * Constants.TILE_LENGTH,
+                    Math.toRadians(0)
             );
         }
 
@@ -83,6 +95,12 @@ public final class Positions {
                     Constants.FIELD_LENGTH - 3 * Constants.TILE_LENGTH/ 4 + 0.4,
                     Constants.FIELD_LENGTH - 3 * Constants.TILE_LENGTH/ 4,
                     Math.toRadians(45)
+            );
+
+            Pose2d SUBMERSIBLE_SETUP = new Pose2d(
+                    1.5 * Constants.TILE_LENGTH,
+                    0.5 * Constants.TILE_LENGTH,
+                    Math.toRadians(0)
             );
         }
 
