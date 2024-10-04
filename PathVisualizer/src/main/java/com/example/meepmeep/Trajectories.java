@@ -41,11 +41,33 @@ public final class Trajectories {
     }
 
     public static Action blueClose(TrajectoryActionBuilder builder) {
-        return builder.lineToX(30).build();
+        return builder.splineToLinearHeading(Positions.BLUE.GENERAL.RUNGS, Math.toRadians(180))
+                .splineToLinearHeading(Positions.vectorToPose(
+                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
+                                Math.toRadians(90)),
+                        Math.toRadians(30))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
+                .splineToLinearHeading(Positions.vectorToPose(
+                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
+                                Positions.BLUE.GENERAL.SPIKEMARK1_ANGLE),
+                        Math.toRadians(0))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
+                .splineToLinearHeading(Positions.vectorToPose(
+                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
+                                Positions.BLUE.GENERAL.SPIKEMARK3_ANGLE),
+                        Math.toRadians(0))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
+                .build();
     }
 
     public static Action blueFar(TrajectoryActionBuilder builder) {
-        return builder.lineToX(30).build();
+        return builder.splineToLinearHeading(Positions.BLUE.GENERAL.RUNGS, Math.toRadians(0))
+                .splineToLinearHeading(Positions.vectorToPose(Positions.BLUE.FAR_BASKET.SPIKEMARK_SETUP, Math.toRadians(90)), Math.toRadians(150))
+                .turnTo(Positions.BLUE.GENERAL.SPIKEMARK1_ANGLE)
+                .turnTo(Math.toRadians(90))
+                .turnTo(Positions.BLUE.GENERAL.SPIKEMARK3_ANGLE)
+                .turnTo(Math.toRadians(90))
+                .build();
     }
 
     /*
