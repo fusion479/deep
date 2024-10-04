@@ -10,10 +10,8 @@ public final class Trajectories {
        ---------------------------------------
     */
     //todo: tidy up end tangents and make it less messy
-    public static Action pathOne(TrajectoryActionBuilder builder) {
-        return builder.lineToX(Positions.modifyPose(Positions.RED.GENERAL.BASKET,
-                        Constants.ROBOT_LENGTH,
-                        0).x)
+    public static Action redClose(TrajectoryActionBuilder builder) {
+        return builder.splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(0))
                 .splineToLinearHeading(Positions.vectorToPose(
                         Positions.RED.CLOSE_BASKET.SPIKEMARK_SETUP,
                         Math.toRadians(270)),
@@ -32,11 +30,18 @@ public final class Trajectories {
                 .build();
     }
 
-    public static Action pathTwo(TrajectoryActionBuilder builder) {
-        return builder.lineToX(20).build();
+    public static Action redFar(TrajectoryActionBuilder builder) {
+        return builder.lineToX(Positions.modifyPose(Positions.RED.GENERAL.BASKET,
+                        Constants.ROBOT_LENGTH,
+                        0).x)
+                .build();
     }
 
-    public static Action pathThree(TrajectoryActionBuilder builder) {
+    public static Action blueClose(TrajectoryActionBuilder builder) {
+        return builder.lineToX(30).build();
+    }
+
+    public static Action blueFar(TrajectoryActionBuilder builder) {
         return builder.lineToX(30).build();
     }
 
