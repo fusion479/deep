@@ -35,7 +35,7 @@ public class CommandRobot {
 
     private final OpModeCore opMode;
 
-    public Command ready, accepting, scoreHighBasket, scoreHighRung, scoreLowBasket, scoreLowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
 
     public GamepadTrigger intakeAccept, intakeReject;
     // TELEOP
@@ -100,28 +100,28 @@ public class CommandRobot {
                 new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN)
         );
 
-        this.scoreHighBasket = new ParallelCommandGroup(
+        this.highBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
         );
 
-        this.scoreLowBasket = new ParallelCommandGroup(
+        this.lowBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
         );
 
-        this.scoreHighRung = new SequentialCommandGroup(
+        this.highRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
         );
 
-        this.scoreLowRung = new SequentialCommandGroup(
+        this.lowRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
@@ -159,5 +159,27 @@ public class CommandRobot {
 
     // TODO: Configure controls for gamepad (talk with driveteam)
     public void configureControls() {
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(this.accepting);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(this.lowBasket);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(this.highBasket);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(this.ready);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(this.liftIncrement);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(this.liftDecrement);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(this.score);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(this.lowRung);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(this.highRung);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(this.extendoDecrement);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(this.extendoIncrement);
     }
 }
