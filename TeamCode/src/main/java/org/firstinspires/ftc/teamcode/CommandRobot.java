@@ -29,15 +29,12 @@ public class CommandRobot {
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
-
+    private final OpModeCore opMode;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
+    public GamepadTrigger intakeAccept, intakeReject;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
 
-    private final OpModeCore opMode;
-
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
-
-    public GamepadTrigger intakeAccept, intakeReject;
     // TELEOP
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode) {
         this.telemetry = telemetry;
@@ -80,12 +77,12 @@ public class CommandRobot {
     public void startThreads() {
         this.drivetrain.startThread(this.gamepad1, this.opMode);
         this.lift.startThread(this.opMode);
+        this.claw.startThreads(this.opMode);
         // TODO: Add in more threads if needed
     }
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.READY),
                 new WaitCommand(100),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
@@ -96,54 +93,45 @@ public class CommandRobot {
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.ACCEPTING),
                 new WaitCommand(100),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.DOWN),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN)
+                new ClawSetPosition(this.telemetry, this.claw, Claw.DOWN)
         );
 
         this.highBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
+                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
         );
 
         this.lowBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
+                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
         );
 
         this.highRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
+                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
         );
 
         this.lowRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE)
+                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
         );
 
         this.score = new SequentialCommandGroup(
-                new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN),
                 new WaitCommand(800),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new ClawSetPosition(this.telemetry, this.claw, Claw.READY),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
         );
 
         this.liftIncrement = new SequentialCommandGroup(
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() + Lift.INCREMENT)
         );
 
         this.liftDecrement = new SequentialCommandGroup(
-                new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE),
                 new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() - Lift.INCREMENT)
 
         );

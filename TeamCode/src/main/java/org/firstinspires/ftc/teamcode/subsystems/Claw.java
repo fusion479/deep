@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.hardware.EnhancedColorSensor;
+
 public class Claw extends SubsystemBase {
-    public static double OPEN = 0.5;
-    public static double CLOSE = 0.0;
     public static double UP = 1;
     public static double READY = 0.5;
     public static double DOWN = 0.0;
@@ -17,6 +19,7 @@ public class Claw extends SubsystemBase {
 
     private final Servo leftPivot, rightPivot;
     private final CRServo leftCRServo, rightCRServo;
+    private final EnhancedColorSensor sensor;
 
     public Claw(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
@@ -26,6 +29,12 @@ public class Claw extends SubsystemBase {
 
         this.rightPivot = hwMap.get(Servo.class, "rightPivot");
         this.rightCRServo = hwMap.get(CRServo.class, "rightCRServo");
+
+        this.sensor = new EnhancedColorSensor(hwMap.get(ColorRangeSensor.class, "sensor"));
+    }
+
+    public void startThreads(OpModeCore opMode) {
+        this.sensor.startThread(opMode);
     }
 
     public void setPosition(double position) {
