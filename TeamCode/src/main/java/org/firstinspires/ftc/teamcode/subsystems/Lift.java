@@ -30,7 +30,7 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
 
-    public Lift(HardwareMap hwMap, MultipleTelemetry telemetry) {
+    public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
         this.rightMotor = hwMap.get(DcMotorEx.class, "liftRight");

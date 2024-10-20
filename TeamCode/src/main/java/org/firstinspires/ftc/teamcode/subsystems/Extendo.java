@@ -14,7 +14,7 @@ public class Extendo extends SubsystemBase {
     private final MultipleTelemetry telemetry;
     private final Servo leftServo, rightServo;
 
-    public Extendo(HardwareMap hwMap, MultipleTelemetry telemetry) {
+    public Extendo(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
         this.leftServo = hwMap.get(Servo.class, "extendoLeft");
         this.rightServo = hwMap.get(Servo.class, "extendoRight");
