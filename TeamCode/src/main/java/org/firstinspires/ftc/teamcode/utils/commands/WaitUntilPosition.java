@@ -9,7 +9,7 @@ public class WaitUntilPosition {
     private final Drivetrain drivetrain;
     private final double tolerance;
 
-    public WaitUntilPosition(Pose2d target, Drivetrain drivetrain, double tolerance) {
+    public WaitUntilPosition(final Pose2d target, final Drivetrain drivetrain, final double tolerance) {
         this.target = target;
         this.drivetrain = drivetrain;
         this.tolerance = tolerance;
