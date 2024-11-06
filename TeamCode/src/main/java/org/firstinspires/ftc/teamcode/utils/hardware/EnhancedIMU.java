@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.utils.hardware;
 
+import com.acmerobotics.roadrunner.ftc.LazyImu;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.ImuOrientationOnRobot;
@@ -15,6 +16,10 @@ public class EnhancedIMU {
 
         this.imu.initialize(new IMU.Parameters(orientation));
         this.imu.resetYaw();
+    }
+
+    public EnhancedIMU(LazyImu imu) {
+        this.imu = imu.get();
     }
 
     public void startThread(CommandOpMode opMode) {

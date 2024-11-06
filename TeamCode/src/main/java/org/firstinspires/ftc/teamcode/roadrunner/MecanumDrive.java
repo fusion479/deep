@@ -135,6 +135,9 @@ public final class MecanumDrive {
             rightBack = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightBack));
             rightFront = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightFront));
 
+            // TODO: Test the use of threaded IMU
+            // imu = new EnhancedIMU(lazyImu);
+            // imu.startThread(opMode); // probably in main loop
             imu = lazyImu.get();
 
             // TODO: reverse encoders if needed
