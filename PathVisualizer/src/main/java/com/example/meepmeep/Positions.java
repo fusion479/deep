@@ -55,10 +55,10 @@ public final class Positions {
                     -Constants.FIELD_LENGTH + Constants.TILE_LENGTH
             );
 
-            Pose2d SUBMERSIBLE_SETUP = new Pose2d(
-                    0,
-                    -Constants.TILE_LENGTH * 2 + Constants.ROBOT_LENGTH/2,
-                    Math.toRadians(270)
+            Pose2d SCORE_SETUP = new Pose2d(
+                    Constants.TILE_LENGTH,
+                    -Constants.FIELD_LENGTH + Constants.TILE_LENGTH,
+                    Math.toRadians(135)
             );
         }
 
