@@ -1,4 +1,4 @@
-package com.example.meepmeep.trajectories.blue;
+package com.example.meepmeep.trajectories;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -10,11 +10,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class CloseBasket {
+public class BlueCloseBasket {
     private final JSONObject positions;
     private final Pose2d RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
 
-    public CloseBasket() {
+    public BlueCloseBasket() {
         String jsonString = "";
 
         try {

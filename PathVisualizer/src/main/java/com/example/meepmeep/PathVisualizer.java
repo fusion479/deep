@@ -1,6 +1,6 @@
 package com.example.meepmeep;
 
-import com.example.meepmeep.trajectories.blue.CloseBasket;
+import com.example.meepmeep.trajectories.BlueCloseBasket;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
@@ -14,7 +14,7 @@ public class PathVisualizer {
                 .build();
 
 
-        CloseBasket trajectories = new CloseBasket();
+        BlueCloseBasket trajectories = new BlueCloseBasket();
 
         // myBot.runAction(trajectories.redClose(myBot.getDrive().actionBuilder(Positions.RED.CLOSE_BASKET.START)));
         // myBot.runAction(Trajectories.redFar(myBot.getDrive().actionBuilder(Positions.RED.FAR_BASKET.START)));
