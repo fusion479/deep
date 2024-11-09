@@ -21,9 +21,9 @@ public class LiftTest extends OpModeCore {
         this.lift = new Lift(super.hardwareMap, super.multipleTelemetry);
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.HIGH_RUNG));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_RUNG));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_BASKET));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.HIGH_BASKET));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_RUNG));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_BASKET));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.HIGH_BASKET));
     }
 
     @Override

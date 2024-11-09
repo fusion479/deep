@@ -21,8 +21,8 @@ public class ExtendoTest extends OpModeCore {
         this.extendo = new Extendo(super.hardwareMap, super.multipleTelemetry);
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.ACCEPTING));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.SCORE));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.READY));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.SCORE));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.READY));
     }
 
     @Override

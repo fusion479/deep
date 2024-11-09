@@ -138,6 +138,7 @@ public final class MecanumDrive {
             // TODO: Test the use of threaded IMU
             // imu = new EnhancedIMU(lazyImu);
             // imu.startThread(opMode); // probably in main loop
+
             imu = lazyImu.get();
 
             // TODO: reverse encoders if needed
