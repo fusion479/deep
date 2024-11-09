@@ -48,14 +48,25 @@ public final class Trajectories {
                 .turnTo(Positions.RED.GENERAL.SPIKEMARK3_ANGLE)
                 .turnTo(Math.toRadians(270))
                 //start of the cycling
+                .turnTo(Math.toRadians(90))
                 .setTangent(Math.toRadians(155))
-                .splineToLinearHeading(Positions.RED.FAR_BASKET.SUBMERSIBLE_SETUP, Math.toRadians(180))
+                .splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(180))
                 .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(Positions.vectorToPose(Positions.RED.FAR_BASKET.SPIKEMARK_SETUP, Math.toRadians(270)), Math.toRadians(330))
+                .splineToLinearHeading(Positions.RED.FAR_BASKET.SCORE_SETUP, Math.toRadians(330))
+                .setTangent(Math.toRadians(135))
+                .splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(180))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(Positions.RED.FAR_BASKET.SCORE_SETUP, Math.toRadians(330))
+                .setTangent(Math.toRadians(135))
+                .splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(180))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(Positions.RED.FAR_BASKET.SCORE_SETUP, Math.toRadians(330))
+                .setTangent(Math.toRadians(135))
+                .splineToLinearHeading(Positions.RED.GENERAL.RUNGS, Math.toRadians(180))
                 .build();
-    }
+        }
 
-    public static Action blueClose(TrajectoryActionBuilder builder) {
+        public static Action blueClose(TrajectoryActionBuilder builder) {
         return builder.splineToLinearHeading(Positions.BLUE.GENERAL.RUNGS, Math.toRadians(180))
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(Positions.vectorToPose(
