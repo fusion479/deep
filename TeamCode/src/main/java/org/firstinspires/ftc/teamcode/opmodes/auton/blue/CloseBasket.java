@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@Autonomous(name = "Blue Close Basket")
+@Autonomous(name = "Blue Close Basket", preselectTeleOp = "Main" )
 public class CloseBasket extends OpModeCore {
     private CommandRobot robot;
     private Trajectories trajectories;

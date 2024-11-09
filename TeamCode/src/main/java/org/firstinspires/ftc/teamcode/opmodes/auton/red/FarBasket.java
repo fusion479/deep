@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@Autonomous(name = "Red Far Basket")
+@Autonomous(name = "Red Far Basket", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
     private CommandRobot robot;
 
