@@ -13,4 +13,5 @@ repositories {
 
 dependencies {
     implementation 'com.acmerobotics.roadrunner:MeepMeep:0.1.6'
+    implementation 'org.json:json:20240303'
 }
