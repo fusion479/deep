@@ -1,6 +1,7 @@
 package com.example.meepmeep;
 
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 
 import org.json.JSONObject;
@@ -10,7 +11,17 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public final class Trajectories {
-    public Trajectories() {
+    private static final String BASE_PATH = "/PathVisualizer/src/main/java/com/example/meepmeep/positions";
+
+    public static String BLUE_CLOSE_PATH = BASE_PATH.concat("/blue/close-basket.json");
+    public static String BLUE_FAR_PATH = BASE_PATH.concat("/blue/far-basket.json");
+    public static String RED_CLOSE_PATH = BASE_PATH.concat("/red/close-basket.json");
+    public static String RED_FAR_PATH = BASE_PATH.concat("/red/far-basket.json");
+
+    private final JSONObject positions;
+
+    public Trajectories(String path) {
+        // Load the position from specified JSON file
         String jsonString = "";
 
         try {
@@ -21,13 +32,10 @@ public final class Trajectories {
                 jsonString += reader.nextLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("FILE NOT FOUND :(");
             e.printStackTrace();
         }
 
-        JSONObject json = new JSONObject(jsonString);
-
-        System.out.println(json.getJSONObject("RUNG").getInt("x"));
+        this.positions = new JSONObject(jsonString);
     }
 
     // TODO: Tidy up end tangents and make it less messy
@@ -87,35 +95,6 @@ public final class Trajectories {
                 .build();
     }
 
-    public static Action blueClose(TrajectoryActionBuilder builder) {
-        return builder.splineToLinearHeading(Positions.BLUE.GENERAL.RUNGS, Math.toRadians(180))
-                .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(Positions.vectorToPose(
-                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
-                                Math.toRadians(90)),
-                        Math.toRadians(30))
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
-                .splineToLinearHeading(Positions.vectorToPose(
-                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
-                                Positions.BLUE.GENERAL.SPIKEMARK1_ANGLE),
-                        Math.toRadians(0))
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
-                .splineToLinearHeading(Positions.vectorToPose(
-                                Positions.BLUE.CLOSE_BASKET.SPIKEMARK_SETUP,
-                                Positions.BLUE.GENERAL.SPIKEMARK3_ANGLE),
-                        Math.toRadians(0))
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(93))
-                // Start of the cycling
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SUBMERSIBLE_SETUP, Math.toRadians(270))
-                .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(0))
-                .build();
-    }
-
     public static Action blueFar(TrajectoryActionBuilder builder) {
         return builder.splineToLinearHeading(Positions.BLUE.GENERAL.RUNGS, Math.toRadians(0))
                 .setTangent(Math.toRadians(180))
@@ -129,6 +108,62 @@ public final class Trajectories {
                 .splineToLinearHeading(Positions.BLUE.FAR_BASKET.SUBMERSIBLE_SETUP, Math.toRadians(0))
                 .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(Positions.vectorToPose(Positions.BLUE.FAR_BASKET.SPIKEMARK_SETUP, Math.toRadians(90)), Math.toRadians(150))
+                .build();
+    }
+
+    public Action blueClose(TrajectoryActionBuilder builder) {
+        Pose2d RUNGS = new Pose2d(
+                this.positions.getJSONObject("RUNG").getDouble("x"),
+                this.positions.getJSONObject("RUNG").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("RUNG").getDouble("heading"))
+        );
+
+        Pose2d LEFT_SPIKEMARK = new Pose2d(
+                this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("x"),
+                this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("heading"))
+        );
+
+        Pose2d MID_SPIKEMARK = new Pose2d(
+                this.positions.getJSONObject("MID_SPIKEMARK").getDouble("x"),
+                this.positions.getJSONObject("MID_SPIKEMARK").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("MID_SPIKEMARK").getDouble("heading"))
+        );
+
+        Pose2d RIGHT_SPIKEMARK = new Pose2d(
+                this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("x"),
+                this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("heading"))
+        );
+
+        Pose2d SCORE = new Pose2d(
+                this.positions.getJSONObject("SCORE").getDouble("x"),
+                this.positions.getJSONObject("SCORE").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("SCORE").getDouble("heading"))
+        );
+
+        Pose2d SUBMERSIBLE = new Pose2d(
+                this.positions.getJSONObject("SUBMERSIBLE").getDouble("x"),
+                this.positions.getJSONObject("SUBMERSIBLE").getDouble("y"),
+                Math.toRadians(this.positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
+        );
+
+        return builder.splineToLinearHeading(RUNGS, Math.toRadians(180))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(MID_SPIKEMARK, Math.toRadians(30))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(SCORE, Math.toRadians(93))
+                .splineToLinearHeading(LEFT_SPIKEMARK, Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(SCORE, Math.toRadians(93))
+                .splineToLinearHeading(RIGHT_SPIKEMARK, Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(SCORE, Math.toRadians(93))
+                // Start of the cycling
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(SUBMERSIBLE, Math.toRadians(270))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(Positions.BLUE.CLOSE_BASKET.SCORE_SETUP, Math.toRadians(0))
                 .build();
     }
 }
