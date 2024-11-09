@@ -3,11 +3,13 @@ package org.firstinspires.ftc.teamcode.opmodes.auton.blue;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.example.meepmeep.Trajectories;
+import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
+@Photon
 @Autonomous(name = "Blue Close Basket", preselectTeleOp = "Main" )
 public class CloseBasket extends OpModeCore {
     private CommandRobot robot;

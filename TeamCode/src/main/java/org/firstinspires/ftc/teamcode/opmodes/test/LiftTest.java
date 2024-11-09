@@ -3,13 +3,14 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-
+@Photon
 @TeleOp(name = "Lift Test")
 public class LiftTest extends OpModeCore {
     private Lift lift;
