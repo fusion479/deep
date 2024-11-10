@@ -1,0 +1,32 @@
+{
+  "START": {
+    "x": -23.0,
+    "y": 64.0,
+    "heading": 270.0
+  },
+  "RUNG": {
+    "x": 0.0,
+    "y": 38.0,
+    "heading": 90.0
+  },
+  "MID_SPIKEMARK": {
+    "x": -58.0,
+    "y": 49.0,
+    "heading": 90.0
+  },
+  "LEFT_SPIKEMARK": {
+    "x": -58.0,
+    "y": 49.0,
+    "heading": 63.5
+  },
+  "RIGHT_SPIKEMARK": {
+    "x": -58.0,
+    "y": 49.0,
+    "heading": 116.5
+  },
+  "SUBMERSIBLE": {
+    "x": 0.0,
+    "y": 38.0,
+    "heading": 90.0
+  }
+}
