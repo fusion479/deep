@@ -11,8 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class BlueCloseBasket {
-    private final JSONObject positions;
-    private final Pose2d RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
+    private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
 
     public BlueCloseBasket() {
         String jsonString = "";
@@ -29,47 +28,53 @@ public class BlueCloseBasket {
             e.printStackTrace();
         }
 
-        this.positions = new JSONObject(jsonString);
+        JSONObject positions = new JSONObject(jsonString);
+
+        this.START = new Pose2d(
+                positions.getJSONObject("START").getDouble("x"),
+                positions.getJSONObject("START").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("START").getDouble("heading"))
+        );
 
         this.RUNGS = new Pose2d(
-                this.positions.getJSONObject("RUNG").getDouble("x"),
-                this.positions.getJSONObject("RUNG").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("RUNG").getDouble("heading"))
+                positions.getJSONObject("RUNG").getDouble("x"),
+                positions.getJSONObject("RUNG").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("RUNG").getDouble("heading"))
         );
 
         this.LEFT_SPIKEMARK = new Pose2d(
-                this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("x"),
-                this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("LEFT_SPIKEMARK").getDouble("heading"))
+                positions.getJSONObject("LEFT_SPIKEMARK").getDouble("x"),
+                positions.getJSONObject("LEFT_SPIKEMARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("LEFT_SPIKEMARK").getDouble("heading"))
         );
 
         this.MID_SPIKEMARK = new Pose2d(
-                this.positions.getJSONObject("MID_SPIKEMARK").getDouble("x"),
-                this.positions.getJSONObject("MID_SPIKEMARK").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("MID_SPIKEMARK").getDouble("heading"))
+                positions.getJSONObject("MID_SPIKEMARK").getDouble("x"),
+                positions.getJSONObject("MID_SPIKEMARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("MID_SPIKEMARK").getDouble("heading"))
         );
 
         this.RIGHT_SPIKEMARK = new Pose2d(
-                this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("x"),
-                this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("heading"))
+                positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("x"),
+                positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("heading"))
         );
 
         this.SCORE = new Pose2d(
-                this.positions.getJSONObject("SCORE").getDouble("x"),
-                this.positions.getJSONObject("SCORE").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("SCORE").getDouble("heading"))
+                positions.getJSONObject("SCORE").getDouble("x"),
+                positions.getJSONObject("SCORE").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("SCORE").getDouble("heading"))
         );
 
         this.SUBMERSIBLE = new Pose2d(
-                this.positions.getJSONObject("SUBMERSIBLE").getDouble("x"),
-                this.positions.getJSONObject("SUBMERSIBLE").getDouble("y"),
-                Math.toRadians(this.positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
+                positions.getJSONObject("SUBMERSIBLE").getDouble("x"),
+                positions.getJSONObject("SUBMERSIBLE").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
         );
 
     }
 
-    public Action blueClose(TrajectoryActionBuilder builder) {
+    public Action start(TrajectoryActionBuilder builder) {
         return builder.splineToLinearHeading(RUNGS, Math.toRadians(180))
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(MID_SPIKEMARK, Math.toRadians(30))
@@ -84,5 +89,9 @@ public class BlueCloseBasket {
                 .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(SUBMERSIBLE, Math.toRadians(270))
                 .build();
+    }
+
+    public Pose2d getStart() {
+        return this.START;
     }
 }
