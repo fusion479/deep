@@ -145,7 +145,16 @@ public class CommandRobot {
         );
     }
 
-    // TODO: Configure controls for gamepad (talk with driveteam)
+    public void senseBlock() {
+        Claw.BlockCases status = this.claw.hasValidBlock(Claw.Color.BLUE);
+
+        if (status == Claw.BlockCases.ACCEPT) {
+            this.claw.setClawPower(0);
+            this.ready.schedule();
+        } else if (status == Claw.BlockCases.REJECT) this.claw.setClawPower(-1);
+    }
+
+    // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
         this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(this.accepting);

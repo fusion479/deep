@@ -38,6 +38,8 @@ public class Main extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            this.robot.senseBlock();
+
             super.logCycles();
             super.telemetry.update();
         }
