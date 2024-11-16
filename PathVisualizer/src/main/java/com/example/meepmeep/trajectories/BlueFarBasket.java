@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class BlueFarBasket {
-    private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SUBMERSIBLE;
+    private final Pose2d START, RUNGS, RUNGS1, RUNGS2, RUNGS3, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, PARK;
 
     public BlueFarBasket() {
         String jsonString = "";
@@ -42,6 +42,24 @@ public class BlueFarBasket {
                 Math.toRadians(positions.getJSONObject("RUNG").getDouble("heading"))
         );
 
+        this.RUNGS1 = new Pose2d(
+                positions.getJSONObject("RUNG1").getDouble("x"),
+                positions.getJSONObject("RUNG1").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("RUNG1").getDouble("heading"))
+        );
+
+        this.RUNGS2 = new Pose2d(
+                positions.getJSONObject("RUNG2").getDouble("x"),
+                positions.getJSONObject("RUNG2").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("RUNG2").getDouble("heading"))
+        );
+
+        this.RUNGS3 = new Pose2d(
+                positions.getJSONObject("RUNG3").getDouble("x"),
+                positions.getJSONObject("RUNG3").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("RUNG3").getDouble("heading"))
+        );
+
         this.LEFT_SPIKEMARK = new Pose2d(
                 positions.getJSONObject("LEFT_SPIKEMARK").getDouble("x"),
                 positions.getJSONObject("LEFT_SPIKEMARK").getDouble("y"),
@@ -60,10 +78,16 @@ public class BlueFarBasket {
                 Math.toRadians(positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("heading"))
         );
 
-        this.SUBMERSIBLE = new Pose2d(
-                positions.getJSONObject("SUBMERSIBLE").getDouble("x"),
-                positions.getJSONObject("SUBMERSIBLE").getDouble("y"),
-                Math.toRadians(positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
+        this.SCORE = new Pose2d(
+                positions.getJSONObject("SCORE").getDouble("x"),
+                positions.getJSONObject("SCORE").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("SCORE").getDouble("heading"))
+        );
+
+        this.PARK = new Pose2d(
+                positions.getJSONObject("PARK").getDouble("x"),
+                positions.getJSONObject("PARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("PARK").getDouble("heading"))
         );
     }
 
@@ -75,11 +99,24 @@ public class BlueFarBasket {
                 .turnTo(Math.toRadians(90))
                 .turnTo(this.RIGHT_SPIKEMARK.heading)
                 .turnTo(Math.toRadians(90))
+                .turnTo(Math.toRadians((270)))
                 // Start of the cycling
                 .setTangent(Math.toRadians(335))
-                .splineToLinearHeading(this.SUBMERSIBLE, Math.toRadians(0))
+                .splineToLinearHeading(this.RUNGS, Math.toRadians(0))
                 .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(this.MID_SPIKEMARK, Math.toRadians(150))
+                .splineToLinearHeading(this.SCORE, Math.toRadians(150))
+                .setTangent(Math.toRadians(315))
+                .splineToLinearHeading(this.RUNGS1, Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(this.SCORE, Math.toRadians(150))
+                .setTangent(Math.toRadians(315))
+                .splineToLinearHeading(this.RUNGS2, Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(this.SCORE, Math.toRadians(150))
+                .setTangent(Math.toRadians(315))
+                .splineToLinearHeading(this.RUNGS3, Math.toRadians(0))
+                .setTangent(Math.toRadians(180))
+                .splineToLinearHeading(this.PARK, Math.toRadians(90))
                 .build();
     }
 

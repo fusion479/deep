@@ -88,6 +88,8 @@ public class BlueCloseBasket {
                 .splineToLinearHeading(SCORE, Math.toRadians(93))
                 .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(SUBMERSIBLE, Math.toRadians(270))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(SCORE, Math.toRadians(0))
                 .build();
     }
 

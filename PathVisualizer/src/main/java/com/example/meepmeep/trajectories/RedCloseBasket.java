@@ -88,6 +88,8 @@ public class RedCloseBasket {
                 .splineToLinearHeading(this.SCORE, Math.toRadians(273))
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(this.SUBMERSIBLE, Math.toRadians(90))
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(this.SCORE, Math.toRadians(180))
                 .build();
     }
 
