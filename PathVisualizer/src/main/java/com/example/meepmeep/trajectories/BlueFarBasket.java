@@ -102,10 +102,6 @@ public class BlueFarBasket {
                 .turnTo(Math.toRadians((270)))
                 // Start of the cycling
                 .setTangent(Math.toRadians(335))
-                .splineToLinearHeading(this.RUNGS, Math.toRadians(0))
-                .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(this.SCORE, Math.toRadians(150))
-                .setTangent(Math.toRadians(315))
                 .splineToLinearHeading(this.RUNGS1, Math.toRadians(0))
                 .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(this.SCORE, Math.toRadians(150))

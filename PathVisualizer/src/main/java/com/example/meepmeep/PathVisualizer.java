@@ -19,8 +19,8 @@ public class PathVisualizer {
 
         // BlueCloseBasket trajectories = new BlueCloseBasket();
         // BlueFarBasket trajectories = new BlueFarBasket();
-          RedCloseBasket trajectories = new RedCloseBasket();
-        // RedFarBasket trajectories = new RedFarBasket();
+        // RedCloseBasket trajectories = new RedCloseBasket();
+         RedFarBasket trajectories = new RedFarBasket();
 
         myBot.runAction(trajectories.start(myBot.getDrive().actionBuilder(trajectories.getStart())));
 
