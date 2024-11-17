@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class RedCloseBasket {
     private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
 
-    public RedCloseBasket() {
+    public RedCloseBasket(int type) {
         String jsonString = "";
 
         try {
-            File file = new File(new File("").getAbsolutePath().concat("/PathVisualizer/src/main/java/com/example/meepmeep/positions/red/close-basket.json"));
+            File file = new File(new File("").getAbsolutePath().concat(type == 0 ? "/PathVisualizer/src/main/java/com/example/meepmeep/positions/red/close-basket.json" : "/sdcard/FIRST/positions/red/far-basket.json"));
             Scanner reader = new Scanner(file);
 
             while (reader.hasNextLine()) {

@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class RedFarBasket {
     private final Pose2d START, RUNGS, RUNGS1, RUNGS2, RUNGS3, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, PARK;
 
-    public RedFarBasket() {
+    public RedFarBasket(int type) {
         String jsonString = "";
 
         try {
-            File file = new File(new File("").getAbsolutePath().concat("/PathVisualizer/src/main/java/com/example/meepmeep/positions/red/far-basket.json"));
+            File file = new File(new File("").getAbsolutePath().concat(type == 0 ? "/PathVisualizer/src/main/java/com/example/meepmeep/positions/red/far-basket.json" : "/sdcard/FIRST/positions/red/far-basket.json"));
             Scanner reader = new Scanner(file);
 
             while (reader.hasNextLine()) {
