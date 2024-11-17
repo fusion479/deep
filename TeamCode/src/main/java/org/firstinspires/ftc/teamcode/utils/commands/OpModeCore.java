@@ -4,10 +4,8 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Photon
 public abstract class OpModeCore extends CommandOpMode {
     public final MultipleTelemetry multipleTelemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
     private final ElapsedTime period = new ElapsedTime();
