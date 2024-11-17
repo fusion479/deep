@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class BlueCloseBasket {
     private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
 
-    public BlueCloseBasket() {
+    public BlueCloseBasket(int type) {
         String jsonString = "";
 
         try {
-            File file = new File(new File("").getAbsolutePath().concat("/PathVisualizer/src/main/java/com/example/meepmeep/positions/blue/close-basket.json"));
+            File file = new File(new File("").getAbsolutePath().concat(type == 0 ? "/PathVisualizer/src/main/java/com/example/meepmeep/positions/blue/close-basket.json" : "/sdcard/FIRST/positions/blue/close-basket.json"));
             Scanner reader = new Scanner(file);
 
             while (reader.hasNextLine()) {
@@ -95,5 +95,9 @@ public class BlueCloseBasket {
 
     public Pose2d getStart() {
         return this.START;
+    }
+
+    public String getScore() {
+        return "(" + this.SCORE.position.x + ", " + this.SCORE.position.y + ")";
     }
 }
