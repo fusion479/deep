@@ -110,9 +110,12 @@ public class RedFarBasket {
                 .splineToLinearHeading(this.SCORE, Math.toRadians(330))
                 .setTangent(Math.toRadians(135))
                 .splineToLinearHeading(this.RUNGS3, Math.toRadians(180))
-                .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(this.PARK, Math.toRadians(270))
                 .build();
+    }
+
+    public Action park(TrajectoryActionBuilder builder){
+        return builder.setTangent(Math.toRadians(0))
+                .splineToLinearHeading(this.PARK, Math.toRadians(270)).build();
     }
 
     public Pose2d getStart() {

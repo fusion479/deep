@@ -111,7 +111,10 @@ public class BlueFarBasket {
                 .splineToLinearHeading(this.SCORE, Math.toRadians(150))
                 .setTangent(Math.toRadians(315))
                 .splineToLinearHeading(this.RUNGS3, Math.toRadians(0))
-                .setTangent(Math.toRadians(180))
+                .build();
+    }
+    public Action park(TrajectoryActionBuilder builder){
+        return builder.setTangent(Math.toRadians(180))
                 .splineToLinearHeading(this.PARK, Math.toRadians(90))
                 .build();
     }

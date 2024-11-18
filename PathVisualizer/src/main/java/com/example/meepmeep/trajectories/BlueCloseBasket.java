@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class BlueCloseBasket {
-    private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE;
+    private final Pose2d START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE, PARK;
 
     public BlueCloseBasket(int type) {
         String jsonString = "";
@@ -72,6 +72,12 @@ public class BlueCloseBasket {
                 Math.toRadians(positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
         );
 
+        this.PARK = new Pose2d(
+                positions.getJSONObject("PARK").getDouble("x"),
+                positions.getJSONObject("PARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("PARK").getDouble("heading"))
+        );
+
     }
 
     public Action start(TrajectoryActionBuilder builder) {
@@ -86,10 +92,20 @@ public class BlueCloseBasket {
                 .splineToLinearHeading(RIGHT_SPIKEMARK, Math.toRadians(0))
                 .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(SCORE, Math.toRadians(93))
-                .setTangent(Math.toRadians(180))
+                .build();
+    }
+
+    public Action cycle(TrajectoryActionBuilder builder){
+        return builder.setTangent(Math.toRadians(180))
                 .splineToLinearHeading(SUBMERSIBLE, Math.toRadians(270))
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(SCORE, Math.toRadians(0))
+                .build();
+    }
+
+    public Action park(TrajectoryActionBuilder builder){
+        return builder.setTangent(Math.toRadians(180))
+                .splineToLinearHeading(PARK, Math.toRadians(180))
                 .build();
     }
 
