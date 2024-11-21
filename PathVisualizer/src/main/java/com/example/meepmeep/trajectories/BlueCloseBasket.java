@@ -112,8 +112,4 @@ public class BlueCloseBasket {
     public Pose2d getStart() {
         return this.START;
     }
-
-    public String getScore() {
-        return "(" + this.SCORE.position.x + ", " + this.SCORE.position.y + ")";
-    }
 }
