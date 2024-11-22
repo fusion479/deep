@@ -18,17 +18,16 @@ public class Lift extends SubsystemBase {
     public static double HIGH_RUNG = 0;
     public static double INCREMENT = 150;
 
-    private final MultipleTelemetry telemetry;
-
     public static double kP = 0;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
 
-    private final PIDController controller = new PIDController(kP, kI, kD, kG);
-
+    private final MultipleTelemetry telemetry;
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
+
+    private PIDController controller;
 
     public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
@@ -48,7 +47,7 @@ public class Lift extends SubsystemBase {
         this.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         this.rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // TODO: Tune allowed error
+        this.controller = new PIDController(kP, kI, kD, kG);
         this.controller.setAllowedError(10);
     }
 
@@ -69,27 +68,19 @@ public class Lift extends SubsystemBase {
         }).start();
     }
 
-    // TODO: Test threads, if threads work remove
-    @Override
-    public void periodic() {
-        if (!this.controller.isFinished()) {
-            this.leftMotor.setPower(this.controller.calculate(this.leftMotor.getCurrentPosition()));
-            this.rightMotor.setPower(this.controller.calculate(this.rightMotor.getCurrentPosition()));
-        } else {
-            this.rightMotor.setPower(kG);
-            this.leftMotor.setPower(kG);
-        }
+    public double getTarget() {
+        return this.controller.getTarget();
     }
 
     public void setTarget(double target) {
         this.controller.setTarget(target);
     }
 
-    public double getTarget() {
-        return this.controller.getTarget();
-    }
-
     public boolean isFinished() {
         return this.controller.isFinished();
+    }
+
+    public void setConstants() {
+        this.controller = new PIDController(kP, kI, kD, kG);
     }
 }
