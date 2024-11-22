@@ -3,13 +3,11 @@ package org.firstinspires.ftc.teamcode.opmodes.test;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.outoftheboxrobotics.photoncore.Photon;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@Photon
 @TeleOp(name = "Drivetrain Test")
 public class DrivetrainTest extends OpModeCore {
     private Drivetrain drive;
