@@ -43,11 +43,7 @@ public class LimelightTest extends OpModeCore {
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
-            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
 
-            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-
-            limelight.updateRobotOrientation(orientation.getYaw(AngleUnit.DEGREES));
             LLResult result = this.limelight.getLatestResult();
             if (result != null) {
                 if (result.isValid()) {
