@@ -68,6 +68,11 @@ public class Lift extends SubsystemBase {
         }).start();
     }
 
+    public void setPower(double power) {
+        this.leftMotor.setPower(power);
+        this.rightMotor.setPower(power);
+    }
+
     public double getTarget() {
         return this.controller.getTarget();
     }
