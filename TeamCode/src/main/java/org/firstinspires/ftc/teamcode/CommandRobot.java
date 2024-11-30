@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPivotPosition;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSetPosition;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
@@ -19,7 +20,6 @@ import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class CommandRobot {
@@ -30,8 +30,7 @@ public class CommandRobot {
     private final Extendo extendo;
     private final Claw claw;
     private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement;
-    public GamepadTrigger intakeAccept, intakeReject;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement, open, close;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
 
@@ -51,9 +50,6 @@ public class CommandRobot {
 
         this.configureCommands();
         this.configureControls();
-
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setClawPower(-d), this.gamepad2);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setClawPower, this.gamepad2);
     }
 
     // AUTON
@@ -77,13 +73,12 @@ public class CommandRobot {
     public void startThreads() {
         this.drivetrain.startThread(this.gamepad1, this.opMode);
         this.lift.startThread(this.opMode);
-        this.claw.startThreads(this.opMode);
         // TODO: Add in more threads if needed
     }
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
-                new ClawSetPosition(this.telemetry, this.claw, Claw.READY),
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
                 new WaitCommand(100),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
@@ -93,65 +88,51 @@ public class CommandRobot {
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.ACCEPTING),
                 new WaitCommand(100),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.DOWN)
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.ACCEPTING)
         );
 
         this.highBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.lowBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_BASKET),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.highRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.lowRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_RUNG),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.UP)
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.score = new SequentialCommandGroup(
                 new WaitCommand(800),
-                new ClawSetPosition(this.telemetry, this.claw, Claw.READY),
+                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
                 new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
         );
 
-        this.liftIncrement = new SequentialCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() + Lift.INCREMENT)
-        );
+        this.liftIncrement = new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() + Lift.INCREMENT);
 
-        this.liftDecrement = new SequentialCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() - Lift.INCREMENT)
+        this.liftDecrement = new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() - Lift.INCREMENT);
 
-        );
+        this.extendoIncrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() + Extendo.INCREMENT);
 
-        this.extendoIncrement = new SequentialCommandGroup(
-                new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() + Extendo.INCREMENT)
-        );
+        this.extendoDecrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() - Extendo.INCREMENT);
 
-        this.extendoDecrement = new SequentialCommandGroup(
-                new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() - Extendo.INCREMENT)
-        );
-    }
+        this.open = new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN);
 
-    public void senseBlock() {
-        Claw.BlockCases status = this.claw.hasValidBlock(Claw.Color.BLUE);
-
-        if (status == Claw.BlockCases.ACCEPT) {
-            this.claw.setClawPower(0);
-            this.ready.schedule();
-        } else if (status == Claw.BlockCases.REJECT) this.claw.setClawPower(-1);
+        this.close = new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE);
     }
 
     // TODO: Configure controls for gamepad (talk with drive team)
@@ -178,5 +159,9 @@ public class CommandRobot {
                 .whenPressed(this.extendoDecrement);
         this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(this.extendoIncrement);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(this.open);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(this.close);
     }
 }

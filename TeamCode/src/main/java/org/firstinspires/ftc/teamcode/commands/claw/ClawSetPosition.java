@@ -13,18 +13,13 @@ public class ClawSetPosition extends CommandBase {
     public ClawSetPosition(final MultipleTelemetry telemetry, final Claw claw, final double position) {
         this.telemetry = telemetry;
         this.position = position;
-
         this.claw = claw;
+
         super.addRequirements(claw);
     }
 
     @Override
     public void initialize() {
-        this.claw.setPosition(position);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
+        this.claw.setClawPosition(this.position);
     }
 }

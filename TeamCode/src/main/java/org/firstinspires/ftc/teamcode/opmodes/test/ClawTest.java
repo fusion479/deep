@@ -5,6 +5,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPivotPosition;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
@@ -20,8 +22,10 @@ public class ClawTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
 
-        this.intake = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, this.claw::setClawPower, this.gamepad);
-        this.outtake = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, (d) -> this.claw.setClawPower(-d), this.gamepad);
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawSetPosition(super.multipleTelemetry, this.claw, Claw.OPEN));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawSetPosition(super.multipleTelemetry, this.claw, Claw.CLOSE));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ClawSetPivotPosition(super.multipleTelemetry, this.claw, Claw.SCORE));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ClawSetPivotPosition(super.multipleTelemetry, this.claw, Claw.ACCEPTING));
     }
 
     @Override
@@ -31,8 +35,6 @@ public class ClawTest extends OpModeCore {
 
         super.waitForStart();
 
-        this.intake.startThread(this);
-        this.outtake.startThread(this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
