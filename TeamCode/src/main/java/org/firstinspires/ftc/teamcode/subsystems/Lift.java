@@ -81,6 +81,10 @@ public class Lift extends SubsystemBase {
         this.controller.setTarget(target);
     }
 
+    public double getPosition() {
+        return this.rightMotor.getCurrentPosition();
+    }
+
     public boolean isFinished() {
         return this.controller.isFinished();
     }

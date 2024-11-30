@@ -34,6 +34,8 @@ public class ManualLiftTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            super.multipleTelemetry.addData("Position", this.lift.getPosition());
+
             super.logCycles();
             super.multipleTelemetry.update();
         }

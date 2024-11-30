@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.hardware.EnhancedColorSensor;
 public class ColorSensorTest extends OpModeCore {
     private EnhancedColorSensor sensor;
 
-    public void initialize(){
+    public void initialize() {
         this.sensor = new EnhancedColorSensor(hardwareMap.get(ColorRangeSensor.class, "sensor"));
     }
 
@@ -27,10 +27,10 @@ public class ColorSensorTest extends OpModeCore {
         super.waitForStart();
 
         this.startThreads(this);
-        while(opModeIsActive()){
-            telemetry.addData("Distance", this.sensor.getDistance());
-            telemetry.addData("Red", this.sensor.getRed());
-            telemetry.addData("Blue", this.sensor.getBlue());
+        while (opModeIsActive()) {
+            super.multipleTelemetry.addData("Distance", this.sensor.getDistance());
+            super.multipleTelemetry.addData("Red", this.sensor.getRed());
+            super.multipleTelemetry.addData("Blue", this.sensor.getBlue());
 
             super.multipleTelemetry.update();
         }
