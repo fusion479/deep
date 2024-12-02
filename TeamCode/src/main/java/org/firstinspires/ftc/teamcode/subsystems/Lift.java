@@ -44,8 +44,8 @@ public class Lift extends SubsystemBase {
         this.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(kP, kI, kD, kG);
         this.controller.setAllowedError(10);
@@ -87,6 +87,10 @@ public class Lift extends SubsystemBase {
 
     public boolean isFinished() {
         return this.controller.isFinished();
+    }
+
+    public double getError() {
+        return this.controller.getLastError();
     }
 
     public void setConstants() {
