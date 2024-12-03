@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPivotPosition;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSetPosition;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
@@ -80,45 +80,45 @@ public class CommandRobot {
         this.ready = new SequentialCommandGroup(
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
                 new WaitCommand(100),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.READY),
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
         );
 
         this.accepting = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.ACCEPTING),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.ACCEPTING),
                 new WaitCommand(100),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.ACCEPTING)
         );
 
         this.highBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_BASKET),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.lowBasket = new ParallelCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_BASKET),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.highRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_RUNG),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.lowRung = new SequentialCommandGroup(
                 new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_RUNG),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.SCORE),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
         );
 
         this.score = new SequentialCommandGroup(
                 new WaitCommand(800),
                 new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
+                new ExtendoAccepting(this.telemetry, this.extendo, Extendo.READY),
                 new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
         );
 
@@ -126,9 +126,9 @@ public class CommandRobot {
 
         this.liftDecrement = new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() - Lift.INCREMENT);
 
-        this.extendoIncrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() + Extendo.INCREMENT);
+        this.extendoIncrement = new ExtendoAccepting(this.telemetry, this.extendo, this.extendo.getPosition() + Extendo.INCREMENT);
 
-        this.extendoDecrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() - Extendo.INCREMENT);
+        this.extendoDecrement = new ExtendoAccepting(this.telemetry, this.extendo, this.extendo.getPosition() - Extendo.INCREMENT);
 
         this.open = new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN);
 
