@@ -8,11 +8,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
+    public static final double MIN_POWER = -0.3;
+    public static final double LOW_VOLTAGE = 12.0;
+
     public static double ACCEPTING = 200;
     public static double LOW_BASKET = 500;
     public static double HIGH_BASKET = 615; // higher
@@ -25,14 +29,16 @@ public class Lift extends SubsystemBase {
     public static double kD = 0;
     public static double kG = 0;
 
-    private final MultipleTelemetry telemetry;
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
-
+    private final VoltageSensor voltage;
     private final PIDController controller;
+
+    private final MultipleTelemetry telemetry;
 
     public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
+        this.voltage = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.rightMotor = hwMap.get(DcMotorEx.class, "liftRight");
         this.leftMotor = hwMap.get(DcMotorEx.class, "liftLeft");
@@ -57,12 +63,18 @@ public class Lift extends SubsystemBase {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {
-                    synchronized (this.leftMotor) {
-                        this.leftMotor.setPower(this.controller.calculate(this.leftMotor.getCurrentPosition()));
-                    }
+                    double power;
+
                     synchronized (this.rightMotor) {
-                        this.rightMotor.setPower(this.controller.calculate(this.rightMotor.getCurrentPosition()));
+                        power = this.controller.calculate(this.rightMotor.getCurrentPosition());
+
+                        this.rightMotor.setPower(Math.max(power, Lift.MIN_POWER));
                     }
+
+                    synchronized (this.leftMotor) {
+                        this.leftMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                    }
+
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -97,5 +109,12 @@ public class Lift extends SubsystemBase {
 
     public void setConstants() {
         this.controller.setCoefficients(kP, kI, kD, kG);
+    }
+
+    public void reset() {
+        setTarget(-999999999);
+        while (this.voltage.getVoltage() > Lift.LOW_VOLTAGE) {
+        }
+        setTarget(0);
     }
 }
