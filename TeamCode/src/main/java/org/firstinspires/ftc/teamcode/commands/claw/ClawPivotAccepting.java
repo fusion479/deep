@@ -5,14 +5,12 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
-public class ClawSetPivotPosition extends CommandBase {
+public class ClawPivotAccepting extends CommandBase {
     private final MultipleTelemetry telemetry;
     private final Claw claw;
-    private final double position;
 
-    public ClawSetPivotPosition(final MultipleTelemetry telemetry, final Claw claw, final double position) {
+    public ClawPivotAccepting(final MultipleTelemetry telemetry, final Claw claw) {
         this.telemetry = telemetry;
-        this.position = position;
 
         this.claw = claw;
         super.addRequirements(claw);
@@ -20,11 +18,6 @@ public class ClawSetPivotPosition extends CommandBase {
 
     @Override
     public void initialize() {
-        this.claw.setPivotPosition(position);
-    }
-
-    @Override
-    public boolean isFinished() {
-        return true;
+        this.claw.setPivotPosition(Claw.ACCEPTING);
     }
 }

@@ -5,7 +5,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -19,10 +22,10 @@ public class LiftTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.lift = new Lift(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.HIGH_RUNG));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_RUNG));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.LOW_BASKET));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftSetPosition(super.multipleTelemetry, this.lift, Lift.HIGH_BASKET));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftHighRung(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftLowRung(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftHighBasket(super.multipleTelemetry, this.lift));
     }
 
     @Override

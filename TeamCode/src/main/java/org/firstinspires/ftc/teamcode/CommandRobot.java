@@ -11,10 +11,20 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPivotPosition;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSetPosition;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftSetPosition;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotScore;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -24,13 +34,12 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 public class CommandRobot {
     private final MultipleTelemetry telemetry;
-
-    private final Drivetrain drivetrain;
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
     private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, extendoIncrement, extendoDecrement, open, close;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, open, close;
+    private Drivetrain drivetrain;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
 
@@ -56,7 +65,6 @@ public class CommandRobot {
     public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
         this.telemetry = telemetry;
 
-        this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
         this.lift = new Lift(hwMap, telemetry);
         this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
@@ -78,61 +86,57 @@ public class CommandRobot {
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
+                new ClawPivotScore(this.telemetry, this.claw),
                 new WaitCommand(100),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
-                new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
+                new ExtendoReady(this.telemetry, this.extendo),
+                new LiftAccepting(this.telemetry, this.lift)
         );
 
         this.accepting = new SequentialCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.ACCEPTING),
+                new LiftAccepting(this.telemetry, this.lift),
+                new ExtendoAccepting(this.telemetry, this.extendo),
                 new WaitCommand(100),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.ACCEPTING)
+                new ClawPivotAccepting(this.telemetry, this.claw)
         );
 
         this.highBasket = new ParallelCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_BASKET),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
+                new LiftHighBasket(this.telemetry, this.lift),
+                new ExtendoScore(this.telemetry, this.extendo),
+                new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.lowBasket = new ParallelCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_BASKET),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
+                new LiftLowBasket(this.telemetry, this.lift),
+                new ExtendoScore(this.telemetry, this.extendo),
+                new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.highRung = new SequentialCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, Lift.HIGH_RUNG),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
+                new LiftHighRung(this.telemetry, this.lift),
+                new ExtendoScore(this.telemetry, this.extendo),
+                new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.lowRung = new SequentialCommandGroup(
-                new LiftSetPosition(this.telemetry, this.lift, Lift.LOW_RUNG),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.SCORE),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.SCORE)
+                new LiftLowRung(this.telemetry, this.lift),
+                new ExtendoScore(this.telemetry, this.extendo),
+                new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.score = new SequentialCommandGroup(
                 new WaitCommand(800),
-                new ClawSetPivotPosition(this.telemetry, this.claw, Claw.READY),
-                new ExtendoSetPosition(this.telemetry, this.extendo, Extendo.READY),
-                new LiftSetPosition(this.telemetry, this.lift, Lift.ACCEPTING)
+                new ClawPivotScore(this.telemetry, this.claw),
+                new ExtendoReady(this.telemetry, this.extendo),
+                new LiftAccepting(this.telemetry, this.lift)
         );
 
-        this.liftIncrement = new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() + Lift.INCREMENT);
+        this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 
-        this.liftDecrement = new LiftSetPosition(this.telemetry, this.lift, this.lift.getTarget() - Lift.INCREMENT);
+        this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
 
-        this.extendoIncrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() + Extendo.INCREMENT);
+        this.open = new ClawOpen(this.telemetry, this.claw);
 
-        this.extendoDecrement = new ExtendoSetPosition(this.telemetry, this.extendo, this.extendo.getPosition() - Extendo.INCREMENT);
-
-        this.open = new ClawSetPosition(this.telemetry, this.claw, Claw.OPEN);
-
-        this.close = new ClawSetPosition(this.telemetry, this.claw, Claw.CLOSE);
+        this.close = new ClawClose(this.telemetry, this.claw);
     }
 
     // TODO: Configure controls for gamepad (talk with drive team)
@@ -155,10 +159,6 @@ public class CommandRobot {
                 .whenPressed(this.lowRung);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(this.highRung);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(this.extendoDecrement);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(this.extendoIncrement);
         this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(this.open);
         this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
