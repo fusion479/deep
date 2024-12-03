@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
@@ -10,15 +11,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
+@Config
 public class Lift extends SubsystemBase {
-    public static double ACCEPTING = 0;
-    public static double LOW_BASKET = 0;
-    public static double HIGH_BASKET = 0;
-    public static double LOW_RUNG = 0;
-    public static double HIGH_RUNG = 0;
-    public static double INCREMENT = 150;
+    public static double ACCEPTING = 200;
+    public static double LOW_BASKET = 500;
+    public static double HIGH_BASKET = 615; // higher
+    public static double LOW_RUNG = 300;
+    public static double HIGH_RUNG = 615;
+    public static double INCREMENT = 50;
 
-    public static double kP = 0;
+    public static double kP = 0.01;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
@@ -27,7 +29,7 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
 
-    private PIDController controller;
+    private final PIDController controller;
 
     public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
@@ -44,8 +46,8 @@ public class Lift extends SubsystemBase {
         this.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(kP, kI, kD, kG);
         this.controller.setAllowedError(10);
@@ -89,7 +91,11 @@ public class Lift extends SubsystemBase {
         return this.controller.isFinished();
     }
 
+    public double getError() {
+        return this.controller.getLastError();
+    }
+
     public void setConstants() {
-        this.controller = new PIDController(kP, kI, kD, kG);
+        this.controller.setCoefficients(kP, kI, kD, kG);
     }
 }

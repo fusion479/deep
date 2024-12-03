@@ -5,8 +5,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPivotPosition;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawSetPosition;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotScore;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
@@ -22,10 +24,10 @@ public class ClawTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawSetPosition(super.multipleTelemetry, this.claw, Claw.OPEN));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawSetPosition(super.multipleTelemetry, this.claw, Claw.CLOSE));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ClawSetPivotPosition(super.multipleTelemetry, this.claw, Claw.SCORE));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ClawSetPivotPosition(super.multipleTelemetry, this.claw, Claw.ACCEPTING));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawOpen(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawClose(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ClawPivotScore(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ClawPivotAccepting(super.multipleTelemetry, this.claw));
     }
 
     @Override

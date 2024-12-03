@@ -1,17 +1,18 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@Config
 public class Claw extends SubsystemBase {
     public static double SCORE = 1;
-    public static double READY = 0.5;
     public static double ACCEPTING = 0.0;
 
-    public static double OPEN = 1.0;
-    public static double CLOSE = 0.0;
+    public static double OPEN = 0.5;
+    public static double CLOSE = 0.72;
 
     private final MultipleTelemetry telemetry;
 
@@ -23,6 +24,8 @@ public class Claw extends SubsystemBase {
         this.leftPivot = hwMap.get(Servo.class, "leftPivot");
         this.rightPivot = hwMap.get(Servo.class, "rightPivot");
         this.claw = hwMap.get(Servo.class, "claw");
+
+        this.claw.setDirection(Servo.Direction.REVERSE);
     }
 
     public void setPivotPosition(double position) {
@@ -32,11 +35,5 @@ public class Claw extends SubsystemBase {
 
     public void setClawPosition(double position) {
         this.claw.setPosition(position);
-    }
-
-    public enum BlockCases {
-        ACCEPT,
-        REJECT,
-        WAIT
     }
 }
