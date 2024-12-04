@@ -5,7 +5,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSetPosition;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -19,9 +21,9 @@ public class ExtendoTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.extendo = new Extendo(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.ACCEPTING));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.SCORE));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ExtendoSetPosition(super.multipleTelemetry, this.extendo, Extendo.READY));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ExtendoAccepting(super.multipleTelemetry, this.extendo));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ExtendoReady(super.multipleTelemetry, this.extendo));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ExtendoScore(super.multipleTelemetry, this.extendo));
     }
 
     @Override

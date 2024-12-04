@@ -5,21 +5,19 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
-public class ClawSetPosition extends CommandBase {
-    private final MultipleTelemetry telemetry;
+public class ClawClose extends CommandBase {
     private final Claw claw;
-    private final double position;
+    private final MultipleTelemetry telemetry;
 
-    public ClawSetPosition(final MultipleTelemetry telemetry, final Claw claw, final double position) {
+    public ClawClose(final MultipleTelemetry telemetry, final Claw claw) {
         this.telemetry = telemetry;
-        this.position = position;
-        this.claw = claw;
 
+        this.claw = claw;
         super.addRequirements(claw);
     }
 
     @Override
     public void initialize() {
-        this.claw.setClawPosition(this.position);
+        this.claw.setClawPosition(Claw.CLOSE);
     }
 }
