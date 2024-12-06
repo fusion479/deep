@@ -62,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
                                 ),
                                 -this.angPower * MAX_ANGULAR_VEL));
                     }
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
