@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 
 @Config
 public class Drivetrain extends SubsystemBase {
-    public static double MAX_ACCEL = 0.1;
-    public static double MAX_ANGULAR_ACCEL = 0.1;
+    public static double MAX_ACCEL = 0.3;
+    public static double MAX_ANGULAR_ACCEL = 0.3;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
@@ -62,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
                                 ),
                                 -this.angPower * MAX_ANGULAR_VEL));
                     }
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
