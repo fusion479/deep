@@ -161,6 +161,5 @@ public class CommandRobot {
                 .whenPressed(this.open);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
-        //put increment and decrement as triggers
     }
 }
