@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -42,6 +43,8 @@ public class CommandRobot {
     private Drivetrain drivetrain;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
+
+    private boolean isExtended = false;
 
     // TELEOP
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode) {
@@ -141,27 +144,62 @@ public class CommandRobot {
 
     // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.accepting);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.lowBasket);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.highBasket);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(this.ready);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(this.liftIncrement);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(this.liftDecrement);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(this.score);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.lowRung);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.highRung);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new ConditionalCommand(
+                        this.lowBasket,
+                        this.lowBasket,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new ConditionalCommand(
+                        this.highBasket,
+                        this.highBasket,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new ConditionalCommand(
+                        this.ready,
+                        this.accepting,
+                        () -> {
+                            toggle();
+                            return active();
+                        }
+                ));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(this.liftIncrement);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(this.liftDecrement);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new ConditionalCommand(
+                        this.lowRung,
+                        this.lowRung,
+                        () -> {
+                           toggle();
+                           return active();
+                        }));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(new ConditionalCommand(
+                        this.highRung,
+                        this.highRung,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(this.open);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
+    }
+
+    private void toggle(){
+        isExtended = !isExtended;
+    }
+
+    private boolean active(){
+        return isExtended;
     }
 }
