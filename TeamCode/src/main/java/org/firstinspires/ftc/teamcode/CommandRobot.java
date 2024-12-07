@@ -39,7 +39,7 @@ public class CommandRobot {
     private final Extendo extendo;
     private final Claw claw;
     private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, open, close;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, score, liftIncrement, liftDecrement, slamDown, open, close;
     private Drivetrain drivetrain;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
@@ -137,6 +137,11 @@ public class CommandRobot {
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
 
+        this.slamDown = new SequentialCommandGroup(
+                new LiftDecrement(this.telemetry, this.lift),
+                new ClawOpen(this.telemetry, this.claw)
+        );
+
         this.open = new ClawOpen(this.telemetry, this.claw);
 
         this.close = new ClawClose(this.telemetry, this.claw);
@@ -160,6 +165,8 @@ public class CommandRobot {
                             toggle();
                             return active();
                         }));
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(this.slamDown);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new ConditionalCommand(
                         this.ready,

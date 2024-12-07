@@ -19,7 +19,7 @@ public class LiftIncrement extends CommandBase {
 
     @Override
     public void initialize() {
-        this.lift.setTarget(Lift.HIGH_BASKET);
+        this.lift.setTarget(this.lift.getPosition() + Lift.INCREMENT);
     }
 
     @Override
