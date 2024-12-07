@@ -20,4 +20,9 @@ public class ClawPivotAccepting extends CommandBase {
     public void initialize() {
         this.claw.setPivotPosition(Claw.ACCEPTING);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

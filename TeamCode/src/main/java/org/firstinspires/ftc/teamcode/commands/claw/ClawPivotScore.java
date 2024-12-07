@@ -20,4 +20,9 @@ public class ClawPivotScore extends CommandBase {
     public void initialize() {
         this.claw.setPivotPosition(Claw.SCORE);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

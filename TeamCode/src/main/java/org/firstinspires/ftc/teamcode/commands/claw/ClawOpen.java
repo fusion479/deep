@@ -20,4 +20,9 @@ public class ClawOpen extends CommandBase {
     public void initialize() {
         this.claw.setClawPosition(Claw.OPEN);
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

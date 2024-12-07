@@ -5,8 +5,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -26,6 +28,8 @@ public class LiftTest extends OpModeCore {
         this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftLowRung(super.multipleTelemetry, this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(super.multipleTelemetry, this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftHighBasket(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new LiftIncrement(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new LiftDecrement(super.multipleTelemetry, this.lift));
     }
 
     @Override
