@@ -170,5 +170,7 @@ public class CommandRobot {
                 .whenPressed(this.open);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(this.slamdown);
     }
 }
