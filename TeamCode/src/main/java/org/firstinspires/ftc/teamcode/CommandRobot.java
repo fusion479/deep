@@ -90,7 +90,7 @@ public class CommandRobot {
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
                 new ClawPivotScore(this.telemetry, this.claw),
-                new WaitCommand(100),
+                new WaitCommand(2000),
                 new ExtendoReady(this.telemetry, this.extendo),
                 new LiftAccepting(this.telemetry, this.lift)
         );
@@ -98,7 +98,7 @@ public class CommandRobot {
         this.accepting = new SequentialCommandGroup(
                 new LiftAccepting(this.telemetry, this.lift),
                 new ExtendoAccepting(this.telemetry, this.extendo),
-                new WaitCommand(100),
+                new WaitCommand(2000),
                 new ClawPivotAccepting(this.telemetry, this.claw)
         );
 
