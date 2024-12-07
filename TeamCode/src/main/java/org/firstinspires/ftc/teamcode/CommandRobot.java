@@ -145,9 +145,21 @@ public class CommandRobot {
     // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
         this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.lowBasket);
+                .whenPressed(new ConditionalCommand(
+                        this.lowBasket,
+                        this.lowBasket,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
         this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.highBasket);
+                .whenPressed(new ConditionalCommand(
+                        this.highBasket,
+                        this.highBasket,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
         this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new ConditionalCommand(
                         this.ready,
@@ -162,9 +174,21 @@ public class CommandRobot {
         this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(this.liftDecrement);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(this.lowRung);
+                .whenPressed(new ConditionalCommand(
+                        this.lowRung,
+                        this.lowRung,
+                        () -> {
+                           toggle();
+                           return active();
+                        }));
         this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                .whenPressed(this.highRung);
+                .whenPressed(new ConditionalCommand(
+                        this.highRung,
+                        this.highRung,
+                        () -> {
+                            toggle();
+                            return active();
+                        }));
         this.gamepad2.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(this.open);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
