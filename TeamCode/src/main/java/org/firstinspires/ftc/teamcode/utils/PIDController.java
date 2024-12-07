@@ -74,7 +74,7 @@ public class PIDController {
     }
 
     public boolean isFinished() {
-        return Math.abs(this.lastError) >= this.allowedError;
+        return Math.abs(this.lastError) <= this.allowedError;
     }
 
     public double getTarget() {
