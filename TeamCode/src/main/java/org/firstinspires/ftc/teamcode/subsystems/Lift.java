@@ -14,20 +14,22 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static final double MIN_POWER = -0.3;
-    public static final double LOW_VOLTAGE = 12.0;
+    public static double MIN_POWER = -0.25;
+    public static double LOW_VOLTAGE = 12.0;
+    public static double ALLOWED_ERROR = 15;
 
-    public static double ACCEPTING = 200;
-    public static double LOW_BASKET = 500;
-    public static double HIGH_BASKET = 615; // higher
-    public static double LOW_RUNG = 300;
-    public static double HIGH_RUNG = 615;
-    public static double INCREMENT = 250;
+    public static double ACCEPTING = 100;
+    public static double LOW_BASKET = 1500;
+    public static double HIGH_BASKET = 2600; // higher
 
-    public static double kP = 0.01;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kG = 0;
+    public static double LOW_RUNG = 1000;
+    public static double HIGH_RUNG = 2000;
+    public static double INCREMENT = 100;
+
+    public static double kP = 0.002;
+    public static double kI = 0.0006;
+    public static double kD = 0.000015;
+    public static double kG = 0.06;
 
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;
@@ -55,8 +57,8 @@ public class Lift extends SubsystemBase {
         this.leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         this.rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(kP, kI, kD, kG);
-        this.controller.setAllowedError(10);
+        this.controller = new PIDController(kP, kI, kD);
+        this.controller.setAllowedError(Lift.ALLOWED_ERROR);
     }
 
     public void startThread(CommandOpMode opMode) {
@@ -67,12 +69,19 @@ public class Lift extends SubsystemBase {
 
                     synchronized (this.rightMotor) {
                         power = this.controller.calculate(this.rightMotor.getCurrentPosition());
-
-                        this.rightMotor.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
-                    synchronized (this.leftMotor) {
-                        this.leftMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                    if (!this.controller.isFinished()) {
+                        synchronized (this.rightMotor) {
+                            this.rightMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                        }
+
+                        synchronized (this.leftMotor) {
+                            this.leftMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                        }
+                    } else {
+                        this.leftMotor.setPower(Lift.kG);
+                        this.rightMotor.setPower(Lift.kG);
                     }
 
                     Thread.sleep(50);
