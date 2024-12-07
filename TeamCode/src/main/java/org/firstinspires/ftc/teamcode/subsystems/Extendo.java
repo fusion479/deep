@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double ACCEPTING = 0.4;
-    public static double SCORE = 0.1;
-    public static double READY = 0.2;
+    public static double ACCEPTING = 0.55;
+    public static double SCORE = 0.55;
+    public static double READY = 0.1;
     public static double INCREMENT = 0.05;
 
     private final MultipleTelemetry telemetry;

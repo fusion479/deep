@@ -19,7 +19,7 @@ public class LiftDecrement extends CommandBase {
 
     @Override
     public void initialize() {
-        this.lift.setTarget(this.lift.getPosition() - Lift.INCREMENT);
+        this.lift.setTarget(this.lift.getTarget() - Lift.INCREMENT);
     }
 
     @Override

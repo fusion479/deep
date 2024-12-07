@@ -18,7 +18,7 @@ public class LiftSlam extends CommandBase {
 
     @Override
     public void initialize() {
-        this.lift.setTarget(this.lift.getPosition() - 4 * Lift.INCREMENT);
+        this.lift.setTarget(this.lift.getTarget() - 4 * Lift.INCREMENT);
     }
 
     @Override

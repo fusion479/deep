@@ -32,6 +32,7 @@ public class Main extends OpModeCore {
         this.initialize();
         super.waitForStart();
 
+        this.robot.startThreads();
         while (!isStopRequested() && opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
