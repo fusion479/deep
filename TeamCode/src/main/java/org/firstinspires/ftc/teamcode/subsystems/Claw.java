@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Claw extends SubsystemBase {
     public static double SCORE = 1;
-    public static double ACCEPTING = 0.0;
+    public static double ACCEPTING = 0.55;
 
-    public static double OPEN = 0.5;
-    public static double CLOSE = 0.72;
+    public static double OPEN = 1;
+    public static double CLOSE = 0.52;
 
     private final MultipleTelemetry telemetry;
 
@@ -24,8 +24,6 @@ public class Claw extends SubsystemBase {
         this.leftPivot = hwMap.get(Servo.class, "leftPivot");
         this.rightPivot = hwMap.get(Servo.class, "rightPivot");
         this.claw = hwMap.get(Servo.class, "claw");
-
-        this.claw.setDirection(Servo.Direction.REVERSE);
     }
 
     public void setPivotPosition(double position) {

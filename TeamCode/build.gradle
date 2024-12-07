@@ -13,9 +13,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url = 'https://www.matthewo.tech/maven/'
-        }
     }
 }
 

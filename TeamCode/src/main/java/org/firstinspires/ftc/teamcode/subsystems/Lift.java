@@ -14,19 +14,19 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static final double MIN_POWER = -0.3;
-    public static final double LOW_VOLTAGE = 12.0;
+    public static double MIN_POWER = -0.0000306;
+    public static double LOW_VOLTAGE = 12.0;
 
-    public static double ACCEPTING = 200;
-    public static double LOW_BASKET = 500;
-    public static double HIGH_BASKET = 615; // higher
-    public static double LOW_RUNG = 300;
-    public static double HIGH_RUNG = 615;
+    public static double ACCEPTING = 100;
+    public static double LOW_BASKET = 300;
+    public static double HIGH_BASKET = 900; // higher
+    public static double LOW_RUNG = 600;
+    public static double HIGH_RUNG = 1050;
     public static double INCREMENT = 50;
 
-    public static double kP = 0.01;
+    public static double kP = 0.7;
     public static double kI = 0;
-    public static double kD = 0;
+    public static double kD = 0.004;
     public static double kG = 0;
 
     private final DcMotorEx rightMotor;
