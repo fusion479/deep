@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -40,7 +41,7 @@ public class CommandRobot {
     private final Extendo extendo;
     private final Claw claw;
     private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close, slamdown;
     private Drivetrain drivetrain;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
@@ -140,6 +141,8 @@ public class CommandRobot {
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
 
+        this.slamdown = new LiftSlam(this.telemetry, this.lift);
+
         this.open = new ClawOpen(this.telemetry, this.claw);
 
         this.close = new ClawClose(this.telemetry, this.claw);
@@ -167,5 +170,7 @@ public class CommandRobot {
                 .whenPressed(this.open);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(this.slamdown);
     }
 }
