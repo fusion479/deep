@@ -141,27 +141,26 @@ public class CommandRobot {
 
     // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.accepting);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.lowBasket);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.highBasket);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(this.ready);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(this.liftIncrement);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(this.liftDecrement);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(this.score);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.lowRung);
+                .whenPressed(this.accepting);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(this.lowBasket);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(this.highBasket);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(this.ready);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(this.liftIncrement);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(this.liftDecrement);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(this.lowRung);
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(this.highRung);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(this.open);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
+        //put increment and decrement as triggers
     }
 }
