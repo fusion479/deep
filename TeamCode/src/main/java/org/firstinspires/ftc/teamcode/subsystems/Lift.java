@@ -99,6 +99,10 @@ public class Lift extends SubsystemBase {
         return this.rightMotor.getCurrentPosition();
     }
 
+    public double getVoltage() {
+        return this.voltage.getVoltage();
+    }
+
     public boolean isFinished() {
         return this.controller.isFinished();
     }

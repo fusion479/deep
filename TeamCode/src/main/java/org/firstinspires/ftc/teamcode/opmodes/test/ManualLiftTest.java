@@ -40,6 +40,7 @@ public class ManualLiftTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.multipleTelemetry.addData("Position", this.lift.getPosition());
+            super.multipleTelemetry.addLine("FUCK YOU");
 
             super.logCycles();
             super.multipleTelemetry.update();
