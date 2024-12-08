@@ -20,6 +20,8 @@ public class Extendo extends SubsystemBase {
         this.telemetry = telemetry;
 
         this.extendo = hwMap.get(Servo.class, "extendo");
+
+        this.extendo.setPosition(Extendo.READY);
     }
 
     public double getPosition() {
