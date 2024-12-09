@@ -1,5 +1,4 @@
-package org.firstinspires.ftc.teamcode;
-
+package org.firstinspires.ftc.teamcode.roadrunner;
 
 
 import static com.acmerobotics.roadrunner.ftc.OTOSKt.OTOSPoseToRRPose;
@@ -13,9 +12,10 @@ import com.acmerobotics.roadrunner.ftc.FlightRecorder;
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.messages.PoseMessage;
+import org.firstinspires.ftc.teamcode.roadrunner.messages.PoseMessage;
 
 /**
  * Experimental extension of MecanumDrive that uses the SparkFun OTOS sensor for localization.
@@ -69,8 +69,8 @@ public class SparkFunOTOSDrive extends MecanumDrive {
 
     public SparkFunOTOSDrive(HardwareMap hardwareMap, Pose2d pose) {
         super(hardwareMap, pose);
-        FlightRecorder.write("OTOS_PARAMS",PARAMS);
-        otos = hardwareMap.get(SparkFunOTOSCorrected.class,"sensor_otos");
+        FlightRecorder.write("OTOS_PARAMS", PARAMS);
+        otos = hardwareMap.get(SparkFunOTOSCorrected.class, "sensor_otos");
         // RR localizer note:
         // don't change the units, it will stop Dashboard field view from working properly
         // and might cause various other issues
@@ -103,6 +103,7 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         System.out.println(otos.calibrateImu(255, true));
         System.out.println("OTOS calibration complete!");
     }
+
     @Override
     public PoseVelocity2d updatePoseEstimate() {
         if (lastOtosPose != pose) {
@@ -126,7 +127,7 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         SparkFunOTOS.Pose2D otosPose = new SparkFunOTOS.Pose2D();
         SparkFunOTOS.Pose2D otosVel = new SparkFunOTOS.Pose2D();
         SparkFunOTOS.Pose2D otosAcc = new SparkFunOTOS.Pose2D();
-        otos.getPosVelAcc(otosPose,otosVel,otosAcc);
+        otos.getPosVelAcc(otosPose, otosVel, otosAcc);
         pose = OTOSPoseToRRPose(otosPose);
         lastOtosPose = pose;
 
@@ -140,7 +141,7 @@ public class SparkFunOTOSDrive extends MecanumDrive {
 
         // RR localizer note:
         // OTOS velocity units happen to be identical to Roadrunners, so we don't need any conversion!
-        return new PoseVelocity2d(new Vector2d(otosVel.x, otosVel.y),otosVel.h);
+        return new PoseVelocity2d(new Vector2d(otosVel.x, otosVel.y), otosVel.h);
     }
 
 

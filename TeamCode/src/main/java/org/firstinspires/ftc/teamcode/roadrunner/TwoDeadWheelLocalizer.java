@@ -24,12 +24,21 @@ import org.firstinspires.ftc.teamcode.roadrunner.messages.TwoDeadWheelInputsMess
 
 @Config
 public final class TwoDeadWheelLocalizer implements Localizer {
+    public static class Params {
+        public double parYTicks = 0.0; // y position of the parallel encoder (in tick units)
+        public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
+    }
+
     public static Params PARAMS = new Params();
+
     public final Encoder par, perp;
     public final IMU imu;
-    private final double inPerTick;
-    private int lastParPos, lastPerpPos;
+
+    private double lastParPos, lastPerpPos;
     private Rotation2d lastHeading;
+
+    private final double inPerTick;
+
     private double lastRawHeadingVel, headingVelOffset;
     private boolean initialized;
 
@@ -58,7 +67,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         // Use degrees here to work around https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/1070
         AngularVelocity angularVelocityDegrees = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
         AngularVelocity angularVelocity = new AngularVelocity(
-                AngleUnit.RADIANS, // TODO: CHECK THIS (might screw up)
+                UnnormalizedAngleUnit.RADIANS,
                 (float) Math.toRadians(angularVelocityDegrees.xRotationRate),
                 (float) Math.toRadians(angularVelocityDegrees.yRotationRate),
                 (float) Math.toRadians(angularVelocityDegrees.zRotationRate),
@@ -90,8 +99,8 @@ public final class TwoDeadWheelLocalizer implements Localizer {
             );
         }
 
-        int parPosDelta = parPosVel.position - lastParPos;
-        int perpPosDelta = perpPosVel.position - lastPerpPos;
+        double parPosDelta = parPosVel.position - lastParPos;
+        double perpPosDelta = perpPosVel.position - lastPerpPos;
         double headingDelta = heading.minus(lastHeading);
 
         Twist2dDual<Time> twist = new Twist2dDual<>(
@@ -116,10 +125,5 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         lastHeading = heading;
 
         return twist;
-    }
-
-    public static class Params {
-        public double parYTicks = 0.0; // y position of the parallel encoder (in tick units)
-        public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
     }
 }
