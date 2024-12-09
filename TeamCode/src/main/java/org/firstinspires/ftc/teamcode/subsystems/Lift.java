@@ -59,6 +59,8 @@ public class Lift extends SubsystemBase {
 
         this.controller = new PIDController(kP, kI, kD);
         this.controller.setAllowedError(Lift.ALLOWED_ERROR);
+
+        this.reset();
     }
 
     public void startThread(CommandOpMode opMode) {
