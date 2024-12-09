@@ -36,18 +36,14 @@ public class Park extends OpModeCore {
         this.timer.reset();
         while (super.opModeIsActive()) {
             CommandScheduler.getInstance().run();
-            super.telemetry.addData("TIMER", this.timer.milliseconds());
-            super.telemetry.addData("CONDITION", this.timer.milliseconds() <= Park.DURATION);
 
             if (this.timer.milliseconds() <= Park.DURATION) {
                 this.drive.setPowers(-0.25, -0.25, -0.25, -0.25);
             } else {
                 this.drive.setPowers(0, 0, 0, 0);
             }
-            super.telemetry.update();
         }
 
         super.end();
-
     }
 }

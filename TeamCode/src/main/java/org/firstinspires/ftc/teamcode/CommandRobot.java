@@ -48,7 +48,8 @@ public class CommandRobot {
     private GamepadEx gamepad2;
     private final OpModeCore opMode;
 
-    public static int CLAW_DEPLOY_DELAY = 450;
+    public static int CLAW_ACCEPT_DELAY = 450;
+    public static int CLAW_RETRACT_DELAY = 450;
     public static int LIFT_DELAY = 250;
 
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
@@ -92,53 +93,47 @@ public class CommandRobot {
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
+                new LiftAccepting(this.telemetry, this.lift),
                 new ClawClose(this.telemetry, this.claw),
                 new ClawPivotScore(this.telemetry, this.claw),
-                new WaitCommand(1000),
-                new ExtendoReady(this.telemetry, this.extendo),
-                new LiftAccepting(this.telemetry, this.lift)
-
+                new WaitCommand(CommandRobot.CLAW_RETRACT_DELAY),
+                new ExtendoReady(this.telemetry, this.extendo)
         );
 
         this.accepting = new SequentialCommandGroup(
                 new LiftAccepting(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.CLAW_DEPLOY_DELAY - 100),
                 new ExtendoAccepting(this.telemetry, this.extendo),
+                new WaitCommand(CommandRobot.CLAW_ACCEPT_DELAY),
                 new ClawOpen(this.telemetry, this.claw),
                 new ClawPivotAccepting(this.telemetry, this.claw)
         );
 
         this.highBasket = new SequentialCommandGroup(
                 new LiftHighBasket(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.LIFT_DELAY + 300),
                 new ExtendoScore(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.lowBasket = new SequentialCommandGroup(
                 new LiftLowBasket(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.LIFT_DELAY + 100),
                 new ExtendoScore(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.highRung = new SequentialCommandGroup(
                 new LiftHighRung(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.LIFT_DELAY + 200),
                 new ExtendoScore(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.lowRung = new SequentialCommandGroup(
                 new LiftLowRung(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.LIFT_DELAY),
                 new ExtendoScore(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
         this.specimen = new SequentialCommandGroup(
                 new LiftLowRung(this.telemetry, this.lift),
-                new WaitCommand(CommandRobot.LIFT_DELAY),
                 new ExtendoReady(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw),
                 new ClawOpen(this.telemetry, this.claw)
