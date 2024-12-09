@@ -87,7 +87,11 @@ public class CommandRobot {
     }
 
     public void startThreads() {
-        this.drivetrain.startThread(this.mode == TeleOpMode.OWEN || this.mode == TeleOpMode.RYAN ? this.gamepad1 : this.gamepad2, this.opMode);
+        if (this.mode == TeleOpMode.OWEN || this.mode == TeleOpMode.RYAN)
+            this.drivetrain.startThread(this.gamepad1, this.opMode);
+        else
+            this.drivetrain.startThread(this.gamepad2, this.opMode);
+
         this.lift.startThread(this.opMode);
     }
 
