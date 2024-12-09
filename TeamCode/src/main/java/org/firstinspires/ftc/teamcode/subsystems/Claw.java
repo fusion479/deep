@@ -12,7 +12,7 @@ public class Claw extends SubsystemBase {
     public static double ACCEPTING = 0.55;
 
     public static double OPEN = 1;
-    public static double CLOSE = 0.52;
+    public static double CLOSE = 0.49;
 
     private final MultipleTelemetry telemetry;
 
@@ -24,6 +24,9 @@ public class Claw extends SubsystemBase {
         this.leftPivot = hwMap.get(Servo.class, "leftPivot");
         this.rightPivot = hwMap.get(Servo.class, "rightPivot");
         this.claw = hwMap.get(Servo.class, "claw");
+
+        this.setPivotPosition(Claw.SCORE);
+        this.setClawPosition(Claw.CLOSE);
     }
 
     public void setPivotPosition(double position) {

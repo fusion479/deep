@@ -4,7 +4,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -26,7 +25,6 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -41,7 +39,7 @@ public class CommandRobot {
     private final Extendo extendo;
     private final Claw claw;
     private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close, slamdown, specimen;
     private Drivetrain drivetrain;
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
@@ -87,36 +85,37 @@ public class CommandRobot {
     }
 
     public void startThreads() {
-        this.drivetrain.startThread(this.gamepad2, this.opMode);
+        this.drivetrain.startThread(this.gamepad1, this.opMode);
         this.lift.startThread(this.opMode);
         // TODO: Add in more threads if needed
     }
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
-                new LiftAccepting(this.telemetry, this.lift),
                 new ClawClose(this.telemetry, this.claw),
                 new ClawPivotScore(this.telemetry, this.claw),
-                new WaitCommand(CommandRobot.CLAW_DEPLOY_DELAY),
-                new ExtendoReady(this.telemetry, this.extendo)
+                new WaitCommand(1000),
+                new ExtendoReady(this.telemetry, this.extendo),
+                new LiftAccepting(this.telemetry, this.lift)
+
         );
 
         this.accepting = new SequentialCommandGroup(
                 new LiftAccepting(this.telemetry, this.lift),
+                new WaitCommand(CommandRobot.CLAW_DEPLOY_DELAY - 100),
                 new ExtendoAccepting(this.telemetry, this.extendo),
-                new WaitCommand(CommandRobot.CLAW_DEPLOY_DELAY),
                 new ClawOpen(this.telemetry, this.claw),
                 new ClawPivotAccepting(this.telemetry, this.claw)
         );
 
-        this.highBasket = new ParallelCommandGroup(
+        this.highBasket = new SequentialCommandGroup(
                 new LiftHighBasket(this.telemetry, this.lift),
                 new WaitCommand(CommandRobot.LIFT_DELAY + 300),
                 new ExtendoScore(this.telemetry, this.extendo),
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
-        this.lowBasket = new ParallelCommandGroup(
+        this.lowBasket = new SequentialCommandGroup(
                 new LiftLowBasket(this.telemetry, this.lift),
                 new WaitCommand(CommandRobot.LIFT_DELAY + 100),
                 new ExtendoScore(this.telemetry, this.extendo),
@@ -137,6 +136,15 @@ public class CommandRobot {
                 new ClawPivotScore(this.telemetry, this.claw)
         );
 
+        this.specimen = new SequentialCommandGroup(
+                new LiftLowRung(this.telemetry, this.lift),
+                new WaitCommand(CommandRobot.LIFT_DELAY),
+                new ExtendoReady(this.telemetry, this.extendo),
+                new ClawPivotScore(this.telemetry, this.claw),
+                new ClawOpen(this.telemetry, this.claw)
+        );
+
+
         this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
@@ -148,25 +156,25 @@ public class CommandRobot {
 
     // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(this.accepting);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.highBasket);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+//        this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+        //               .whenPressed(this.highBasket);
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(this.ready);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(this.lowBasket);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(this.liftIncrement);
         this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(this.liftDecrement);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(this.lowRung);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(this.highRung);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(this.open);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(this.close);
     }
 }

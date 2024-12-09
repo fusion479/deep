@@ -20,16 +20,16 @@ public class Lift extends SubsystemBase {
 
     public static double ACCEPTING = 50;
     public static double LOW_BASKET = 1500;
-    public static double HIGH_BASKET = 2600; // higher
+    public static double HIGH_BASKET = 2800;
 
     public static double LOW_RUNG = 1000;
-    public static double HIGH_RUNG = 2050;
+    public static double HIGH_RUNG = 2100;
     public static double INCREMENT = 250;
 
-    public static double kP = 0.0018;
+    public static double kP = 0.0015;
     public static double kI = 0.0006;
     public static double kD = 0.000015;
-    public static double kG = 0.06;
+    public static double kG = 0.063;
 
     private final DcMotorEx rightMotor;
     private final DcMotorEx leftMotor;

@@ -15,13 +15,13 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 @Config
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
-    public static double MAX_ANGULAR_ACCEL = 0.3;
+    public static double MAX_ANGULAR_ACCEL = 0.1;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
 
     public static double MAX_VEL = 0.75;
-    public static double MAX_ANGULAR_VEL = 0.75;
+    public static double MAX_ANGULAR_VEL = 0.6;
 
     private final MecanumDrive drive;
     private final MultipleTelemetry telemetry;
