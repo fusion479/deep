@@ -25,7 +25,6 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -149,8 +148,6 @@ public class CommandRobot {
         this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
-
-        this.slamdown = new LiftSlam(this.telemetry, this.lift);
 
         this.open = new ClawOpen(this.telemetry, this.claw);
 
