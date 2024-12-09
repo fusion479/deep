@@ -34,23 +34,24 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close, slamdown, specimen;
+    private TeleOpMode mode;
+
     private final MultipleTelemetry telemetry;
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
-    private final OpModeCore opMode;
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, open, close, slamdown, specimen;
+
     private Drivetrain drivetrain;
+
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
+    private final OpModeCore opMode;
 
     public static int CLAW_DEPLOY_DELAY = 450;
     public static int LIFT_DELAY = 250;
 
-    private final boolean isExtended = false;
-
-    // TELEOP
-    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode) {
+    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
         this.telemetry = telemetry;
 
         this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose2d(0, 0, 0));
@@ -62,12 +63,12 @@ public class CommandRobot {
         this.gamepad2 = new GamepadEx(gamepad2);
 
         this.opMode = opMode;
+        this.mode = mode;
 
         this.configureCommands();
         this.configureControls();
     }
 
-    // AUTON
     public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
         this.telemetry = telemetry;
 
@@ -85,9 +86,8 @@ public class CommandRobot {
     }
 
     public void startThreads() {
-        this.drivetrain.startThread(this.gamepad1, this.opMode);
+        this.drivetrain.startThread(this.mode == TeleOpMode.OWEN || this.mode == TeleOpMode.RYAN ? this.gamepad1 : this.gamepad2, this.opMode);
         this.lift.startThread(this.opMode);
-        // TODO: Add in more threads if needed
     }
 
     public void configureCommands() {
@@ -144,7 +144,6 @@ public class CommandRobot {
                 new ClawOpen(this.telemetry, this.claw)
         );
 
-
         this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
@@ -154,27 +153,95 @@ public class CommandRobot {
         this.close = new ClawClose(this.telemetry, this.claw);
     }
 
-    // TODO: Configure controls for gamepad (talk with drive team)
     public void configureControls() {
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.accepting);
-//        this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
-        //               .whenPressed(this.highBasket);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.ready);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(this.lowBasket);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(this.liftIncrement);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(this.liftDecrement);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(this.lowRung);
-        this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(this.highRung);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(this.open);
-        this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(this.close);
+        switch (this.mode) {
+            /* ------------------------------------- */
+            /* --------------- OWEN ---------------- */
+            /* ------------------------------------- */
+
+            case OWEN:
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.ready);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.accepting);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(this.liftDecrement);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.lowRung);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.highRung);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                        .whenPressed(this.highBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.lowBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(this.close);
+                break;
+
+            /* ------------------------------------- */
+            /* --------------- RYAN ---------------- */
+            /* ------------------------------------- */
+
+            case RYAN:
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.accepting);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.highBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.ready);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.lowBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(this.liftDecrement);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.lowRung);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.highRung);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(this.close);
+                break;
+
+            /* ------------------------------------- */
+            /* ------------ RYAN & KELLY ----------- */
+            /* ------------------------------------- */
+
+            case RYAN_KELLY:
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.accepting);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.highBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.ready);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.lowBasket);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(this.liftDecrement);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.lowRung);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.highRung);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(this.close);
+
+                break;
+        }
+    }
+
+    public enum TeleOpMode {
+        OWEN,
+        RYAN,
+        RYAN_KELLY
     }
 }
