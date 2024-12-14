@@ -18,11 +18,12 @@ public class ExtendoReady extends CommandBase {
 
     @Override
     public void initialize() {
-        this.extendo.setPosition(Extendo.READY);
+        // TODO: Get the right positions.
+        this.extendo.setPosition(Extendo.TARGET);
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return this.extendo.isFinished();
     }
 }

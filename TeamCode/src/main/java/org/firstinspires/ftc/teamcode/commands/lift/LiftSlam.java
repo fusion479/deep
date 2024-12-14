@@ -9,7 +9,7 @@ public class LiftSlam extends CommandBase {
     private final MultipleTelemetry telemetry;
     private final Lift lift;
 
-    public LiftSlam(final MultipleTelemetry telemetry, final Lift lift){
+    public LiftSlam(final MultipleTelemetry telemetry, final Lift lift) {
         this.telemetry = telemetry;
 
         this.lift = lift;
@@ -18,7 +18,7 @@ public class LiftSlam extends CommandBase {
 
     @Override
     public void initialize() {
-        this.lift.setTarget(this.lift.getTarget() - 4 * Lift.INCREMENT);
+        this.lift.setTarget(this.lift.getTarget() - Lift.SLAM);
     }
 
     @Override

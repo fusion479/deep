@@ -18,13 +18,15 @@ public class Lift extends SubsystemBase {
     public static double LOW_VOLTAGE = 12.0;
     public static double ALLOWED_ERROR = 15;
 
-    public static double ACCEPTING = 50;
     public static double LOW_BASKET = 1500;
     public static double HIGH_BASKET = 2800;
 
     public static double LOW_RUNG = 1000;
     public static double HIGH_RUNG = 2100;
+
+    public static double ACCEPTING = 50;
     public static double INCREMENT = 250;
+    public static double SLAM = 750;
 
     public static double kP = 0.0015;
     public static double kI = 0.0006;
@@ -60,7 +62,8 @@ public class Lift extends SubsystemBase {
         this.controller = new PIDController(kP, kI, kD);
         this.controller.setAllowedError(Lift.ALLOWED_ERROR);
 
-        this.reset();
+        // TODO: Make this work.
+        // this.reset();
     }
 
     public void startThread(CommandOpMode opMode) {
@@ -123,13 +126,17 @@ public class Lift extends SubsystemBase {
     }
 
     public void setConstants() {
-        this.controller.setCoefficients(kP, kI, kD, kG);
+        this.controller.setCoefficients(kP, kI, kD);
     }
 
     public void reset() {
-        setTarget(-999999999);
+        this.setTarget(-999999999);
         while (this.voltage.getVoltage() > Lift.LOW_VOLTAGE) {
         }
-        setTarget(0);
+
+        this.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        this.setTarget(0);
     }
 }

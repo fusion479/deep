@@ -20,11 +20,12 @@ public class ExtendoSetPosition extends CommandBase {
 
     @Override
     public void initialize() {
-        this.extendo.setPosition(position);
+        // TODO: Get the right positions.
+        this.extendo.setPosition(Extendo.TARGET);
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return this.extendo.isFinished();
     }
 }

@@ -37,6 +37,12 @@ public class ExtendoTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            super.multipleTelemetry.addData("Position", this.extendo.getPosition());
+            super.multipleTelemetry.addData("Target", this.extendo.getTarget());
+            super.multipleTelemetry.addData("Error", this.extendo.getError());
+
+            this.extendo.setConstants();
+
             super.logCycles();
             super.multipleTelemetry.update();
         }
