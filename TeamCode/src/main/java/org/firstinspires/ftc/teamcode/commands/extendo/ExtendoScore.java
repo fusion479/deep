@@ -23,6 +23,6 @@ public class ExtendoScore extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return true;
+        return this.extendo.isFinished();
     }
 }
