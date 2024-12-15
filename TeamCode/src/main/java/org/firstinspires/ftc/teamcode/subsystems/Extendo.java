@@ -11,12 +11,16 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.0;
-    public static double kI = 0.0;
-    public static double kD = 0.0;
+    public static double kP = 0.015;
+    public static double kI = 0.0001;
+    public static double kD = 0.0001;
+    public static double OFFSET = 306.0;
 
     public static int ALLOWED_ERROR = 15;
-    public static int TARGET = 0;
+    public static int SCORE = 0;
+    public static int READY = 100;
+    public static int ACCEPTING = 350;
+
     private final MultipleTelemetry telemetry;
 
     public final AnalogInput encoder;
@@ -32,7 +36,7 @@ public class Extendo extends SubsystemBase {
     }
 
     public double getPosition() {
-        return (this.encoder.getVoltage() / 3.3 * 360);
+        return Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360);
     }
 
     @Override
@@ -43,7 +47,7 @@ public class Extendo extends SubsystemBase {
     }
 
     public void setConstants() {
-        this.controller.setCoefficients(kP, kI, kD);
+        this.controller.setCoefficients(Extendo.kP, Extendo.kI, Extendo.kD);
     }
 
     public double getTarget() {

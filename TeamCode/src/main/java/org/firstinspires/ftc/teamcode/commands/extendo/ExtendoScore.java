@@ -19,7 +19,7 @@ public class ExtendoScore extends CommandBase {
     @Override
     public void initialize() {
         // TODO: Get the right positions.
-        this.extendo.setPosition(Extendo.TARGET);
+        this.extendo.setPosition(Extendo.SCORE);
     }
 
     @Override
