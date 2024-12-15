@@ -33,6 +33,7 @@ public class ExtendoTest extends OpModeCore {
 
         super.waitForStart();
 
+        this.extendo.startThread(this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

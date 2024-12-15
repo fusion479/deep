@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -35,15 +36,16 @@ public class Extendo extends SubsystemBase {
         this.encoder = hwMap.get(AnalogInput.class, "encoder");
     }
 
-    public double getPosition() {
+    public synchronized double getPosition() {
         return Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360);
     }
 
-    @Override
-    public void periodic() {
-        double power = this.controller.calculate(this.getPosition());
-        this.telemetry.addData("Power", power);
-        this.extendo.setPower(power);
+    public void startThread(CommandOpMode opMode) {
+        while (opMode.opModeIsActive())
+            synchronized (this.extendo) {
+                double power = this.controller.calculate(this.getPosition());
+                this.extendo.setPower(power);
+            }
     }
 
     public void setConstants() {
