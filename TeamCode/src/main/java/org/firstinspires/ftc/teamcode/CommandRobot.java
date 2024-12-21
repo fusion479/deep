@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -26,7 +25,8 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
-import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
@@ -54,12 +54,11 @@ public class CommandRobot {
 
     public static int CLAW_ACCEPT_DELAY = 450;
     public static int CLAW_RETRACT_DELAY = 450;
-    public static int LIFT_DELAY = 250;
 
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
         this.telemetry = telemetry;
 
-        this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose2d(0, 0, 0));
+        this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose(0, 0, 0));
         this.lift = new Lift(hwMap, telemetry);
         this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
@@ -74,7 +73,7 @@ public class CommandRobot {
         this.configureControls();
     }
 
-    public CommandRobot(HardwareMap hwMap, Pose2d startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
+    public CommandRobot(HardwareMap hwMap, Pose startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
         this.telemetry = telemetry;
 
         this.lift = new Lift(hwMap, telemetry);
@@ -84,10 +83,6 @@ public class CommandRobot {
         this.opMode = opMode;
 
         this.configureCommands();
-    }
-
-    public MecanumDrive getDrive() {
-        return this.drivetrain.getDrive();
     }
 
     public void startThreads() {
@@ -238,5 +233,9 @@ public class CommandRobot {
         OWEN,
         RYAN,
         RYAN_KELLY
+    }
+
+    public Follower follower() {
+        return this.drivetrain.getFollower();
     }
 }

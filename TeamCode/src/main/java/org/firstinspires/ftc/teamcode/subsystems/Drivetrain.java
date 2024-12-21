@@ -2,15 +2,13 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.PoseVelocity2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 
 @Config
 public class Drivetrain extends SubsystemBase {
@@ -23,17 +21,16 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_VEL = 0.75;
     public static double MAX_ANGULAR_VEL = 0.6;
 
-    private final MecanumDrive drive;
+    private Follower follower;
+
     private final MultipleTelemetry telemetry;
 
     private double xPower = 0.0;
     private double angPower = 0.0;
     private double yPower = 0.0;
 
-    public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose2d startPose) {
+    public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose startPose) {
         this.telemetry = telemetry;
-
-        this.drive = new MecanumDrive(hwMap, startPose);
     }
 
     private static double calculateAccel(double accel, double deaccel, double prevPower, double check) {
@@ -48,19 +45,17 @@ public class Drivetrain extends SubsystemBase {
 
     public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
         new Thread(() -> {
+            this.follower.startTeleopDrive();
+
             while (opMode.opModeIsActive())
                 try {
-                    synchronized (this.drive) {
+                    synchronized (this.follower) {
                         this.yPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.yPower, gamepad.getLeftY());
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
 
-                        this.drive.setDrivePowers(new PoseVelocity2d(
-                                new Vector2d(
-                                        this.yPower * MAX_VEL,
-                                        -this.xPower * MAX_VEL
-                                ),
-                                -this.angPower * MAX_ANGULAR_VEL));
+                        this.follower.setTeleOpMovementVectors(-yPower, -xPower, -angPower, true);
+                        this.follower.update();
                     }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -69,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
         }).start();
     }
 
-    public MecanumDrive getDrive() {
-        return drive;
+    public Follower getFollower() {
+        return this.follower;
     }
 }
