@@ -5,12 +5,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotAccepting;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotScore;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawRotateDown;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawRotateUp;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawDown;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawUp;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
@@ -29,11 +25,9 @@ public class ClawTest extends OpModeCore {
         this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
         this.extendo = new Extendo(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawRotateDown(super.multipleTelemetry, this.claw));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawRotateDown(super.multipleTelemetry, this.claw));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new ClawRotateUp(super.multipleTelemetry, this.claw));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ClawPivotScore(super.multipleTelemetry, this.claw));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new ClawPivotAccepting(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawDown(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawDown(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new ClawUp(super.multipleTelemetry, this.claw));
 
         this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setClawPower(-d), this.gamepad);
         this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setClawPower, this.gamepad);
