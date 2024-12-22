@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.red;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Autonomous(name = "Red Close Basket", preselectTeleOp = "Main")
@@ -14,7 +14,7 @@ public class CloseBasket extends OpModeCore {
     @Override
     public void initialize() {
         // TODO: Input correct starting position
-        this.robot = new CommandRobot(super.hardwareMap, new Pose2d(0, 0, 0), super.multipleTelemetry, this);
+        this.robot = new CommandRobot(super.hardwareMap, new Pose(0, 0, 0), super.multipleTelemetry, this);
     }
 
     @Override
