@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.hardware.EnhancedColorSensor;
@@ -12,11 +12,7 @@ public class ColorSensorTest extends OpModeCore {
     private EnhancedColorSensor sensor;
 
     public void initialize() {
-        this.sensor = new EnhancedColorSensor(hardwareMap.get(ColorRangeSensor.class, "sensor"));
-    }
-
-    public void startThreads(OpModeCore opMode) {
-        this.sensor.startThread(opMode);
+        this.sensor = new EnhancedColorSensor(hardwareMap.get(RevColorSensorV3.class, "sensor"));
     }
 
     public void runOpMode() throws InterruptedException {
@@ -26,7 +22,7 @@ public class ColorSensorTest extends OpModeCore {
 
         super.waitForStart();
 
-        this.startThreads(this);
+        this.sensor.startThread(this);
         while (opModeIsActive()) {
             super.multipleTelemetry.addData("Distance", this.sensor.getDistance());
             super.multipleTelemetry.addData("Red", this.sensor.getRed());

@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.utils.hardware;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class EnhancedColorSensor {
-    private final ColorRangeSensor sensor;
+    private final RevColorSensorV3 sensor;
 
     private double distance;
     private int red;
     private int blue;
 
-    public EnhancedColorSensor(ColorRangeSensor sensor) {
+    public EnhancedColorSensor(RevColorSensorV3 sensor) {
         this.sensor = sensor;
     }
 

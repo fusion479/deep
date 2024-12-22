@@ -16,6 +16,7 @@ public class ClawTest extends OpModeCore {
     private Claw claw;
     private GamepadEx gamepad;
     private GamepadTrigger intakeAccept, intakeReject;
+    private Claw.BlockCases prev;
 
     @Override
     public void initialize() {
@@ -37,11 +38,25 @@ public class ClawTest extends OpModeCore {
 
         super.waitForStart();
 
+        this.claw.startThread(this);
         this.intakeAccept.startThread(this);
         this.intakeReject.startThread(this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();
+
+            super.multipleTelemetry.addData("Trigger", this.gamepad.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+            this.claw.logSensorData();
+
+            Claw.BlockCases detection = this.claw.hasValidBlock(Claw.Color.RED);
+            if (detection == Claw.BlockCases.ACCEPT) {
+                super.multipleTelemetry.addLine("STOP CLAW => READY POS");
+            } else if (detection == Claw.BlockCases.REJECT) {
+                super.multipleTelemetry.addLine("REJECT, WRONG COLOR");
+                this.claw.setPower(1);
+            } else {
+                super.multipleTelemetry.addLine("WAITING FOR VALID BLOCK");
+            }
 
             super.logCycles();
             super.multipleTelemetry.update();
