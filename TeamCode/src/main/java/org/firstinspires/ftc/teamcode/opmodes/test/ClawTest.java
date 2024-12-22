@@ -8,14 +8,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawDown;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawUp;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Claw Test")
 public class ClawTest extends OpModeCore {
     private Claw claw;
-    private Extendo extendo;
     private GamepadEx gamepad;
     private GamepadTrigger intakeAccept, intakeReject;
 
@@ -23,14 +21,13 @@ public class ClawTest extends OpModeCore {
     public void initialize() {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
-        this.extendo = new Extendo(super.hardwareMap, super.multipleTelemetry);
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawDown(super.multipleTelemetry, this.claw));
         this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawDown(super.multipleTelemetry, this.claw));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new ClawUp(super.multipleTelemetry, this.claw));
 
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setClawPower(-d), this.gamepad);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setClawPower, this.gamepad);
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, d -> this.claw.setPower(-d), this.gamepad);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, this.claw::setPower, this.gamepad);
     }
 
     @Override
@@ -40,6 +37,8 @@ public class ClawTest extends OpModeCore {
 
         super.waitForStart();
 
+        this.intakeAccept.startThread(this);
+        this.intakeReject.startThread(this);
         while (opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

@@ -143,8 +143,8 @@ public class CommandRobot {
                 new ClawReady(this.telemetry, this.claw)
         );
 
-        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setClawPower(-d), this.gamepad2);
-        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setClawPower, this.gamepad2);
+        this.intakeAccept = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, d -> this.claw.setPower(-d), this.gamepad2);
+        this.intakeReject = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.claw::setPower, this.gamepad2);
 
         this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 

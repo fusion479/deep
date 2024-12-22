@@ -37,7 +37,7 @@ public class Claw extends SubsystemBase {
         this.clawRotate.setPosition(position);
     }
 
-    public void setClawPower(double power) {
+    public void setPower(double power) {
         this.leftClaw.setPower(power);
         this.rightClaw.setPower(-power);
     }
