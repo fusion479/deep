@@ -48,6 +48,7 @@ public class Drivetrain extends SubsystemBase {
     public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
         new Thread(() -> {
             this.follower.startTeleopDrive();
+            this.follower.brakeMode();
 
             while (opMode.opModeIsActive())
                 try {
