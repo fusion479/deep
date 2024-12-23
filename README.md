@@ -20,5 +20,7 @@ For the most up-to-date code, please refer to the `main` branch.
 Built off
 of [FTC 479 Stuy Fusion's Template Code Repository](https://github.com/fusion479/commandrr1-template).
 
-Note: To update FtcControllerVersion, you must add remote to the repository and then pull from
+Notes:
+- To update FtcControllerVersion, you must add remote to the repository and then pull from
 master. Might have to change gradle versions and fix conflicts.
+- Random crashes in opModes are probably due to an issue within the threading loops.
