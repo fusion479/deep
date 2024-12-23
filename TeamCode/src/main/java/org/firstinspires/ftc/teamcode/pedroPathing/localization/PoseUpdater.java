@@ -5,9 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.localizers.ThreeWheelIMULocalizer;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.localizers.ThreeWheelLocalizer;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.localizers.TwoWheelLocalizer;
+import org.firstinspires.ftc.teamcode.pedroPathing.localization.localizers.DriveEncoderLocalizer;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.MathFunctions;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
 
@@ -21,13 +19,13 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
  * @version 1.0, 3/4/2024
  */
 public class PoseUpdater {
-    private HardwareMap hardwareMap;
+    private final HardwareMap hardwareMap;
 
-    private IMU imu;
+    private final IMU imu;
 
-    private Localizer localizer;
+    private final Localizer localizer;
 
-    private Pose startingPose = new Pose(0,0,0);
+    private Pose startingPose = new Pose(0, 0, 0);
 
     private Pose currentPose = startingPose;
 
@@ -50,7 +48,7 @@ public class PoseUpdater {
      * Creates a new PoseUpdater from a HardwareMap and a Localizer.
      *
      * @param hardwareMap the HardwareMap
-     * @param localizer the Localizer
+     * @param localizer   the Localizer
      */
     public PoseUpdater(HardwareMap hardwareMap, Localizer localizer) {
         this.hardwareMap = hardwareMap;
@@ -70,7 +68,7 @@ public class PoseUpdater {
      */
     public PoseUpdater(HardwareMap hardwareMap) {
         // TODO: replace the second argument with your preferred localizer
-        this(hardwareMap, new ThreeWheelLocalizer(hardwareMap));
+        this(hardwareMap, new DriveEncoderLocalizer(hardwareMap));
     }
 
     /**
@@ -105,7 +103,6 @@ public class PoseUpdater {
     /**
      * This sets the current pose, using offsets. Think of using offsets as setting trim in an
      * aircraft. This can be reset as well, so beware of using the resetOffset() method.
-     *
      *
      * @param set The pose to set the current pose to.
      */
@@ -177,7 +174,7 @@ public class PoseUpdater {
      * @return This returns a new Pose with the offset applied.
      */
     public Pose applyOffset(Pose pose) {
-        return new Pose(pose.getX()+xOffset, pose.getY()+yOffset, pose.getHeading()+headingOffset);
+        return new Pose(pose.getX() + xOffset, pose.getY() + yOffset, pose.getHeading() + headingOffset);
     }
 
     /**
@@ -278,7 +275,7 @@ public class PoseUpdater {
      * @return returns the angular velocity of the robot.
      */
     public double getAngularVelocity() {
-        return MathFunctions.getTurnDirection(previousPose.getHeading(), getPose().getHeading()) * MathFunctions.getSmallestAngleDifference(getPose().getHeading(), previousPose.getHeading()) / ((currentPoseTime-previousPoseTime)/Math.pow(10.0, 9));
+        return MathFunctions.getTurnDirection(previousPose.getHeading(), getPose().getHeading()) * MathFunctions.getSmallestAngleDifference(getPose().getHeading(), previousPose.getHeading()) / ((currentPoseTime - previousPoseTime) / Math.pow(10.0, 9));
     }
 
     /**
