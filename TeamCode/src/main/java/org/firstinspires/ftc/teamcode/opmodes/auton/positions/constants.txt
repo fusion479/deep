@@ -1,7 +1,0 @@
-For reference to calculate certain positions
-
-ROBOT_WIDTH = 15.3
-ROBOT_LENGTH = 16
-CENTER_TO_CAMERA = 213.052 * 0.0394
-TILE_LENGTH = 23.0 // excluding "tabs"
-FIELD_LENGTH = 72.0
