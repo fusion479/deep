@@ -21,7 +21,7 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_VEL = 0.75;
     public static double MAX_ANGULAR_VEL = 0.6;
 
-    private Follower follower;
+    private final Follower follower;
 
     private final MultipleTelemetry telemetry;
 
@@ -31,6 +31,8 @@ public class Drivetrain extends SubsystemBase {
 
     public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose startPose) {
         this.telemetry = telemetry;
+        this.follower = new Follower(hwMap);
+        this.follower.setStartingPose(startPose);
     }
 
     private static double calculateAccel(double accel, double deaccel, double prevPower, double check) {
