@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 @Config
 public class Lift extends SubsystemBase {
     public static double MIN_POWER = -0.25;
-    public static double LOW_VOLTAGE = 12.0;
     public static double ALLOWED_ERROR = 15;
 
     public static double LOW_BASKET = 1500;
@@ -33,8 +32,10 @@ public class Lift extends SubsystemBase {
     public static double kD = 0.000015;
     public static double kG = 0.063;
 
-    private final DcMotorEx rightMotor;
-    private final DcMotorEx leftMotor;
+    private final DcMotorEx rightSec;
+    private final DcMotorEx leftSec;
+    private final DcMotorEx rightPri;
+    private final DcMotorEx leftPri;
     private final VoltageSensor voltage;
     private final PIDController controller;
 
@@ -44,26 +45,30 @@ public class Lift extends SubsystemBase {
         this.telemetry = telemetry;
         this.voltage = hwMap.get(VoltageSensor.class, "Control Hub");
 
-        this.rightMotor = hwMap.get(DcMotorEx.class, "liftRight");
-        this.leftMotor = hwMap.get(DcMotorEx.class, "liftLeft");
+        this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
+        this.leftSec = hwMap.get(DcMotorEx.class, "leftLiftSec");
+        this.rightPri = hwMap.get(DcMotorEx.class, "rightLiftPri");
+        this.leftPri = hwMap.get(DcMotorEx.class, "leftLiftPri");
 
-        this.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.leftSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.rightSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.rightPri.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.leftPri.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        this.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        this.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.leftSec.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.rightSec.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.rightPri.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.leftPri.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        this.leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.leftSec.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.rightSec.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(kP, kI, kD);
         this.controller.setAllowedError(Lift.ALLOWED_ERROR);
 
-        // TODO: Make this work.
-        // this.reset();
+        this.setTarget(0);
     }
 
     public void startThread(CommandOpMode opMode) {
@@ -72,21 +77,31 @@ public class Lift extends SubsystemBase {
                 try {
                     double power;
 
-                    synchronized (this.rightMotor) {
-                        power = this.controller.calculate(this.rightMotor.getCurrentPosition());
+                    synchronized (this.rightPri) {
+                        power = this.controller.calculate(this.rightPri.getCurrentPosition());
                     }
 
                     if (!this.controller.isFinished()) {
-                        synchronized (this.rightMotor) {
-                            this.rightMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                        synchronized (this.rightPri) {
+                            this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                         }
 
-                        synchronized (this.leftMotor) {
-                            this.leftMotor.setPower(Math.max(power, Lift.MIN_POWER));
+                        synchronized (this.rightSec) {
+                            this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
+                        }
+
+                        synchronized (this.leftPri) {
+                            this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
+                        }
+
+                        synchronized (this.leftSec) {
+                            this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
                         }
                     } else {
-                        this.leftMotor.setPower(Lift.kG);
-                        this.rightMotor.setPower(Lift.kG);
+                        this.leftSec.setPower(Lift.kG);
+                        this.rightSec.setPower(Lift.kG);
+                        this.rightPri.setPower(Lift.kG);
+                        this.rightSec.setPower(Lift.kG);
                     }
 
                     Thread.sleep(50);
@@ -97,8 +112,10 @@ public class Lift extends SubsystemBase {
     }
 
     public void setPower(double power) {
-        this.leftMotor.setPower(power);
-        this.rightMotor.setPower(power);
+        this.leftSec.setPower(power);
+        this.rightSec.setPower(power);
+        this.rightPri.setPower(power);
+        this.leftPri.setPower(power);
     }
 
     public double getTarget() {
@@ -110,11 +127,7 @@ public class Lift extends SubsystemBase {
     }
 
     public double getPosition() {
-        return this.rightMotor.getCurrentPosition();
-    }
-
-    public double getVoltage() {
-        return this.voltage.getVoltage();
+        return this.rightPri.getCurrentPosition();
     }
 
     public boolean isFinished() {
@@ -127,16 +140,5 @@ public class Lift extends SubsystemBase {
 
     public void setConstants() {
         this.controller.setCoefficients(kP, kI, kD);
-    }
-
-    public void reset() {
-        this.setTarget(-999999999);
-        while (this.voltage.getVoltage() > Lift.LOW_VOLTAGE) {
-        }
-
-        this.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        this.setTarget(0);
     }
 }

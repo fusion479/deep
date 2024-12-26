@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 @Config
 @TeleOp(name = "Manual Lift Test")
 public class ManualLiftTest extends OpModeCore {
-    public static double POWER;
+    public static double POWER = 0.5;
     private Lift lift;
     private GamepadEx gamepad;
 
@@ -40,7 +40,6 @@ public class ManualLiftTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.multipleTelemetry.addData("Position", this.lift.getPosition());
-            super.multipleTelemetry.addLine("FUCK YOU");
 
             super.logCycles();
             super.multipleTelemetry.update();
