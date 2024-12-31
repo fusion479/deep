@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.lift.opmodes.auton.red;
+package org.firstinspires.ftc.teamcode.opmodes.auton.red;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.pedropathing.localization.Pose;

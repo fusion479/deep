@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.lift.opmodes.auton.blue;
+package org.firstinspires.ftc.teamcode.opmodes.auton.red;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.pedropathing.localization.Pose;
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@Autonomous(name = "Blue Far Bakset", preselectTeleOp = "Main")
+@Autonomous(name = "Red Far Basket", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
     private CommandRobot robot;
 

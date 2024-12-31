@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.lift.opmodes.test;
+package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

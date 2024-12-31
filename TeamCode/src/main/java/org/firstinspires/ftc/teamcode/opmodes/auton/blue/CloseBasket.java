@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.lift.opmodes.auton.blue;
+package org.firstinspires.ftc.teamcode.opmodes.auton.blue;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.pedropathing.follower.Follower;
