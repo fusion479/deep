@@ -7,6 +7,8 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -25,8 +27,6 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
-import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;

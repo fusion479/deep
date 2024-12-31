@@ -9,8 +9,6 @@ import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotAccepting;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawPivotScore;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawRotateDown;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawRotateUp;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;

@@ -5,10 +5,12 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
-import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
 @Config
 public class Drivetrain extends SubsystemBase {
@@ -32,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
     public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose startPose) {
         this.telemetry = telemetry;
 
-        this.follower = new Follower(hwMap);
+        this.follower = new Follower(hwMap, FConstants.class, LConstants.class);
         this.follower.setStartingPose(startPose);
     }
 
@@ -49,7 +51,6 @@ public class Drivetrain extends SubsystemBase {
     public void startThread(final GamepadEx gamepad, CommandOpMode opMode) {
         new Thread(() -> {
             this.follower.startTeleopDrive();
-            this.follower.brakeMode();
 
             while (opMode.opModeIsActive())
                 try {
