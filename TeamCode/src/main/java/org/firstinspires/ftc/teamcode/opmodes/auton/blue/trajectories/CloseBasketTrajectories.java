@@ -7,7 +7,6 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
@@ -19,15 +18,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class BlueCloseBasket {
+public class CloseBasketTrajectories {
     public Follower follower;
 
     public final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE, SUBMERSIBLE_CONTROL;
 
-    public Path scorePreload, park;
-    public PathChain grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3;
+    public Path scorePreload, grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3, park;
 
-    public BlueCloseBasket() throws JSONException, FileNotFoundException {
+    public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
         File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/close-basket.json"));
@@ -90,35 +88,23 @@ public class BlueCloseBasket {
         scorePreload = new Path(new BezierLine(new Point(START), new Point(SCORE)));
         scorePreload.setLinearHeadingInterpolation(START.getHeading(), SCORE.getHeading());
 
-        grabSpikemark1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(SCORE), new Point(BOTTOM_SPIKEMARK)))
-                .setLinearHeadingInterpolation(SCORE.getHeading(), BOTTOM_SPIKEMARK.getHeading())
-                .build();
+        grabSpikemark1 = new Path(new BezierLine(new Point(SCORE), new Point(BOTTOM_SPIKEMARK)));
+        grabSpikemark1.setLinearHeadingInterpolation(SCORE.getHeading(), BOTTOM_SPIKEMARK.getHeading());
 
-        scoreSpikemark1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(BOTTOM_SPIKEMARK), new Point(SCORE)))
-                .setLinearHeadingInterpolation(BOTTOM_SPIKEMARK.getHeading(), SCORE.getHeading())
-                .build();
+        scoreSpikemark1 = new Path(new BezierLine(new Point(BOTTOM_SPIKEMARK), new Point(SCORE)));
+        scoreSpikemark1.setLinearHeadingInterpolation(BOTTOM_SPIKEMARK.getHeading(), SCORE.getHeading());
 
-        grabSpikemark2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(SCORE), new Point(MID_SPIKEMARK)))
-                .setLinearHeadingInterpolation(SCORE.getHeading(), MID_SPIKEMARK.getHeading())
-                .build();
+        grabSpikemark2 = new Path(new BezierLine(new Point(SCORE), new Point(MID_SPIKEMARK)));
+        grabSpikemark2.setLinearHeadingInterpolation(SCORE.getHeading(), MID_SPIKEMARK.getHeading());
 
-        scoreSpikemark2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(MID_SPIKEMARK), new Point(SCORE)))
-                .setLinearHeadingInterpolation(MID_SPIKEMARK.getHeading(), SCORE.getHeading())
-                .build();
+        scoreSpikemark2 = new Path(new BezierLine(new Point(MID_SPIKEMARK), new Point(SCORE)));
+        scoreSpikemark2.setLinearHeadingInterpolation(MID_SPIKEMARK.getHeading(), SCORE.getHeading());
 
-        grabSpikemark3 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(SCORE), new Point(TOP_SPIKEMARK)))
-                .setLinearHeadingInterpolation(SCORE.getHeading(), TOP_SPIKEMARK.getHeading())
-                .build();
+        grabSpikemark3 = new Path(new BezierLine(new Point(SCORE), new Point(TOP_SPIKEMARK)));
+        grabSpikemark3.setLinearHeadingInterpolation(SCORE.getHeading(), TOP_SPIKEMARK.getHeading());
 
-        scoreSpikemark3 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(TOP_SPIKEMARK), new Point(SCORE)))
-                .setLinearHeadingInterpolation(TOP_SPIKEMARK.getHeading(), SCORE.getHeading())
-                .build();
+        scoreSpikemark3 = new Path(new BezierLine(new Point(TOP_SPIKEMARK), new Point(SCORE)));
+        scoreSpikemark3.setLinearHeadingInterpolation(TOP_SPIKEMARK.getHeading(), SCORE.getHeading());
 
         park = new Path(new BezierCurve(new Point(SCORE), /* Control Point */ new Point(SUBMERSIBLE_CONTROL), new Point(SUBMERSIBLE)));
         park.setLinearHeadingInterpolation(SCORE.getHeading(), SUBMERSIBLE.getHeading());

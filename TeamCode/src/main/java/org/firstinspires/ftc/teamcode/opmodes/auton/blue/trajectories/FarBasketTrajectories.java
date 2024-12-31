@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class BlueFarBasket {
+public class FarBasketTrajectories {
     private final Pose START, RUNGS, RUNGS1, RUNGS2, RUNGS3, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, PARK;
 
-    public BlueFarBasket() throws JSONException, FileNotFoundException {
+    public FarBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
         File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/far-basket.json"));

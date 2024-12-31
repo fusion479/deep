@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories;
+package org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories;
 
 import com.pedropathing.localization.Pose;
 
@@ -9,13 +9,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RedFarPush {
+public class FarPushTrajectories {
     private final Pose START, PUSH1, PUSH2, PUSH3, SCOREPUSH, PARK;
 
-    public RedFarPush() throws JSONException, FileNotFoundException {
+    public FarPushTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
-        File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.json"));
+        File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/far-basket.json"));
         Scanner reader = new Scanner(file);
 
         while (reader.hasNextLine()) {
