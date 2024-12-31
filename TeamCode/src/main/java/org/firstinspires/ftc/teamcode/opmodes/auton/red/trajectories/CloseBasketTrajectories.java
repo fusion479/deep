@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RedCloseBasket {
+public class CloseBasketTrajectories {
     private final Pose START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE, PARK;
 
-    public RedCloseBasket() throws JSONException, FileNotFoundException {
+    public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
         File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.json"));
