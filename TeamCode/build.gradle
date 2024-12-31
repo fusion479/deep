@@ -39,6 +39,6 @@ dependencies {
     implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
-    // FTCLIB
     implementation 'org.ftclib.ftclib:core:2.0.1'
+    implementation 'org.json:json:20240303'
 }
