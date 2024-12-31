@@ -23,7 +23,6 @@ public class CloseBasket extends OpModeCore {
 
     @Override
     public void initialize() {
-        // TODO: Input correct starting position
         this.robot = new CommandRobot(super.hardwareMap, trajectories.START, super.multipleTelemetry, this);
 
         this.follower = new Follower(hardwareMap, FConstants.class, LConstants.class);

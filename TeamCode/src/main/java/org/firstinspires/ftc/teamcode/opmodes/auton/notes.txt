@@ -106,7 +106,7 @@ public class ZeroPlusFive extends OpModeCore {
                 AutonomousHelpers.HeadingInterpolation.CONSTANT
         );
         paths[14] = buildCurve(
-                new Pose(7.125, 36.375, 0),
+                new Pose(7.125, 36.375, 0),+
                 new Point(28.313, 64.125),
                 new Pose(41.063, 71.500, 0),
                 AutonomousHelpers.HeadingInterpolation.CONSTANT
