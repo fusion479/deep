@@ -5,16 +5,29 @@ import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories.BlueFarBasket;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Autonomous(name = "Blue Far Bakset", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
     private CommandRobot robot;
+    private BlueFarBasket trajectories;
 
     @Override
     public void initialize() {
         // TODO: Input correct starting position
         this.robot = new CommandRobot(super.hardwareMap, new Pose(0, 0, 0), super.multipleTelemetry, this);
+
+        try {
+            this.trajectories = new BlueFarBasket();
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            super.multipleTelemetry.addLine(errors.toString());
+        }
     }
 
     @Override

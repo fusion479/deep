@@ -5,16 +5,29 @@ import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories.RedCloseBasket;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Autonomous(name = "Red Close Basket", preselectTeleOp = "Main")
 public class CloseBasket extends OpModeCore {
     private CommandRobot robot;
+    private RedCloseBasket trajectories;
 
     @Override
     public void initialize() {
         // TODO: Input correct starting position
         this.robot = new CommandRobot(super.hardwareMap, new Pose(0, 0, 0), super.multipleTelemetry, this);
+
+        try {
+            this.trajectories = new RedCloseBasket();
+        } catch (Exception e) {
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            super.multipleTelemetry.addLine(errors.toString());
+        }
     }
 
     @Override

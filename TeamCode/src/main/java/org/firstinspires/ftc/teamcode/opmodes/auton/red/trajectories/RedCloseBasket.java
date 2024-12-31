@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class RedCloseBasket {
     private final Pose START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE, PARK;
 
-    public RedCloseBasket(int type) throws JSONException, FileNotFoundException {
+    public RedCloseBasket() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
         File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.json"));
