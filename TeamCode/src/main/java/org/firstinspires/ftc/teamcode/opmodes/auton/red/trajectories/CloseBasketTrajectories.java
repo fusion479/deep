@@ -1,7 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories;
 
-import com.pedropathing.localization.Pose;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
+import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
+import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Pose;
+import com.pedropathing.pathgen.Path;
+import com.pedropathing.pathgen.Point;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,12 +20,17 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CloseBasketTrajectories {
-    private final Pose START, RUNGS, LEFT_SPIKEMARK, MID_SPIKEMARK, RIGHT_SPIKEMARK, SCORE, SUBMERSIBLE, PARK;
+    public Follower follower;
+
+    public final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
+    public final Point SUBMERSIBLE_CONTROL;
+
+    public Path scorePreload, grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3, park;
 
     public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
 
-        File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.json"));
+        File file = new File(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/close-basket.json"));
         Scanner reader = new Scanner(file);
 
         while (reader.hasNextLine()) {
@@ -30,16 +45,10 @@ public class CloseBasketTrajectories {
                 Math.toRadians(positions.getJSONObject("START").getDouble("heading"))
         );
 
-        this.RUNGS = new Pose(
-                positions.getJSONObject("RUNG").getDouble("x"),
-                positions.getJSONObject("RUNG").getDouble("y"),
-                Math.toRadians(positions.getJSONObject("RUNG").getDouble("heading"))
-        );
-
-        this.LEFT_SPIKEMARK = new Pose(
-                positions.getJSONObject("LEFT_SPIKEMARK").getDouble("x"),
-                positions.getJSONObject("LEFT_SPIKEMARK").getDouble("y"),
-                Math.toRadians(positions.getJSONObject("LEFT_SPIKEMARK").getDouble("heading"))
+        this.TOP_SPIKEMARK = new Pose(
+                positions.getJSONObject("TOP_SPIKEMARK").getDouble("x"),
+                positions.getJSONObject("TOP_SPIKEMARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("TOP_SPIKEMARK").getDouble("heading"))
         );
 
         this.MID_SPIKEMARK = new Pose(
@@ -48,10 +57,10 @@ public class CloseBasketTrajectories {
                 Math.toRadians(positions.getJSONObject("MID_SPIKEMARK").getDouble("heading"))
         );
 
-        this.RIGHT_SPIKEMARK = new Pose(
-                positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("x"),
-                positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("y"),
-                Math.toRadians(positions.getJSONObject("RIGHT_SPIKEMARK").getDouble("heading"))
+        this.BOTTOM_SPIKEMARK = new Pose(
+                positions.getJSONObject("BOTTOM_SPIKEMARK").getDouble("x"),
+                positions.getJSONObject("BOTTOM_SPIKEMARK").getDouble("y"),
+                Math.toRadians(positions.getJSONObject("BOTTOM_SPIKEMARK").getDouble("heading"))
         );
 
         this.SCORE = new Pose(
@@ -66,12 +75,65 @@ public class CloseBasketTrajectories {
                 Math.toRadians(positions.getJSONObject("SUBMERSIBLE").getDouble("heading"))
         );
 
-        this.PARK = new Pose(
-                positions.getJSONObject("PARK").getDouble("x"),
-                positions.getJSONObject("PARK").getDouble("y"),
-                Math.toRadians(positions.getJSONObject("PARK").getDouble("heading"))
+        this.SUBMERSIBLE_CONTROL = new Point(
+                positions.getJSONObject("SUBMERSIBLE").getDouble("x"),
+                positions.getJSONObject("SUBMERSIBLE").getDouble("y")
         );
 
+        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
+        follower.setStartingPose(START);
+        buildPaths();
+    }
+
+    public void buildPaths(){
+        scorePreload = buildLine(
+                START,
+                SCORE,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        grabSpikemark1 = buildLine(
+                SCORE,
+                BOTTOM_SPIKEMARK,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        scoreSpikemark1 = buildLine(
+                BOTTOM_SPIKEMARK,
+                SCORE,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        grabSpikemark2 = buildLine(
+                SCORE,
+                MID_SPIKEMARK,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        scoreSpikemark2 = buildLine(
+                MID_SPIKEMARK,
+                SCORE,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        grabSpikemark3 = buildLine(
+                SCORE,
+                TOP_SPIKEMARK,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        scoreSpikemark3 = buildLine(
+                TOP_SPIKEMARK,
+                SCORE,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        park = buildCurve(
+                SCORE,
+                SUBMERSIBLE_CONTROL,
+                SUBMERSIBLE,
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
     }
 
     public Pose getStart() {

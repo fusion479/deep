@@ -1,25 +1,31 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.red;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.pedropathing.localization.Pose;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.pedropathing.follower.Follower;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories.CloseBasketTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories.CloseBasketTrajectories;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 @Autonomous(name = "Red Close Basket", preselectTeleOp = "Main")
 public class CloseBasket extends OpModeCore {
-    private CommandRobot robot;
+    private Follower follower;
     private CloseBasketTrajectories trajectories;
+    private CommandRobot robot;
 
     @Override
     public void initialize() {
-        // TODO: Input correct starting position
-        this.robot = new CommandRobot(super.hardwareMap, new Pose(0, 0, 0), super.multipleTelemetry, this);
+        this.robot = new CommandRobot(super.hardwareMap, trajectories.START, super.multipleTelemetry, this);
+
+        this.follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
 
         try {
             this.trajectories = new CloseBasketTrajectories();
@@ -35,12 +41,26 @@ public class CloseBasket extends OpModeCore {
         CommandScheduler.getInstance().enable();
         this.initialize();
 
+        trajectories.buildPaths();
+
         super.waitForStart();
 
-        // TODO: Add auto pathing and functionality
-        // TODO: Make an end command for roadrunner (see kookybotz)?
-        // TODO: Research how to stop Action.runBlocking() without error
+        CommandScheduler.getInstance().schedule(
+                new SequentialCommandGroup(
+                        new PathCommand(follower, trajectories.scorePreload),
+                        new PathCommand(follower, trajectories.grabSpikemark1),
+                        new PathCommand(follower, trajectories.scoreSpikemark1),
+                        new PathCommand(follower, trajectories.grabSpikemark2),
+                        new PathCommand(follower, trajectories.scoreSpikemark2),
+                        new PathCommand(follower, trajectories.grabSpikemark3),
+                        new PathCommand(follower, trajectories.scoreSpikemark3),
+                        new PathCommand(follower, trajectories.park)
+                )
+        );
 
+        while (opModeIsActive() && !isStopRequested()) {
+            CommandScheduler.getInstance().run();
+        }
         super.end();
     }
 }

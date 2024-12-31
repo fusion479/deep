@@ -1,42 +1,36 @@
 {
   "START": {
-    "x": -34.5,
-    "y": -64.0,
-    "heading": 90.0
-  },
-  "MID_SPIKEMARK": {
-    "x": -58.0,
-    "y": -49.0,
-    "heading": 270.0
-  },
-  "LEFT_SPIKEMARK": {
-    "x": -58.0,
-    "y": -49.0,
-    "heading": 243.5
-  },
-  "RIGHT_SPIKEMARK": {
-    "x": -58.0,
-    "y": -49.0,
-    "heading": -63.5
-  },
-  "RUNG": {
-    "x": 0.0,
-    "y": -38.0,
-    "heading": 90.0
-  },
-  "SCORE": {
-    "x": -55.0,
-    "y": -55.0,
-    "heading": 225.0
-  },
-  "SUBMERSIBLE": {
-    "x": -34.5,
-    "y": -11.5,
+    "x": 8.0,
+    "y": 31.0,
     "heading": 180.0
   },
-  "PARK": {
-    "x": 46.0,
-    "y": -58,
-    "heading": 90
+  "SCORE": {
+    "x": 130.0,
+    "y": 15.0,
+    "heading": 135.0
+  },
+  "TOP_SPIKEMARK": {
+    "x": 98.3,
+    "y": 10.8,
+    "heading": 270.0
+  },
+  "MID_SPIKEMARK": {
+    "x": 107.0,
+    "y": 12.0,
+    "heading": 180.0
+  },
+  "BOTTOM_SPIKEMARK": {
+    "x": 107.0,
+    "y": 23.0,
+    "heading": 180.0
+  },
+  "SUBMERSIBLE": {
+    "x": 84.0,
+    "y": 46.0,
+    "heading": 270.0
+  },
+  "SUBMERSIBLE_CONTROL": {
+    "x": 84.0,
+    "y": 30.0
   }
 }
