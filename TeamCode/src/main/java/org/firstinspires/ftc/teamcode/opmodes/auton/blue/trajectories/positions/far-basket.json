@@ -1,72 +1,107 @@
 {
   "START": {
-    "x": -23.0,
-    "y": 64.0,
-    "heading": 270.0
-  },
-  "RUNG": {
-    "x": 0.0,
-    "y": 38.0,
-    "heading": 270.0
+    "x": 8.0,
+    "y": 65.0,
+    "heading": 0.0
   },
   "RUNG1": {
-    "x": -2,
-    "y": 38.0,
-    "heading": 270.0
+    "x": 38.0,
+    "y": 72.0,
+    "heading": 0.0
+  },
+  "RUNG1_CONTROl": {
+    "x": 20.0,
+    "y": 75.0
   },
   "RUNG2": {
-    "x": -4,
-    "y": 38.0,
-    "heading": 270.0
+    "x": 38.0,
+    "y": 69.0,
+    "heading": 0.0
+  },
+  "RUNG2_CONTROl": {
+    "x": 20.0,
+    "y": 67.0
   },
   "RUNG3": {
-    "x": -6,
-    "y": 38.0,
-    "heading": 270.0
+    "x": 38.0,
+    "y": 66.0,
+    "heading": 0.0
+  },
+  "RUNG3_CONTROl": {
+    "x": 20.0,
+    "y": 65.0
+  },
+  "RUNG4": {
+    "x": 38.0,
+    "y": 63.0,
+    "heading": 0.0
+  },
+  "RUNG4_CONTROl": {
+    "x": 20.0,
+    "y": 63.0
+  },
+  "RUNG5": {
+    "x": 38.0,
+    "y": 60.0,
+    "heading": 0.0
+  },
+  "RUNG5_CONTROl": {
+    "x": 20.0,
+    "y": 61.0
+  },
+  "TOP_SPIKEMARK": {
+    "x": 63.0,
+    "y": 24.0,
+    "heading": 0.0
+  },
+  "TOP_SPIKEMARK_CONTROL1": {
+    "x": 24.5,
+    "y": 10.6
+  },
+  "TOP_SPIKEMARK_CONTROL2": {
+    "x": 60.0,
+    "y": 51.4
   },
   "MID_SPIKEMARK": {
-    "x": -58.0,
-    "y": 49.0,
-    "heading": 90.0
+    "x": 63.0,
+    "y": 13.0,
+    "heading": 0.0
   },
-  "LEFT_SPIKEMARK": {
-    "x": -58.0,
-    "y": 49.0,
-    "heading": 63.5
+  "MID_SPIKEMARK_CONTROL1": {
+    "x": 63.0,
+    "y": 30.0
   },
-  "RIGHT_SPIKEMARK": {
-    "x": -58.0,
-    "y": 49.0,
-    "heading": 116.5
+  "BOTTOM_SPIKEMARK": {
+    "x": 63.0,
+    "y": 7.5,
+    "heading": 0.0
   },
-  "SCORE": {
-    "x": -23.0,
-    "y": 49.0,
-    "heading": 315
+  "BOTTOM_SPIKEMARK_CONTROL1": {
+    "x": 63.0,
+    "y": 17.0
   },
-  "PARK": {
-    "x": -46.0,
-    "y": 58.0,
-    "heading": 270
+  "INTAKE": {
+    "x": 9.0,
+    "y": 30.0,
+    "heading": 0.0
   },
-  "PUSH1": {
-    "x": -46,
-    "y": 12,
-    "heading": 90
+  "INTAKEFIRST_CONTROL": {
+    "x": 17.0,
+    "y": 30.0
   },
-  "PUSH2": {
-    "x": -56,
-    "y": 12,
-    "heading": 90
+  "PUSHTOP": {
+    "x": 15.0,
+    "y": 24.0,
+    "heading": 0.0
   },
-  "PUSH3": {
-    "x": -62,
-    "y": 12,
-    "heading": 90
+  "PUSHMID": {
+    "x": 15.0,
+    "y": 13.0,
+    "heading": 0.0
   },
-  "SCOREPUSH": {
-    "x": -26.0,
-    "y": 55.0,
-    "heading": 315
+  "PUSHBOTTOM": {
+    "x": 15.0,
+    "y": 7.5,
+    "heading": 0.0
   }
 }

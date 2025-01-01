@@ -22,8 +22,8 @@ import java.util.Scanner;
 public class CloseBasketTrajectories {
     public Follower follower;
 
-    public final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
-    public final Point SUBMERSIBLE_CONTROL;
+    private final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
+    private final Point SUBMERSIBLE_CONTROL;
 
     public Path scorePreload, grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3, park;
 

@@ -23,7 +23,7 @@ public class CloseBasket extends OpModeCore {
 
     @Override
     public void initialize() {
-        this.robot = new CommandRobot(super.hardwareMap, trajectories.START, super.multipleTelemetry, this);
+        this.robot = new CommandRobot(super.hardwareMap, trajectories.getStart(), super.multipleTelemetry, this);
 
         this.follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
 
