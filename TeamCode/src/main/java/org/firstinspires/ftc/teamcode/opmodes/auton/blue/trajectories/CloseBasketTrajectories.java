@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
@@ -9,8 +8,6 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.Point;
 
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,58 +77,56 @@ public class CloseBasketTrajectories {
                 positions.getJSONObject("SUBMERSIBLE").getDouble("y")
         );
 
-        follower = new Follower(hardwareMap, FConstants.class, LConstants.class);
-        follower.setStartingPose(START);
-        buildPaths();
+        this.buildPaths();
     }
 
-    public void buildPaths(){
-        scorePreload = buildLine(
-                START,
-                SCORE,
+    public void buildPaths() {
+        this.scorePreload = buildLine(
+                this.START,
+                this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        grabSpikemark1 = buildLine(
-                SCORE,
-                BOTTOM_SPIKEMARK,
+        this.grabSpikemark1 = buildLine(
+                this.SCORE,
+                this.BOTTOM_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        scoreSpikemark1 = buildLine(
-                BOTTOM_SPIKEMARK,
-                SCORE,
+        this.scoreSpikemark1 = buildLine(
+                this.BOTTOM_SPIKEMARK,
+                this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        grabSpikemark2 = buildLine(
-                SCORE,
-                MID_SPIKEMARK,
+        this.grabSpikemark2 = buildLine(
+                this.SCORE,
+                this.MID_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        scoreSpikemark2 = buildLine(
-                MID_SPIKEMARK,
-                SCORE,
+        this.scoreSpikemark2 = buildLine(
+                this.MID_SPIKEMARK,
+                this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        grabSpikemark3 = buildLine(
-                SCORE,
-                TOP_SPIKEMARK,
+        this.grabSpikemark3 = buildLine(
+                this.SCORE,
+                this.TOP_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        scoreSpikemark3 = buildLine(
-                TOP_SPIKEMARK,
-                SCORE,
+        this.scoreSpikemark3 = buildLine(
+                this.TOP_SPIKEMARK,
+                this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        park = buildCurve(
-                SCORE,
-                SUBMERSIBLE_CONTROL,
-                SUBMERSIBLE,
+        this.park = buildCurve(
+                this.SCORE,
+                this.SUBMERSIBLE_CONTROL,
+                this.SUBMERSIBLE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
     }
