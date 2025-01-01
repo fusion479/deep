@@ -19,7 +19,7 @@ public class CloseBasket extends OpModeCore {
 
     @Override
     public void initialize() {
-        this.robot = new CommandRobot(super.hardwareMap, trajectories.getStart(), super.multipleTelemetry, this);
+        this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart(), super.multipleTelemetry, this);
 
         try {
             this.trajectories = new CloseBasketTrajectories();
@@ -35,7 +35,7 @@ public class CloseBasket extends OpModeCore {
         CommandScheduler.getInstance().enable();
         this.initialize();
 
-        trajectories.buildPaths();
+        this.trajectories.buildPaths();
 
         super.waitForStart();
 

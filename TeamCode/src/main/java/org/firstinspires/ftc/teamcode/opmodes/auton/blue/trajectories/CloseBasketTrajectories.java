@@ -77,7 +77,6 @@ public class CloseBasketTrajectories {
                 positions.getJSONObject("SUBMERSIBLE").getDouble("y")
         );
 
-        this.buildPaths();
     }
 
     public void buildPaths() {

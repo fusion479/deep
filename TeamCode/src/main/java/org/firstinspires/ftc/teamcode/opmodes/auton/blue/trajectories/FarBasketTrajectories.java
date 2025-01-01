@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
@@ -154,98 +153,98 @@ public class FarBasketTrajectories {
 
     public void buildPaths(){
         this.scorePreload = buildCurve(
-                START,
-                RUNG1_CONTROl,
-                RUNGS1,
+                this.START,
+                this.RUNG1_CONTROl,
+                this.RUNGS1,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.setupTop = buildCurve(
-                RUNGS1,
-                TOP_SPIKEMARK_CONTROL1,
-                TOP_SPIKEMARK_CONTROL2,
-                TOP_SPIKEMARK,
+                this.RUNGS1,
+                this.TOP_SPIKEMARK_CONTROL1,
+                this.TOP_SPIKEMARK_CONTROL2,
+                this.TOP_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.pushTop = buildLine(
-                TOP_SPIKEMARK,
-                PUSHTOP,
+                this.TOP_SPIKEMARK,
+                this.PUSHTOP,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.setupMid = buildCurve(
-                PUSHTOP,
-                MID_SPIKEMARK_CONTROL1,
-                MID_SPIKEMARK,
+                this.PUSHTOP,
+                this.MID_SPIKEMARK_CONTROL1,
+                this.MID_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.pushMid = buildLine(
-                MID_SPIKEMARK,
-                PUSHMID,
+                this.MID_SPIKEMARK,
+                this.PUSHMID,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.setupBottom = buildCurve(
-                PUSHMID,
-                BOTTOM_SPIKEMARK_CONTROL1,
-                BOTTOM_SPIKEMARK,
+                this.PUSHMID,
+                this.BOTTOM_SPIKEMARK_CONTROL1,
+                this.BOTTOM_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.pushBottom = buildLine(
-                BOTTOM_SPIKEMARK,
-                PUSHBOTTOM,
+                this.BOTTOM_SPIKEMARK,
+                this.PUSHBOTTOM,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.intakeSecond = buildCurve(
-                PUSHBOTTOM,
-                INTAKEFIRST_CONTROL,
-                INTAKE,
+                this.PUSHBOTTOM,
+                this.INTAKEFIRST_CONTROL,
+                this.INTAKE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreSecond = buildCurve(
-                INTAKE,
-                RUNG2_CONTROl,
-                RUNGS2,
+                this.INTAKE,
+                this.RUNG2_CONTROl,
+                this.RUNGS2,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.intakeThird = buildCurve(
-                RUNGS2,
-                RUNG2_CONTROl,
-                INTAKE,
+                this.RUNGS2,
+                this.RUNG2_CONTROl,
+                this.INTAKE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreThird = buildCurve(
-                INTAKE,
-                RUNG3_CONTROl,
-                RUNGS3,
+                this.INTAKE,
+                this.RUNG3_CONTROl,
+                this.RUNGS3,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.intakeFourth = buildCurve(
-                RUNGS3,
-                RUNG3_CONTROl,
-                INTAKE,
+                this.RUNGS3,
+                this.RUNG3_CONTROl,
+                this.INTAKE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreFourth = buildCurve(
-                INTAKE,
-                RUNG4_CONTROl,
-                RUNGS4,
+                this.INTAKE,
+                this.RUNG4_CONTROl,
+                this.RUNGS4,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.park = buildCurve(
-                RUNGS4,
-                RUNG4_CONTROl,
-                INTAKE,
+                this.RUNGS4,
+                this.RUNG4_CONTROl,
+                this.INTAKE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
