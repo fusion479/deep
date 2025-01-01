@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class FarBasketTrajectories {
     private final Pose START, RUNGS1, RUNGS2, RUNGS3, RUNGS4, BOTTOM_SPIKEMARK, MID_SPIKEMARK, TOP_SPIKEMARK, PUSHBOTTOM, PUSHMID, PUSHTOP, INTAKE;
-    private final Point RUNG1_CONTROl, RUNG2_CONTROl, RUNG3_CONTROl, RUNG4_CONTROl, TOP_SPIKEMARK_CONTROL1, TOP_SPIKEMARK_CONTROL2, MID_SPIKEMARK_CONTROL1, BOTTOM_SPIKEMARK_CONTROL1, INTAKEFIRST_CONTROL;
+    private final Point RUNG1_CONTROl, RUNG2_CONTROl, RUNG3_CONTROl, RUNG4_CONTROl, TOP_SPIKEMARK_CONTROL1, TOP_SPIKEMARK_CONTROL2, MID_SPIKEMARK_CONTROL1, BOTTOM_SPIKEMARK_CONTROL1, INTAKESECOND_CONTROL;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom;
 
@@ -146,9 +146,9 @@ public class FarBasketTrajectories {
                 Math.toRadians(positions.getJSONObject("INTAKE").getDouble("heading"))
         );
 
-        this.INTAKEFIRST_CONTROL = new Point(
-                positions.getJSONObject("INTAKEFIRST_CONTROL").getDouble("x"),
-                positions.getJSONObject("INTAKEFIRST_CONTROL").getDouble("y")
+        this.INTAKESECOND_CONTROL = new Point(
+                positions.getJSONObject("INTAKESECOND_CONTROL").getDouble("x"),
+                positions.getJSONObject("INTAKESECOND_CONTROL").getDouble("y")
         );
     }
 
@@ -202,7 +202,7 @@ public class FarBasketTrajectories {
 
         this.intakeSecond = buildCurve(
                 PUSHBOTTOM,
-                INTAKEFIRST_CONTROL,
+                INTAKESECOND_CONTROL,
                 INTAKE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
