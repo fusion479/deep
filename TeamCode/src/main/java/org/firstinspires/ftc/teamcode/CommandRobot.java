@@ -235,7 +235,7 @@ public class CommandRobot {
         RYAN_KELLY
     }
 
-    public Follower follower() {
+    public Follower getFollower() {
         return this.drivetrain.getFollower();
     }
 }
