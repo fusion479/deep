@@ -1,6 +1,6 @@
 {
   "START": {
-    "x": 8.0,
+    "x": 138.0,
     "y": 31.0,
     "heading": 180.0
   },
@@ -10,9 +10,9 @@
     "heading": 135.0
   },
   "TOP_SPIKEMARK": {
-    "x": 98.3,
-    "y": 10.8,
-    "heading": 270.0
+    "x": 107.0,
+    "y": 23.0,
+    "heading": 180.0
   },
   "MID_SPIKEMARK": {
     "x": 107.0,
@@ -20,17 +20,17 @@
     "heading": 180.0
   },
   "BOTTOM_SPIKEMARK": {
-    "x": 107.0,
-    "y": 23.0,
-    "heading": 180.0
+    "x": 98.3,
+    "y": 10.8,
+    "heading": 270.0
   },
   "SUBMERSIBLE": {
-    "x": 84.0,
-    "y": 46.0,
+    "x": 82.0,
+    "y": 49.0,
     "heading": 270.0
   },
   "SUBMERSIBLE_CONTROL": {
-    "x": 84.0,
-    "y": 30.0
+    "x": 82.0,
+    "y": 27.0
   }
 }

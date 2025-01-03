@@ -17,12 +17,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CloseBasketTrajectories {
-    public Follower follower;
-
     private final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
     private final Point SUBMERSIBLE_CONTROL;
 
-    public Path scorePreload, grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3, park;
+    public Path scorePreload, getBottom, getMiddle, getTop, scoreBottom, scoreMiddle, scoreTop, park;
 
     public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
@@ -86,37 +84,37 @@ public class CloseBasketTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark1 = buildLine(
+        this.getBottom = buildLine(
                 this.SCORE,
                 this.BOTTOM_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark1 = buildLine(
+        this.scoreBottom = buildLine(
                 this.BOTTOM_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark2 = buildLine(
+        this.getMiddle = buildLine(
                 this.SCORE,
                 this.MID_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark2 = buildLine(
+        this.scoreMiddle = buildLine(
                 this.MID_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark3 = buildLine(
+        this.getTop = buildLine(
                 this.SCORE,
                 this.TOP_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark3 = buildLine(
+        this.scoreTop = buildLine(
                 this.TOP_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR

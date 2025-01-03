@@ -55,30 +55,45 @@
     "heading": 0.0
   },
   "TOP_SPIKEMARK_CONTROL1": {
-    "x": 24.5,
-    "y": 10.6
+    "x": 20.0,
+    "y": 10.5
   },
   "TOP_SPIKEMARK_CONTROL2": {
-    "x": 60.0,
+    "x": 63.0,
     "y": 51.4
   },
+  "PUSHTOP": {
+    "x": 15.0,
+    "y": 24.0,
+    "heading": 0.0
+  },
   "MID_SPIKEMARK": {
-    "x": 63.0,
+    "x": 65.0,
     "y": 13.0,
     "heading": 0.0
   },
   "MID_SPIKEMARK_CONTROL1": {
-    "x": 63.0,
-    "y": 30.0
+    "x": 65.0,
+    "y": 34.0
+  },
+  "PUSHMID": {
+    "x": 15.0,
+    "y": 13.0,
+    "heading": 0.0
   },
   "BOTTOM_SPIKEMARK": {
-    "x": 63.0,
+    "x": 65.0,
     "y": 7.5,
     "heading": 0.0
   },
   "BOTTOM_SPIKEMARK_CONTROL1": {
-    "x": 63.0,
-    "y": 17.0
+    "x": 65.0,
+    "y": 21.0
+  },
+  "PUSHBOTTOM": {
+    "x": 15.0,
+    "y": 7.5,
+    "heading": 0.0
   },
   "INTAKE": {
     "x": 9.0,
@@ -88,20 +103,5 @@
   "INTAKESECOND_CONTROL": {
     "x": 17.0,
     "y": 30.0
-  },
-  "PUSHTOP": {
-    "x": 15.0,
-    "y": 24.0,
-    "heading": 0.0
-  },
-  "PUSHMID": {
-    "x": 15.0,
-    "y": 13.0,
-    "heading": 0.0
-  },
-  "PUSHBOTTOM": {
-    "x": 15.0,
-    "y": 7.5,
-    "heading": 0.0
   }
 }
