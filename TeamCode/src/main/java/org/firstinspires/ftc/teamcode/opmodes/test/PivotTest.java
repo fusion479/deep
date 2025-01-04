@@ -5,22 +5,25 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
-import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
+import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "Claw Test")
-public class ClawTest extends OpModeCore {
-    private Claw claw;
+@TeleOp(name = "Pivot Test")
+public class PivotTest extends OpModeCore {
+    private Pivot pivot;
     private GamepadEx gamepad;
 
     @Override
     public void initialize() {
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
+        this.pivot = new Pivot(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ClawClose(super.multipleTelemetry, this.claw));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ClawClose(super.multipleTelemetry, this.claw));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new PivotAccepting(super.multipleTelemetry, this.pivot));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new PivotReady(super.multipleTelemetry, this.pivot));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new PivotScore(super.multipleTelemetry, this.pivot));
     }
 
     @Override

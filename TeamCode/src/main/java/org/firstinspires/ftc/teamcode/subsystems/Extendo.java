@@ -41,11 +41,26 @@ public class Extendo extends SubsystemBase {
     }
 
     public void startThread(CommandOpMode opMode) {
-        while (opMode.opModeIsActive())
-            synchronized (this.extendo) {
-                double power = this.controller.calculate(this.getPosition());
-                this.extendo.setPower(power);
-            }
+        new Thread(() -> {
+            double prevPos = 0;
+
+            while (opMode.opModeIsActive())
+                synchronized (this.extendo) {
+                    double currPos = this.getPosition();
+
+                    if (prevPos > currPos && !(this.controller.getTarget() < currPos))
+                        currPos += prevPos;
+
+                    else if (currPos < prevPos && !(this.controller.getTarget() > currPos)) {
+                        currPos = prevPos - currPos;
+                    }
+
+                    double power = this.controller.calculate(currPos);
+                    this.extendo.setPower(power);
+
+                    prevPos = currPos;
+                }
+        }).start();
     }
 
     public void setConstants() {

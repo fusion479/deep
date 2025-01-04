@@ -5,11 +5,11 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
-public class ClawRotateReady extends CommandBase {
+public class ClawOpen extends CommandBase {
     private final MultipleTelemetry telemetry;
     private final Claw claw;
 
-    public ClawRotateReady(final MultipleTelemetry telemetry, final Claw claw) {
+    public ClawOpen(final MultipleTelemetry telemetry, final Claw claw) {
         this.telemetry = telemetry;
 
         this.claw = claw;
@@ -18,7 +18,7 @@ public class ClawRotateReady extends CommandBase {
 
     @Override
     public void initialize() {
-        this.claw.setPivotPosition(Claw.READY);
+        this.claw.setPosition(Claw.OPEN);
     }
 
     @Override
