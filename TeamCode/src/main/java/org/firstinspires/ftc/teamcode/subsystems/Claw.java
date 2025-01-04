@@ -29,6 +29,8 @@ public class Claw extends SubsystemBase {
         this.setPosition(Claw.CLOSE);
     }
 
+    public double getPosition() {return this.rotator.getPosition();}
+
     public void setRotatePosition(double position) {
         this.rotator.setPosition(position);
     }

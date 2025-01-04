@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.pedropathing.follower.Follower;
@@ -11,19 +12,42 @@ import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmScore;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawIncrementLeft;
+import org.firstinspires.ftc.teamcode.commands.claw.ClawIncrementRight;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftSpecimen;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristScore;
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.subsystems.Pivot;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, slamdown, specimen, open, close;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, slamdown, specimen, open, close, rotateLeft, rotateRight;
 
     private TeleOpMode mode;
 
@@ -31,6 +55,9 @@ public class CommandRobot {
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
+    private final Pivot pivot;
+    private final Wrist wrist;
+    private final Arm arm;
 
     private Drivetrain drivetrain;
 
@@ -48,6 +75,9 @@ public class CommandRobot {
         this.lift = new Lift(hwMap, telemetry);
         this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
+        this.pivot = new Pivot(hwMap, telemetry);
+        this.wrist = new Wrist(hwMap, telemetry);
+        this.arm = new Arm(hwMap, telemetry);
 
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
@@ -65,6 +95,9 @@ public class CommandRobot {
         this.lift = new Lift(hwMap, telemetry);
         this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
+        this.pivot = new Pivot(hwMap, telemetry);
+        this.wrist = new Wrist(hwMap, telemetry);
+        this.arm = new Arm(hwMap, telemetry);
 
         this.opMode = opMode;
 
@@ -82,24 +115,71 @@ public class CommandRobot {
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new WristReady(this.telemetry, this.wrist),
+                new PivotReady(this.telemetry, this.pivot),
+                new ArmReady(this.telemetry, this.arm),
+                //todo: find correct wait amount
+                new WaitCommand(100),
+                new ExtendoReady(this.telemetry, this.extendo),
+                new LiftAccepting(this.telemetry, this.lift)
         );
 
         this.accepting = new SequentialCommandGroup(
+                new LiftAccepting(this.telemetry, this.lift),
+                new ExtendoAccepting(this.telemetry, this.extendo),
+                //todo: find correct wait amount
+                new WaitCommand(100),
+                new ArmAccepting(this.telemetry, this.arm),
+                new PivotAccepting(this.telemetry, this.pivot),
+                new WristAccepting(this.telemetry, this.wrist),
+                new ClawOpen(this.telemetry, this.claw)
         );
 
         this.highBasket = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new LiftHighBasket(this.telemetry, this.lift),
+                new WristScore(this.telemetry, this.wrist),
+                new PivotScore(this.telemetry, this.pivot),
+                new ArmScore(this.telemetry, this.arm),
+                new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.lowBasket = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new LiftLowBasket(this.telemetry, this.lift),
+                new WristScore(this.telemetry, this.wrist),
+                new PivotScore(this.telemetry, this.pivot),
+                new ArmScore(this.telemetry, this.arm),
+                new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.highRung = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new LiftHighRung(this.telemetry, this.lift),
+                new WristScore(this.telemetry, this.wrist),
+                new PivotScore(this.telemetry, this.pivot),
+                new ArmScore(this.telemetry, this.arm),
+                new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.lowRung = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new LiftLowRung(this.telemetry, this.lift),
+                new WristScore(this.telemetry, this.wrist),
+                new PivotScore(this.telemetry, this.pivot),
+                new ArmScore(this.telemetry, this.arm),
+                new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.specimen = new SequentialCommandGroup(
+                new LiftSpecimen(this.telemetry, this.lift),
+                new ExtendoAccepting(this.telemetry, this.extendo),
+                new WaitCommand(100),
+                new ArmReady(this.telemetry, this.arm),
+                new PivotReady(this.telemetry, this.pivot),
+                new WristReady(this.telemetry, this.wrist),
+                new ClawOpen(this.telemetry, this.claw)
         );
 
         this.open = new ClawOpen(this.telemetry, this.claw);
@@ -110,6 +190,9 @@ public class CommandRobot {
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
 
+        this.rotateLeft = new ClawIncrementLeft(this.telemetry, this.claw);
+
+        this.rotateRight = new ClawIncrementRight(this.telemetry, this.claw);
     }
 
     public void configureControls() {

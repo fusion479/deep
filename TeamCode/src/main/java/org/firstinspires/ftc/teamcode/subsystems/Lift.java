@@ -23,6 +23,9 @@ public class Lift extends SubsystemBase {
     public static double LOW_RUNG = 1000;
     public static double HIGH_RUNG = 2100;
 
+    //todo: find correct position
+    public static double SPECIMEN = 0;
+
     public static double ACCEPTING = 50;
     public static double INCREMENT = 250;
     public static double SLAM = 750;
