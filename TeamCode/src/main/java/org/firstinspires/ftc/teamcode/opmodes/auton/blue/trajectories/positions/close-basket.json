@@ -12,7 +12,7 @@
   "TOP_SPIKEMARK": {
     "x": 45.7,
     "y": 133.2,
-    "heading": 90
+    "heading": 90.0
   },
   "MID_SPIKEMARK": {
     "x": 37.0,

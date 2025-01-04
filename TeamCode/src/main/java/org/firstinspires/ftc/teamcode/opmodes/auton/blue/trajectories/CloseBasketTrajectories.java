@@ -20,7 +20,7 @@ public class CloseBasketTrajectories {
     private final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
     private final Point SUBMERSIBLE_CONTROL;
 
-    public Path scorePreload, getBottom, getMiddle, getTop, scoreBottom, scoreMiddle, scoreTop, park;
+    public Path scorePreload, getBottom, getMid, getTop, scoreBottom, scoreMid, scoreTop, park;
 
     public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
@@ -96,13 +96,13 @@ public class CloseBasketTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.getMiddle = buildLine(
+        this.getMid = buildLine(
                 this.SCORE,
                 this.MID_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreMiddle = buildLine(
+        this.scoreMid = buildLine(
                 this.MID_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR

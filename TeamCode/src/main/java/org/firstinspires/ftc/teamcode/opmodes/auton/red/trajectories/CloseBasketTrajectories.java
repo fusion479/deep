@@ -22,7 +22,7 @@ public class CloseBasketTrajectories {
     public final Pose START, TOP_SPIKEMARK, MID_SPIKEMARK, BOTTOM_SPIKEMARK, SCORE, SUBMERSIBLE;
     public final Point SUBMERSIBLE_CONTROL;
 
-    public Path scorePreload, grabSpikemark1, grabSpikemark2, grabSpikemark3, scoreSpikemark1, scoreSpikemark2, scoreSpikemark3, park;
+    public Path scorePreload, getTop, scoreTop, getMid, scoreMid, getBottom, scoreBottom, park;
 
     public CloseBasketTrajectories() throws JSONException, FileNotFoundException {
         String jsonString = "";
@@ -87,37 +87,37 @@ public class CloseBasketTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark1 = buildLine(
+        this.getBottom = buildLine(
                 this.SCORE,
                 this.BOTTOM_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark1 = buildLine(
+        this.scoreBottom = buildLine(
                 this.BOTTOM_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark2 = buildLine(
+        this.getMid = buildLine(
                 this.SCORE,
                 this.MID_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark2 = buildLine(
+        this.scoreMid = buildLine(
                 this.MID_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.grabSpikemark3 = buildLine(
+        this.getTop = buildLine(
                 this.SCORE,
                 this.TOP_SPIKEMARK,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.scoreSpikemark3 = buildLine(
+        this.scoreTop = buildLine(
                 this.TOP_SPIKEMARK,
                 this.SCORE,
                 AutonomousHelpers.HeadingInterpolation.LINEAR
