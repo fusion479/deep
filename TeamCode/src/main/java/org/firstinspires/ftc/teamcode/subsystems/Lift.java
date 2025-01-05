@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
@@ -23,7 +22,6 @@ public class Lift extends SubsystemBase {
     public static double LOW_RUNG = 1000;
     public static double HIGH_RUNG = 2100;
 
-    //todo: find correct position
     public static double SPECIMEN = 0;
 
     public static double ACCEPTING = 50;
@@ -39,14 +37,12 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
-    private final VoltageSensor voltage;
     private final PIDController controller;
 
     private final MultipleTelemetry telemetry;
 
     public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
-        this.voltage = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
         this.leftSec = hwMap.get(DcMotorEx.class, "leftLiftSec");

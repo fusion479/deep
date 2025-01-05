@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -28,39 +27,35 @@ public class Extendo extends SubsystemBase {
     private final CRServo extendo;
     private final PIDController controller;
 
+    private double rotations = 0;
+    private double prevPos = 0;
+
     public Extendo(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
         this.controller = new PIDController(Extendo.kP, Extendo.kI, Extendo.kD);
 
         this.extendo = hwMap.get(CRServo.class, "extendo");
         this.encoder = hwMap.get(AnalogInput.class, "encoder");
+
+        this.controller.setAllowedError(Extendo.ALLOWED_ERROR);
     }
 
     public synchronized double getPosition() {
         return Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360);
     }
 
-    public void startThread(CommandOpMode opMode) {
-        new Thread(() -> {
-            double prevPos = 0;
+    // TODO: Export to threads once working.
+    @Override
+    public void periodic() {
+        double currPos = this.getPosition() + 360 * rotations;
 
-            while (opMode.opModeIsActive())
-                synchronized (this.extendo) {
-                    double currPos = this.getPosition();
+        if (prevPos - currPos > 180) rotations++;
+        else if (180 < currPos - prevPos) rotations--;
 
-                    if (prevPos > currPos && !(this.controller.getTarget() < currPos))
-                        currPos += prevPos;
+        double power = this.controller.calculate(currPos);
+        this.extendo.setPower(power);
 
-                    else if (currPos < prevPos && !(this.controller.getTarget() > currPos)) {
-                        currPos = prevPos - currPos;
-                    }
-
-                    double power = this.controller.calculate(currPos);
-                    this.extendo.setPower(power);
-
-                    prevPos = currPos;
-                }
-        }).start();
+        prevPos = currPos;
     }
 
     public void setConstants() {
