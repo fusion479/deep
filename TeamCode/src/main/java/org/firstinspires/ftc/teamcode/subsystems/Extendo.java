@@ -47,12 +47,12 @@ public class Extendo extends SubsystemBase {
     // TODO: Export to threads once working.
     @Override
     public void periodic() {
-        double currPos = this.getPosition() + 360 * rotations;
+        double currPos = this.getPosition();
 
         if (prevPos - currPos > 180) rotations++;
         else if (180 < currPos - prevPos) rotations--;
 
-        double power = this.controller.calculate(currPos);
+        double power = this.controller.calculate(currPos + 360 * rotations);
         this.extendo.setPower(power);
 
         prevPos = currPos;
