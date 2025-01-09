@@ -6,6 +6,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
+import org.firstinspires.ftc.teamcode.commands.wire.WireFive;
+import org.firstinspires.ftc.teamcode.commands.wire.WireFour;
 import org.firstinspires.ftc.teamcode.commands.wire.WireOne;
 import org.firstinspires.ftc.teamcode.commands.wire.WireThree;
 import org.firstinspires.ftc.teamcode.commands.wire.WireTwo;
@@ -22,13 +24,16 @@ public class WireTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        // one of these is a cr servo as well - hopefully everything else will work except that one
         this.gamepad = new GamepadEx(super.gamepad1);
         testWire = new TestWire(super.hardwareMap, super.multipleTelemetry);
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new WireZero(super.multipleTelemetry, this.testWire));
         this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new WireOne(super.multipleTelemetry, this.testWire));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new WireTwo(super.multipleTelemetry, this.testWire));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new WireThree(super.multipleTelemetry, this.testWire));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new WireTwo(super.multipleTelemetry, this.testWire));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new WireTwo(super.multipleTelemetry, this.testWire)); // claw
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new WireThree(super.multipleTelemetry, this.testWire)); // middle arm
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new WireFour(super.multipleTelemetry, this.testWire));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new WireFive(super.multipleTelemetry, this.testWire));
+
     }
 
     @Override
