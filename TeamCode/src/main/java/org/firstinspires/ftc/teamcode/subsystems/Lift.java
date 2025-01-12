@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MIN_POWER = -0.25;
-    public static double ALLOWED_ERROR = 15;
+    public static int OFFSET = 8;
+    public static double MIN_POWER = -0.000035;
 
     public static double LOW_BASKET = 1500;
     public static double HIGH_BASKET = 2800;
@@ -28,10 +28,10 @@ public class Lift extends SubsystemBase {
     public static double INCREMENT = 250;
     public static double SLAM = 750;
 
-    public static double kP = 0.0015;
-    public static double kI = 0.0006;
-    public static double kD = 0.000015;
-    public static double kG = 0.063;
+    public static double kP = 0.012;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kG = 0;
 
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
@@ -65,7 +65,6 @@ public class Lift extends SubsystemBase {
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(kP, kI, kD);
-        this.controller.setAllowedError(Lift.ALLOWED_ERROR);
 
         this.setTarget(0);
     }
@@ -77,30 +76,20 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.rightPri.getCurrentPosition());
+                        power = this.controller.calculate(this.getPosition());
+                        this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
-                    if (!this.controller.isFinished()) {
-                        synchronized (this.rightPri) {
-                            this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
-                        }
+                    synchronized (this.rightSec) {
+                        this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
+                    }
 
-                        synchronized (this.rightSec) {
-                            this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
-                        }
+                    synchronized (this.leftPri) {
+                        this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
+                    }
 
-                        synchronized (this.leftPri) {
-                            this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
-                        }
-
-                        synchronized (this.leftSec) {
-                            this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
-                        }
-                    } else {
-                        this.leftSec.setPower(Lift.kG);
-                        this.rightSec.setPower(Lift.kG);
-                        this.rightPri.setPower(Lift.kG);
-                        this.rightSec.setPower(Lift.kG);
+                    synchronized (this.leftSec) {
+                        this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
                     Thread.sleep(50);
@@ -126,7 +115,7 @@ public class Lift extends SubsystemBase {
     }
 
     public double getPosition() {
-        return this.rightPri.getCurrentPosition();
+        return -this.rightPri.getCurrentPosition() - Lift.OFFSET;
     }
 
     public boolean isFinished() {
