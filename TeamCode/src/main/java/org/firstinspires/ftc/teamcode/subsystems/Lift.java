@@ -64,7 +64,8 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(kP, kI, kD);
+        this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.controller.setAllowedError(15);
 
         this.setTarget(0);
     }
@@ -127,6 +128,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void setConstants() {
-        this.controller.setCoefficients(kP, kI, kD);
+        this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
     }
 }
