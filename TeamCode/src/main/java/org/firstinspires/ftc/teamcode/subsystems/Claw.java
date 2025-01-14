@@ -16,26 +16,21 @@ public class Claw extends SubsystemBase {
 
     private final MultipleTelemetry telemetry;
 
-    private final Servo rotator, claw;
+    private final Servo claw;
 
 
     public Claw(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.rotator = hwMap.get(Servo.class, "rotator");
         this.claw = hwMap.get(Servo.class, "claw");
 
-        this.setRotatePosition(Claw.SCORE);
         this.setPosition(Claw.CLOSE);
     }
 
     public double getPosition() {
-        return this.rotator.getPosition();
+        return this.claw.getPosition();
     }
 
-    public void setRotatePosition(double position) {
-        this.rotator.setPosition(position);
-    }
 
     public void setPosition(double position) {
         this.claw.setPosition(position);

@@ -18,8 +18,8 @@ public class Arm extends SubsystemBase {
     public Arm(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.left = hwMap.get(Servo.class, "leftArm");
-        this.right = hwMap.get(Servo.class, "rightArm");
+        this.left = hwMap.get(Servo.class, "leftPivot");
+        this.right = hwMap.get(Servo.class, "rightPivot");
 
         this.setPosition(Arm.READY);
     }

@@ -13,7 +13,8 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 @Config
 @TeleOp(name = "Manual Lift Test")
 public class ManualLiftTest extends OpModeCore {
-    public static double POWER = 0.5;
+    public static double POWER_UP = 0.75;
+    public static double POWER_DOWN = -0.5;
     private Lift lift;
     private GamepadEx gamepad;
 
@@ -22,8 +23,8 @@ public class ManualLiftTest extends OpModeCore {
         this.gamepad = new GamepadEx(super.gamepad1);
         this.lift = new Lift(super.hardwareMap, super.multipleTelemetry);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new InstantCommand(() -> this.lift.setPower(POWER)));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new InstantCommand(() -> this.lift.setPower(-POWER)));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whileHeld(new InstantCommand(() -> this.lift.setPower(POWER_DOWN)));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whileHeld(new InstantCommand(() -> this.lift.setPower(POWER_UP)));
         this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenReleased(new InstantCommand(() -> this.lift.setPower(0)));
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenReleased(new InstantCommand(() -> this.lift.setPower(0)));
     }

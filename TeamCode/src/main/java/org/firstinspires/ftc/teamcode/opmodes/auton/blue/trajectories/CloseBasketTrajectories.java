@@ -15,6 +15,7 @@ public class CloseBasketTrajectories {
 
     public CloseBasketTrajectories() {
         this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/close-basket.json"));
+
     }
 
     public Pose getStart() {
