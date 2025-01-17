@@ -18,7 +18,7 @@ public class Pivot extends SubsystemBase {
     public Pivot(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.pivot = hwMap.get(Servo.class, "pivot");
+        this.pivot = hwMap.get(Servo.class, "rotator");
 
         this.setPosition(Pivot.READY);
     }

@@ -20,7 +20,11 @@ public class Claw extends SubsystemBase {
 
         this.claw = hwMap.get(Servo.class, "claw");
 
-        this.setPosition(Claw.OPEN);
+        this.setPosition(Claw.CLOSE);
+    }
+
+    public double getPosition() {
+        return this.claw.getPosition();
     }
 
     public void setPosition(double position) {
