@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.008;
-    public static double kI = 0.008;
+    public static double kP = 0.0065;
+    public static double kI = 0;
 
     // TODO: Work on finding correct kD
     public static double kD = 0;
