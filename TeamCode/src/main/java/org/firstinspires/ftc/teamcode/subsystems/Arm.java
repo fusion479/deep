@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Arm extends SubsystemBase {
-    public static double ACCEPTING = 1;
-    public static double SCORE = 0.49;
-    public static double READY = 0;
+    public static double ACCEPTING = 0.15;
+    public static double SCORE = 1;
+    public static double READY = 1;
 
     private final MultipleTelemetry telemetry;
     private final Servo left, right;

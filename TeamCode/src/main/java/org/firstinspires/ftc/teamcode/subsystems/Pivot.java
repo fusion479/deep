@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Pivot extends SubsystemBase {
-    public static double SCORE = 0.49;
-    public static double ACCEPTING = 0;
+    public static double SCORE = 0.9;
+    public static double ACCEPTING = 0.15;
     public static double READY = 0.25;
 
     private final MultipleTelemetry telemetry;

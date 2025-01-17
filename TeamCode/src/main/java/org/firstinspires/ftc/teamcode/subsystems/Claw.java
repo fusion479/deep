@@ -8,33 +8,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Claw extends SubsystemBase {
-    public static double OPEN = 1;
-    public static double CLOSE = 0; //close is correct
-
-    public static double SCORE = 1;
-    public static double ACCEPTING = 0;
+    public static double OPEN = 0.8;
+    public static double CLOSE = 0.1;
 
     private final MultipleTelemetry telemetry;
 
-    private final Servo rotator, claw;
-
+    private final Servo claw;
 
     public Claw(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.rotator = hwMap.get(Servo.class, "rotator");
         this.claw = hwMap.get(Servo.class, "claw");
 
-        this.setRotatePosition(Claw.SCORE);
-        this.setPosition(Claw.CLOSE);
-    }
-
-    public double getPosition() {
-        return this.rotator.getPosition();
-    }
-
-    public void setRotatePosition(double position) {
-        this.rotator.setPosition(position);
+        this.setPosition(Claw.OPEN);
     }
 
     public void setPosition(double position) {

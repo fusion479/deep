@@ -13,14 +13,13 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static int OFFSET = 8;
-    public static double MIN_POWER = -0.000035;
+    public static double MIN_POWER = -0.2;
 
-    public static double LOW_BASKET = 1500;
-    public static double HIGH_BASKET = 2800;
+    public static double LOW_BASKET = 700;
+    public static double HIGH_BASKET = 1350;
 
-    public static double LOW_RUNG = 1000;
-    public static double HIGH_RUNG = 2100;
+    public static double LOW_RUNG = 400;
+    public static double HIGH_RUNG = 800;
 
     public static double SPECIMEN = 0;
 
@@ -28,7 +27,7 @@ public class Lift extends SubsystemBase {
     public static double INCREMENT = 250;
     public static double SLAM = 750;
 
-    public static double kP = 0.012;
+    public static double kP = 0.004;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
@@ -48,6 +47,11 @@ public class Lift extends SubsystemBase {
         this.leftSec = hwMap.get(DcMotorEx.class, "leftLiftSec");
         this.rightPri = hwMap.get(DcMotorEx.class, "rightLiftPri");
         this.leftPri = hwMap.get(DcMotorEx.class, "leftLiftPri");
+
+        this.leftPri.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.rightSec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.rightPri.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.leftSec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         this.leftSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         this.rightSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -116,7 +120,7 @@ public class Lift extends SubsystemBase {
     }
 
     public double getPosition() {
-        return -this.rightPri.getCurrentPosition() - Lift.OFFSET;
+        return -this.leftPri.getCurrentPosition();
     }
 
     public boolean isFinished() {

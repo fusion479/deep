@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristScore;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
@@ -22,7 +23,7 @@ public class WristTest extends OpModeCore {
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new WristScore(super.multipleTelemetry, this.wrist));
         this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new WristReady(super.multipleTelemetry, this.wrist));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new WristScore(super.multipleTelemetry, this.wrist));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new WristAccepting(super.multipleTelemetry, this.wrist));
     }
 
     @Override

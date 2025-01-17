@@ -11,10 +11,12 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.015;
-    public static double kI = 0.0001;
-    public static double kD = 0.0001;
-    public static double OFFSET = 306.0;
+    public static double kP = 0.008;
+    public static double kI = 0.008;
+
+    // TODO: Work on finding correct kD
+    public static double kD = 0;
+    public static double OFFSET = 224.4;
 
     public static int ALLOWED_ERROR = 15;
     public static int SCORE = 0;
@@ -72,6 +74,10 @@ public class Extendo extends SubsystemBase {
 
     public double getError() {
         return this.controller.getLastError();
+    }
+
+    public void setPower(double power) {
+        this.extendo.setPower(power);
     }
 
     public boolean isFinished() {

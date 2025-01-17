@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.Command;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -16,12 +17,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmScore;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawIncrementLeft;
-import org.firstinspires.ftc.teamcode.commands.claw.ClawIncrementRight;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
@@ -39,7 +35,6 @@ import org.firstinspires.ftc.teamcode.commands.wrist.WristScore;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
@@ -53,7 +48,7 @@ public class CommandRobot {
 
     private final MultipleTelemetry telemetry;
     private final Lift lift;
-    private final Extendo extendo;
+    //private final Extendo extendo;
     private final Claw claw;
     private final Pivot pivot;
     private final Wrist wrist;
@@ -65,6 +60,8 @@ public class CommandRobot {
     private GamepadEx gamepad2;
     private final OpModeCore opMode;
 
+    private boolean intakeToggle;
+
     public static int CLAW_ACCEPT_DELAY = 450;
     public static int CLAW_RETRACT_DELAY = 450;
 
@@ -73,11 +70,13 @@ public class CommandRobot {
 
         this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose(0, 0, 0));
         this.lift = new Lift(hwMap, telemetry);
-        this.extendo = new Extendo(hwMap, telemetry);
+        //this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
         this.pivot = new Pivot(hwMap, telemetry);
         this.wrist = new Wrist(hwMap, telemetry);
         this.arm = new Arm(hwMap, telemetry);
+
+        this.intakeToggle = false;
 
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
@@ -93,7 +92,7 @@ public class CommandRobot {
         this.telemetry = telemetry;
 
         this.lift = new Lift(hwMap, telemetry);
-        this.extendo = new Extendo(hwMap, telemetry);
+        //this.extendo = new Extendo(hwMap, telemetry);
         this.claw = new Claw(hwMap, telemetry);
         this.pivot = new Pivot(hwMap, telemetry);
         this.wrist = new Wrist(hwMap, telemetry);
@@ -121,13 +120,13 @@ public class CommandRobot {
                 new ArmReady(this.telemetry, this.arm),
                 //todo: find correct wait amount
                 new WaitCommand(100),
-                new ExtendoReady(this.telemetry, this.extendo),
+                //new ExtendoReady(this.telemetry, this.extendo),
                 new LiftAccepting(this.telemetry, this.lift)
         );
 
         this.accepting = new SequentialCommandGroup(
                 new LiftAccepting(this.telemetry, this.lift),
-                new ExtendoAccepting(this.telemetry, this.extendo),
+                //new ExtendoAccepting(this.telemetry, this.extendo),
                 //todo: find correct wait amount
                 new WaitCommand(100),
                 new ArmAccepting(this.telemetry, this.arm),
@@ -141,8 +140,8 @@ public class CommandRobot {
                 new LiftHighBasket(this.telemetry, this.lift),
                 new WristScore(this.telemetry, this.wrist),
                 new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ArmScore(this.telemetry, this.arm)
+                //new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.lowBasket = new SequentialCommandGroup(
@@ -150,8 +149,8 @@ public class CommandRobot {
                 new LiftLowBasket(this.telemetry, this.lift),
                 new WristScore(this.telemetry, this.wrist),
                 new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ArmScore(this.telemetry, this.arm)
+                //new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.highRung = new SequentialCommandGroup(
@@ -159,8 +158,8 @@ public class CommandRobot {
                 new LiftHighRung(this.telemetry, this.lift),
                 new WristScore(this.telemetry, this.wrist),
                 new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ArmScore(this.telemetry, this.arm)
+                //new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.lowRung = new SequentialCommandGroup(
@@ -168,13 +167,13 @@ public class CommandRobot {
                 new LiftLowRung(this.telemetry, this.lift),
                 new WristScore(this.telemetry, this.wrist),
                 new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ArmScore(this.telemetry, this.arm)
+                //new ExtendoScore(this.telemetry, this.extendo)
         );
 
         this.specimen = new SequentialCommandGroup(
                 new LiftSpecimen(this.telemetry, this.lift),
-                new ExtendoAccepting(this.telemetry, this.extendo),
+                //new ExtendoAccepting(this.telemetry, this.extendo),
                 new WaitCommand(100),
                 new ArmReady(this.telemetry, this.arm),
                 new PivotReady(this.telemetry, this.pivot),
@@ -189,10 +188,6 @@ public class CommandRobot {
         this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
 
         this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
-
-        this.rotateLeft = new ClawIncrementLeft(this.telemetry, this.claw);
-
-        this.rotateRight = new ClawIncrementRight(this.telemetry, this.claw);
     }
 
     public void configureControls() {
@@ -203,9 +198,12 @@ public class CommandRobot {
 
             case OWEN:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                        .whenPressed(this.ready);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                        .whenPressed(this.accepting);
+                        .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
+                            if (this.lift.getPosition() > 100) this.intakeToggle = true;
+                            else this.intakeToggle = !this.intakeToggle;
+
+                            return this.intakeToggle;
+                        }));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(this.liftIncrement);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
@@ -218,6 +216,10 @@ public class CommandRobot {
                         .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.lowBasket);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(this.close);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open);
                 break;
 
             /* ------------------------------------- */
@@ -225,12 +227,10 @@ public class CommandRobot {
             /* ------------------------------------- */
 
             case RYAN:
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                        .whenPressed(this.accepting);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                         .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                        .whenPressed(this.ready);
+                        .toggleWhenPressed(this.accepting, this.ready);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                         .whenPressed(this.lowBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
