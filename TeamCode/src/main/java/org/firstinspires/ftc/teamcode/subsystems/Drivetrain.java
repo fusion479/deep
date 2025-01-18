@@ -61,7 +61,7 @@ public class Drivetrain extends SubsystemBase {
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, -gamepad.getRightX());
 
-                        this.follower.setTeleOpMovementVectors(-yPower * MAX_VEL, -xPower * MAX_VEL, -angPower * MAX_ANGULAR_VEL, true);
+                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, true);
                         this.follower.update();
                     }
                     Thread.sleep(10);
