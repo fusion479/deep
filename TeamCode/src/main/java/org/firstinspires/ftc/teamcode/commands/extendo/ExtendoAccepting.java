@@ -23,6 +23,6 @@ public class ExtendoAccepting extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.extendo.isFinished();
+        return true;
     }
 }

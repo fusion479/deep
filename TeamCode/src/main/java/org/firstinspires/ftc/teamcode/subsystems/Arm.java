@@ -8,9 +8,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Arm extends SubsystemBase {
-    public static double ACCEPTING = 0.15;
+    public static double ACCEPTING = 0.25;
     public static double SCORE = 1;
     public static double READY = 1;
+    public static double INTAKE = 0.15;
 
     private final MultipleTelemetry telemetry;
     private final Servo left, right;
@@ -18,8 +19,8 @@ public class Arm extends SubsystemBase {
     public Arm(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.left = hwMap.get(Servo.class, "leftPivot");
-        this.right = hwMap.get(Servo.class, "rightPivot");
+        this.left = hwMap.get(Servo.class, "leftArm");
+        this.right = hwMap.get(Servo.class, "rightArm");
 
         this.setPosition(Arm.READY);
     }

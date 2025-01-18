@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Pivot extends SubsystemBase {
     public static double SCORE = 0.9;
     public static double ACCEPTING = 0.15;
-    public static double READY = 0.25;
+    public static double READY = 0.7;
 
     private final MultipleTelemetry telemetry;
     private final Servo pivot;
@@ -18,7 +18,7 @@ public class Pivot extends SubsystemBase {
     public Pivot(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
         this.telemetry = telemetry;
 
-        this.pivot = hwMap.get(Servo.class, "rotator");
+        this.pivot = hwMap.get(Servo.class, "pivot");
 
         this.setPosition(Pivot.READY);
     }

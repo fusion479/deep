@@ -11,19 +11,18 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.0065;
+    public static double kP = 0.004;
     public static double kI = 0;
-
-    // TODO: Work on finding correct kD
     public static double kD = 0;
-    public static double OFFSET = 224.4;
 
+    public static double OFFSET = 0;
     public static int ALLOWED_ERROR = 15;
-    public static int SCORE = 0;
+    public static int SCORE = 10;
     public static int READY = 100;
-    public static int ACCEPTING = 350;
+    public static int ACCEPTING = 600;
 
     private final MultipleTelemetry telemetry;
+    private double power;
 
     public final AnalogInput encoder;
     private final CRServo extendo;
@@ -46,7 +45,6 @@ public class Extendo extends SubsystemBase {
         return Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360);
     }
 
-    // TODO: Export to threads once working.
     @Override
     public void periodic() {
         double currPos = this.getPosition();
@@ -54,8 +52,8 @@ public class Extendo extends SubsystemBase {
         if (prevPos - currPos > 180) rotations++;
         else if (180 < currPos - prevPos) rotations--;
 
-        double power = this.controller.calculate(currPos + 360 * rotations);
-        this.extendo.setPower(power);
+        this.power = this.controller.calculate(currPos + 360 * rotations);
+        if (!this.controller.isFinished()) this.extendo.setPower(this.power);
 
         prevPos = currPos;
     }
@@ -78,6 +76,7 @@ public class Extendo extends SubsystemBase {
 
     public void setPower(double power) {
         this.extendo.setPower(power);
+        this.controller.setTarget(this.getPosition());
     }
 
     public boolean isFinished() {

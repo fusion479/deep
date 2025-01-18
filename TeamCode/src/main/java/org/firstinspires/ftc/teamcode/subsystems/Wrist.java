@@ -12,6 +12,8 @@ public class Wrist extends SubsystemBase {
     public static double ACCEPTING = 0;
     public static double READY = 1;
 
+    public static double INCREMENT = 0.25;
+
     private final MultipleTelemetry telemetry;
     private final Servo wrist;
 
@@ -25,5 +27,9 @@ public class Wrist extends SubsystemBase {
 
     public void setPosition(double position) {
         this.wrist.setPosition(position);
+    }
+
+    public double getPosition() {
+        return this.wrist.getPosition();
     }
 }
