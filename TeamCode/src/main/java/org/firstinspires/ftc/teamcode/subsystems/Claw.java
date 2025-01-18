@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Claw extends SubsystemBase {
     public static double OPEN = 0.2;
-    public static double CLOSE = 0.6;
+    public static double CLOSE = 0.53;
 
     private final MultipleTelemetry telemetry;
 
