@@ -232,6 +232,8 @@ public class CommandRobot {
                         }));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(this.liftDecrement);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                         .whenPressed(this.wristRight);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
