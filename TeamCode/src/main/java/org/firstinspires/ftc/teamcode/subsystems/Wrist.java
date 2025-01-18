@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Config
 public class Wrist extends SubsystemBase {
     public static double SCORE = 1;
-    public static double ACCEPTING = 0;
-    public static double READY = 1;
+    public static double ACCEPTING = 0.6;
+    public static double READY = 0.6;
 
     public static double INCREMENT = 0.25;
 
@@ -22,7 +22,7 @@ public class Wrist extends SubsystemBase {
 
         this.wrist = hwMap.get(Servo.class, "wrist");
 
-        this.setPosition(Pivot.SCORE);
+        this.setPosition(Wrist.ACCEPTING);
     }
 
     public void setPosition(double position) {

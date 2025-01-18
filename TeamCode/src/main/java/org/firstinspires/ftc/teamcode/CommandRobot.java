@@ -71,6 +71,7 @@ public class CommandRobot {
 
     public static int CLAW_ACCEPT_DELAY = 450;
     public static int CLAW_RETRACT_DELAY = 450;
+    public static int READY_DELAY = 1250;
 
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
         this.telemetry = telemetry;
@@ -126,7 +127,7 @@ public class CommandRobot {
                 new PivotReady(this.telemetry, this.pivot),
                 new ArmReady(this.telemetry, this.arm),
                 //todo: find correct wait amount
-                new WaitCommand(100),
+                new WaitCommand(READY_DELAY),
                 new ExtendoReady(this.telemetry, this.extendo),
                 new LiftAccepting(this.telemetry, this.lift)
         );
@@ -135,11 +136,11 @@ public class CommandRobot {
                 new LiftAccepting(this.telemetry, this.lift),
                 new ExtendoAccepting(this.telemetry, this.extendo),
                 //todo: find correct wait amount
-                new WaitCommand(100),
+                new WaitCommand(READY_DELAY),
+                new ClawOpen(this.telemetry, this.claw),
                 new ArmAccepting(this.telemetry, this.arm),
                 new PivotAccepting(this.telemetry, this.pivot),
-                new WristAccepting(this.telemetry, this.wrist),
-                new ClawOpen(this.telemetry, this.claw)
+                new WristAccepting(this.telemetry, this.wrist)
         );
 
         this.highBasket = new SequentialCommandGroup(
@@ -229,7 +230,7 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                         .whenPressed(this.highRung);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
+                        .whenPressed(this.intakeClose);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                         .whenPressed(this.open);
                 break;

@@ -19,7 +19,7 @@ public class Extendo extends SubsystemBase {
     public static int ALLOWED_ERROR = 15;
     public static int SCORE = 10;
     public static int READY = 100;
-    public static int ACCEPTING = 600;
+    public static int ACCEPTING = 550;
 
     private final MultipleTelemetry telemetry;
     private double power;
