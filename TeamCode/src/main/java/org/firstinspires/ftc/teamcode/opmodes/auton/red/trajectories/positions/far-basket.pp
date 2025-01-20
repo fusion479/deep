@@ -3,7 +3,7 @@
     "x": 136,
     "y": 79,
     "heading": "constant",
-    "degrees": 0
+    "degrees": 180
   },
   "lines": [
     {
