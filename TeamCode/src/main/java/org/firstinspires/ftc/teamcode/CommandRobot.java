@@ -262,20 +262,6 @@ public class CommandRobot {
             /* ------------------------------------- */
 
             case RYAN:
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.highBasket);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                        .toggleWhenPressed(this.accepting, this.ready);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.lowBasket);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                        .whenPressed(this.liftIncrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                        .whenPressed(this.liftDecrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.lowRung);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                        .whenPressed(this.highRung);
                 break;
 
             /* ------------------------------------- */
