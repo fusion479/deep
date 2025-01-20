@@ -18,6 +18,8 @@ public class PivotTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.pivot = new Pivot(super.hardwareMap, super.multipleTelemetry);
 
@@ -29,7 +31,6 @@ public class PivotTest extends OpModeCore {
     @Override
     public void runOpMode() throws InterruptedException {
         this.initialize();
-        CommandScheduler.getInstance().enable();
 
         super.waitForStart();
 

@@ -15,6 +15,8 @@ public class DrivetrainTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.drive = new Drivetrain(super.hardwareMap, super.multipleTelemetry, new Pose(0, 0, 0));
     }
@@ -22,7 +24,6 @@ public class DrivetrainTest extends OpModeCore {
     @Override
     public void runOpMode() throws InterruptedException {
         this.initialize();
-        CommandScheduler.getInstance().enable();
 
         super.waitForStart();
 

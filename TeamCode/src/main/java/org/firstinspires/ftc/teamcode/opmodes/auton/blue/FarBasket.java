@@ -16,6 +16,7 @@ public class FarBasket extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
         this.trajectories = new FarBasketTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart(), super.multipleTelemetry, this);
@@ -23,20 +24,19 @@ public class FarBasket extends OpModeCore {
 
     @Override
     public void runOpMode() {
-        CommandScheduler.getInstance().enable();
         this.initialize();
 
         super.waitForStart();
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PathCommand(this.robot.getFollower(), this.trajectories.scorePreload, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.setupTop, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.pushTop, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.setupMid, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.pushMid, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.setupBottom, 0.75),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.pushBottom, 0.75)
+                        new PathCommand(this.robot, this.trajectories.scorePreload, 0.75),
+                        new PathCommand(this.robot, this.trajectories.setupTop, 0.75),
+                        new PathCommand(this.robot, this.trajectories.pushTop, 0.75),
+                        new PathCommand(this.robot, this.trajectories.setupMid, 0.75),
+                        new PathCommand(this.robot, this.trajectories.pushMid, 0.75),
+                        new PathCommand(this.robot, this.trajectories.setupBottom, 0.75),
+                        new PathCommand(this.robot, this.trajectories.pushBottom, 0.75)
                 )
         );
 

@@ -18,6 +18,8 @@ public class ArmTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.arm = new Arm(super.hardwareMap, super.multipleTelemetry);
 
@@ -28,7 +30,6 @@ public class ArmTest extends OpModeCore {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        this.initialize();
         CommandScheduler.getInstance().enable();
 
         super.waitForStart();

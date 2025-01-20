@@ -17,6 +17,8 @@ public class ClawTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.claw = new Claw(super.hardwareMap, super.multipleTelemetry);
 

@@ -18,6 +18,8 @@ public class ExtendoTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.extendo = new Extendo(super.hardwareMap, super.multipleTelemetry);
 
@@ -28,7 +30,6 @@ public class ExtendoTest extends OpModeCore {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        this.initialize();
         CommandScheduler.getInstance().enable();
 
         super.waitForStart();

@@ -14,6 +14,8 @@ public class Main extends OpModeCore {
     private MultipleTelemetry multipleTelemetry;
 
     public void initialize() {
+        super.initialize();
+
         this.multipleTelemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         this.robot = new CommandRobot(
@@ -28,8 +30,6 @@ public class Main extends OpModeCore {
 
     @Override
     public void runOpMode() {
-        CommandScheduler.getInstance().enable();
-
         this.initialize();
         super.waitForStart();
 

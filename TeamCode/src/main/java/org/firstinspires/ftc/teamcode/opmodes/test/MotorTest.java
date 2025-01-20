@@ -20,6 +20,8 @@ public class MotorTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
 
         this.rightLiftPri = super.hardwareMap.get(DcMotorEx.class, "rightLiftPri");
@@ -59,7 +61,6 @@ public class MotorTest extends OpModeCore {
     @Override
     public void runOpMode() throws InterruptedException {
         this.initialize();
-        CommandScheduler.getInstance().enable();
 
         super.waitForStart();
 

@@ -4,20 +4,22 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.pathgen.Path;
 
+import org.firstinspires.ftc.teamcode.CommandRobot;
+
 public class PathCommand extends CommandBase {
     private final Path path;
     private final Follower follower;
     private final double speed;
 
-    public PathCommand(Follower follower, Path path) {
+    public PathCommand(CommandRobot robot, Path path) {
         this.path = path;
         this.speed = 1;
-        this.follower = follower;
+        this.follower = robot.getFollower();
     }
 
-    public PathCommand(Follower follower, Path path, double speed) {
+    public PathCommand(CommandRobot robot, Path path, double speed) {
         this.path = path;
-        this.follower = follower;
+        this.follower = robot.getFollower();
         this.speed = speed;
     }
 

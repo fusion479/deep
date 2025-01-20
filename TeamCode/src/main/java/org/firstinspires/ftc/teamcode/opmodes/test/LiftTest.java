@@ -21,6 +21,8 @@ public class LiftTest extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
+
         this.gamepad = new GamepadEx(super.gamepad1);
         this.lift = new Lift(super.hardwareMap, super.multipleTelemetry);
 
@@ -35,7 +37,6 @@ public class LiftTest extends OpModeCore {
     @Override
     public void runOpMode() throws InterruptedException {
         this.initialize();
-        CommandScheduler.getInstance().enable();
 
         super.waitForStart();
 

@@ -16,6 +16,7 @@ public class CloseBasket extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart(), super.multipleTelemetry, this);
 
         this.trajectories = new CloseBasketTrajectories();
@@ -23,21 +24,20 @@ public class CloseBasket extends OpModeCore {
 
     @Override
     public void runOpMode() {
-        CommandScheduler.getInstance().enable();
         this.initialize();
 
         super.waitForStart();
 
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PathCommand(this.robot.getFollower(), this.trajectories.scorePreload),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.getTop),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.scoreTop),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.getMid),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.scoreMid),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.getBottom),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.scoreBottom),
-                        new PathCommand(this.robot.getFollower(), this.trajectories.park)
+                        new PathCommand(this.robot, this.trajectories.scorePreload, 0.75),
+                        new PathCommand(this.robot, this.trajectories.getTop, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreTop, 0.75),
+                        new PathCommand(this.robot, this.trajectories.getMid, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreMid, 0.75),
+                        new PathCommand(this.robot, this.trajectories.getBottom, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreBottom, 0.75),
+                        new PathCommand(this.robot, this.trajectories.park, 0.75)
                 )
         );
 
