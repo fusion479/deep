@@ -29,6 +29,7 @@ public class RyanMain extends OpModeCore {
     @Override
     public void runOpMode() {
         CommandScheduler.getInstance().enable();
+        CommandScheduler.getInstance().reset();
 
         this.initialize();
         super.waitForStart();
