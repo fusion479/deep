@@ -16,7 +16,6 @@ public class FarBasket extends OpModeCore {
 
     @Override
     public void initialize() {
-        super.initialize();
         this.trajectories = new FarBasketTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart(), super.multipleTelemetry, this);
@@ -24,6 +23,7 @@ public class FarBasket extends OpModeCore {
 
     @Override
     public void runOpMode() {
+        CommandScheduler.getInstance().enable();
         this.initialize();
 
         super.waitForStart();
