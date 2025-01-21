@@ -54,11 +54,6 @@ public class AutonomousHelpers {
         return path;
     }
 
-    public static void main(String[] args) {
-        ArrayList<Pose> poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/src/main/java/org/example/trajectory.pp"));
-        System.out.println(poses);
-    }
-
     public static ArrayList<Pose> getPoses(String path) {
         try {
             ArrayList<Pose> poses = new ArrayList<Pose>();
@@ -92,7 +87,6 @@ public class AutonomousHelpers {
 
             return poses;
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

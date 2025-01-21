@@ -17,7 +17,7 @@ public class CloseBasketTrajectories {
     public Path scorePreload, getTop, scoreTop, getMid, scoreMid, getBottom, scoreBottom, park;
 
     public CloseBasketTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/close-basket.json"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/close-basket.pp"));
 
         this.scorePreload = buildLine(
                 poses.get(0),

@@ -23,6 +23,18 @@ public class PathCommand extends CommandBase {
         this.speed = speed;
     }
 
+    public PathCommand(Follower follower, Path path) {
+        this.path = path;
+        this.follower = follower;
+        this.speed = 1;
+    }
+
+    public PathCommand(Follower follower, Path path, double speed) {
+        this.path = path;
+        this.follower = follower;
+        this.speed = speed;
+    }
+
     @Override
     public void initialize() {
         this.follower.setMaxPower(speed);

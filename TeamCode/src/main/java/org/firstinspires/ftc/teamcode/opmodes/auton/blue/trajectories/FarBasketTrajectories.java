@@ -17,7 +17,7 @@ public class FarBasketTrajectories {
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom;
 
     public FarBasketTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/far-basket.json"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/far-basket.pp"));
 
         this.scorePreload = buildCurve(
                 poses.get(0),
@@ -117,6 +117,6 @@ public class FarBasketTrajectories {
     }
 
     public Pose getStart() {
-        return this.poses.get(1);
+        return this.poses.get(0);
     }
 }
