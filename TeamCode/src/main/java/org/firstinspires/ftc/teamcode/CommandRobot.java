@@ -68,10 +68,7 @@ public class CommandRobot {
 
     private boolean intakeToggle;
 
-    public static int CLAW_ACCEPT_DELAY = 450;
-    public static int CLAW_RETRACT_DELAY = 450;
     public static int READY_DELAY = 1250;
-    public static int SLAM_OPEN_DELAY = 500;
 
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
         this.telemetry = telemetry;
@@ -204,9 +201,12 @@ public class CommandRobot {
         this.close = new ClawClose(this.telemetry, this.claw);
 
         this.intakeClose = new SequentialCommandGroup(
+                new ClawOpen(this.telemetry, this.claw),
                 new ArmIntake(this.telemetry, this.arm),
-                new WaitCommand(250),
-                new ClawClose(this.telemetry, this.claw)
+                new WaitCommand(100),
+                new ClawClose(this.telemetry, this.claw),
+                new WaitCommand(100),
+                new ArmAccepting(this.telemetry, this.arm)
         );
 
         this.intakeOpen = new SequentialCommandGroup(
@@ -233,10 +233,13 @@ public class CommandRobot {
             case OWEN:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
-                            if (this.lift.getPosition() > 100) this.intakeToggle = true;
+                            if (this.lift.getPosition() > 100 && this.arm.getPosition() < 0.2)
+                                this.intakeToggle = true;
+
                             else this.intakeToggle = !this.intakeToggle;
                             return this.intakeToggle;
                         }));
+
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(this.liftDecrement);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)

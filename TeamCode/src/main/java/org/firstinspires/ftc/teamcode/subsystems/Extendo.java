@@ -25,7 +25,8 @@ public class Extendo extends SubsystemBase {
     private double power;
 
     public final AnalogInput encoder;
-    private final CRServo extendo;
+    private final CRServo extendoBottom;
+    private final CRServo extendoTop;
     private final PIDController controller;
 
     private double rotations = 0;
@@ -35,14 +36,15 @@ public class Extendo extends SubsystemBase {
         this.telemetry = telemetry;
         this.controller = new PIDController(Extendo.kP, Extendo.kI, Extendo.kD);
 
-        this.extendo = hwMap.get(CRServo.class, "extendo");
+        this.extendoBottom = hwMap.get(CRServo.class, "extendoBottom");
+        this.extendoTop = hwMap.get(CRServo.class, "extendoTop");
         this.encoder = hwMap.get(AnalogInput.class, "encoder");
 
         this.controller.setAllowedError(Extendo.ALLOWED_ERROR);
     }
 
     public synchronized double getPosition() {
-        return Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360);
+        return -(Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360));
     }
 
     @Override
@@ -53,7 +55,10 @@ public class Extendo extends SubsystemBase {
         else if (180 < currPos - prevPos) rotations--;
 
         this.power = this.controller.calculate(currPos + 360 * rotations);
-        if (!this.controller.isFinished()) this.extendo.setPower(this.power);
+        if (!this.controller.isFinished()) {
+            this.extendoBottom.setPower(this.power);
+            this.extendoTop.setPower(this.power);
+        }
 
         prevPos = currPos;
     }
@@ -75,8 +80,8 @@ public class Extendo extends SubsystemBase {
     }
 
     public void setPower(double power) {
-        this.extendo.setPower(power);
-        this.controller.setTarget(this.getPosition());
+        this.extendoBottom.setPower(power);
+        this.extendoTop.setPower(-power);
     }
 
     public boolean isFinished() {

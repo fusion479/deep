@@ -29,4 +29,8 @@ public class Arm extends SubsystemBase {
         this.left.setPosition(position);
         this.right.setPosition(1 - position);
     }
+
+    public double getPosition() {
+        return this.left.getPosition();
+    }
 }
