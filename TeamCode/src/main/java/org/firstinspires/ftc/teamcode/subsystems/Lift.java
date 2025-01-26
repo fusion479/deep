@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MIN_POWER = -0.2;
+    public static double MIN_POWER = -0.1;
 
     public static double LOW_BASKET = 700;
     public static double HIGH_BASKET = 1350;
@@ -21,11 +21,11 @@ public class Lift extends SubsystemBase {
     public static double LOW_RUNG = 400;
     public static double HIGH_RUNG = 600;
 
-    public static double ACCEPTING = 0;
+    public static double ACCEPTING = 10;
     public static double INCREMENT = 250;
     public static double SLAM = 750;
 
-    public static double kP = 0.004;
+    public static double kP = 0.005;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;

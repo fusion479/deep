@@ -19,7 +19,7 @@ public class WristRight extends CommandBase {
     @Override
     public void initialize() {
         double target = this.wrist.getPosition() + Wrist.INCREMENT;
-        if (target > 0) target -= 1;
+        if (target > 1) target -= 1;
 
         this.wrist.setPosition(target);
     }

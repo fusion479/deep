@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class Extendo extends SubsystemBase {
@@ -15,11 +16,11 @@ public class Extendo extends SubsystemBase {
     public static double kI = 0;
     public static double kD = 0;
 
-    public static double OFFSET = 0;
-    public static int ALLOWED_ERROR = 15;
-    public static int SCORE = 10;
-    public static int READY = 50;
-    public static int ACCEPTING = 550;
+    public static double OFFSET = 288.5;
+    public static int ALLOWED_ERROR = 10;
+    public static int SCORE = 0;
+    public static int READY = 20;
+    public static int ACCEPTING = 170;
 
     private final MultipleTelemetry telemetry;
     private double power;
@@ -47,20 +48,32 @@ public class Extendo extends SubsystemBase {
         return -(Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360));
     }
 
-    @Override
-    public void periodic() {
-        double currPos = this.getPosition();
+    public void startThread(OpModeCore opMode) {
+        new Thread(() -> {
+            while (opMode.opModeIsActive()) {
+                try {
+                    double currPos = this.getPosition();
 
-        if (prevPos - currPos > 180) rotations++;
-        else if (180 < currPos - prevPos) rotations--;
+                    if (prevPos - currPos > 180) rotations++;
+                    else if (180 < currPos - prevPos) rotations--;
 
-        this.power = this.controller.calculate(currPos + 360 * rotations);
-        if (!this.controller.isFinished()) {
-            this.extendoBottom.setPower(this.power);
-            this.extendoTop.setPower(this.power);
-        }
+                    this.power = this.controller.calculate(currPos + 360 * rotations);
+                    if (!this.controller.isFinished()) {
+                        synchronized (this.extendoBottom) {
+                            this.extendoBottom.setPower(-this.power);
+                        }
 
-        prevPos = currPos;
+                        synchronized (this.extendoTop) {
+                            this.extendoTop.setPower(-this.power);
+                        }
+                    }
+
+                    prevPos = currPos;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void setConstants() {
@@ -81,7 +94,7 @@ public class Extendo extends SubsystemBase {
 
     public void setPower(double power) {
         this.extendoBottom.setPower(power);
-        this.extendoTop.setPower(-power);
+        this.extendoTop.setPower(power);
     }
 
     public boolean isFinished() {

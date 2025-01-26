@@ -68,8 +68,6 @@ public class CommandRobot {
 
     private boolean intakeToggle;
 
-    public static int READY_DELAY = 1250;
-
     public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
         this.telemetry = telemetry;
 
@@ -116,6 +114,7 @@ public class CommandRobot {
         else
             this.drivetrain.startThread(this.gamepad2, this.opMode);
 
+        this.extendo.startThread(this.opMode);
         this.lift.startThread(this.opMode);
     }
 
@@ -126,7 +125,6 @@ public class CommandRobot {
                 new PivotReady(this.telemetry, this.pivot),
                 new ArmReady(this.telemetry, this.arm),
                 //todo: find correct wait amount
-                new WaitCommand(READY_DELAY),
                 new ExtendoReady(this.telemetry, this.extendo),
                 new LiftAccepting(this.telemetry, this.lift)
         );
@@ -135,7 +133,7 @@ public class CommandRobot {
                 new LiftAccepting(this.telemetry, this.lift),
                 new ExtendoAccepting(this.telemetry, this.extendo),
                 //todo: find correct wait amount
-                new WaitCommand(READY_DELAY),
+                new WaitCommand(400),
                 new ClawOpen(this.telemetry, this.claw),
                 new ArmAccepting(this.telemetry, this.arm),
                 new PivotAccepting(this.telemetry, this.pivot),
@@ -202,10 +200,11 @@ public class CommandRobot {
 
         this.intakeClose = new SequentialCommandGroup(
                 new ClawOpen(this.telemetry, this.claw),
+                new WaitCommand(100),
                 new ArmIntake(this.telemetry, this.arm),
-                new WaitCommand(100),
+                new WaitCommand(200),
                 new ClawClose(this.telemetry, this.claw),
-                new WaitCommand(100),
+                new WaitCommand(200),
                 new ArmAccepting(this.telemetry, this.arm)
         );
 

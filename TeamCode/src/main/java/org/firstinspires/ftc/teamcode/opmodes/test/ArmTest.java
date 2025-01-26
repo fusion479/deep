@@ -30,7 +30,7 @@ public class ArmTest extends OpModeCore {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        CommandScheduler.getInstance().enable();
+        this.initialize();
 
         super.waitForStart();
 
