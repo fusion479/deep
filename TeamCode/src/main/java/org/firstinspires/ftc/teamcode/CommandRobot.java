@@ -17,11 +17,13 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmScore;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
@@ -32,6 +34,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
@@ -48,7 +51,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, open, close, intakeClose, wristRight, wristLeft, slam, intakeOpen;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, open, close, intakeClose, wristRight, wristLeft, slam, intakeOpen, scoreSpecimen;
 
     private TeleOpMode mode;
 
@@ -185,6 +188,14 @@ public class CommandRobot {
                 new ExtendoScore(this.telemetry, this.extendo)
         );
 
+        this.scoreSpecimen = new SequentialCommandGroup(
+                new ClawClose(this.telemetry, this.claw),
+                new LiftHighRung(this.telemetry, this.lift),
+                new ArmSpecimen(this.telemetry, this.arm),
+                new PivotSpecimen(this.telemetry, this.pivot),
+                new ExtendoSpecimen(this.telemetry, this.extendo)
+        );
+
         this.slam = new SequentialCommandGroup(
                 new ArmReady(this.telemetry, this.arm),
                 new PivotReady(this.telemetry, this.pivot),
@@ -232,7 +243,7 @@ public class CommandRobot {
             case OWEN:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
-                            if (this.lift.getPosition() > 100 && this.arm.getPosition() < 0.2)
+                            if (this.lift.getPosition() > 100)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;
@@ -248,11 +259,9 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.wristLeft);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.highBasket);
+                        .whenPressed(this.scoreSpecimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.slam);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)

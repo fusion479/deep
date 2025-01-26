@@ -11,6 +11,7 @@ public class Pivot extends SubsystemBase {
     public static double ACCEPTING = 0;
     public static double READY = 0;
     public static double SCORE = 1;
+    public static double SPECIMEN = 0.8;
 
     private final MultipleTelemetry telemetry;
     private final Servo pivot;

@@ -12,6 +12,7 @@ public class Arm extends SubsystemBase {
     public static double SCORE = 1;
     public static double READY = 1;
     public static double INTAKE = 0.15;
+    public static double SPECIMEN = 0.35;
 
     private final MultipleTelemetry telemetry;
     private final Servo left, right;
