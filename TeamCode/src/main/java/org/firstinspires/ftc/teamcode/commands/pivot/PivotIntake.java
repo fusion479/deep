@@ -5,11 +5,11 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 
-public class PivotSpecimen extends CommandBase {
+public class PivotIntake extends CommandBase {
     private final MultipleTelemetry telemetry;
     private final Pivot pivot;
 
-    public PivotSpecimen(final MultipleTelemetry telemetry, final Pivot pivot) {
+    public PivotIntake(final MultipleTelemetry telemetry, final Pivot pivot) {
         this.telemetry = telemetry;
 
         this.pivot = pivot;
@@ -18,7 +18,7 @@ public class PivotSpecimen extends CommandBase {
 
     @Override
     public void initialize() {
-        this.pivot.setPosition(Pivot.SPECIMEN);
+        this.pivot.setPosition(Pivot.INTAKE);
     }
 
     @Override

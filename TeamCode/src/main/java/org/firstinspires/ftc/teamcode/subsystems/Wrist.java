@@ -11,6 +11,7 @@ public class Wrist extends SubsystemBase {
     public static double SCORE = 0;
     public static double ACCEPTING = 0;
     public static double READY = 0;
+    public static double SPECIMEN = 1;
 
     public static double INCREMENT = 0.25;
 

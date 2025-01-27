@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
@@ -40,6 +41,7 @@ import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristRight;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristScore;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristSpecimen;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -189,9 +191,11 @@ public class CommandRobot {
         );
 
         this.scoreSpecimen = new SequentialCommandGroup(
+                new WristSpecimen(this.telemetry, this.wrist),
+                new ArmSpecimen(this.telemetry, this.arm),
+                new WaitCommand(250),
                 new ClawClose(this.telemetry, this.claw),
                 new LiftHighRung(this.telemetry, this.lift),
-                new ArmSpecimen(this.telemetry, this.arm),
                 new PivotSpecimen(this.telemetry, this.pivot),
                 new ExtendoSpecimen(this.telemetry, this.extendo)
         );
@@ -211,6 +215,7 @@ public class CommandRobot {
 
         this.intakeClose = new SequentialCommandGroup(
                 new ClawOpen(this.telemetry, this.claw),
+                new PivotIntake(this.telemetry, this.pivot),
                 new WaitCommand(100),
                 new ArmIntake(this.telemetry, this.arm),
                 new WaitCommand(200),
@@ -243,7 +248,7 @@ public class CommandRobot {
             case OWEN:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
-                            if (this.lift.getPosition() > 100)
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;
@@ -262,6 +267,8 @@ public class CommandRobot {
                         .whenPressed(this.scoreSpecimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
