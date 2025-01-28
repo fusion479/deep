@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -26,15 +25,11 @@ public class Drivetrain extends SubsystemBase {
 
     private final Follower follower;
 
-    private final MultipleTelemetry telemetry;
-
     private double xPower = 0.0;
     private double angPower = 0.0;
     private double yPower = 0.0;
 
-    public Drivetrain(final HardwareMap hwMap, final MultipleTelemetry telemetry, Pose startPose) {
-        this.telemetry = telemetry;
-
+    public Drivetrain(final HardwareMap hwMap, Pose startPose) {
         Constants.setConstants(FConstants.class, LConstants.class);
         this.follower = new Follower(hwMap);
         this.follower.setStartingPose(startPose);

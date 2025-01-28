@@ -20,10 +20,8 @@ public class OwenMain extends OpModeCore {
 
         this.robot = new CommandRobot(
                 super.hardwareMap,
-                this.multipleTelemetry,
                 super.gamepad1,
                 super.gamepad2,
-                this,
                 CommandRobot.TeleOpMode.OWEN
         );
     }
@@ -33,7 +31,7 @@ public class OwenMain extends OpModeCore {
         this.initialize();
         super.waitForStart();
 
-        this.robot.startThreads();
+        this.robot.startThreads(this);
         while (!isStopRequested() && opModeIsActive()) {
             super.resetCycle();
             CommandScheduler.getInstance().run();

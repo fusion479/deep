@@ -6,6 +6,7 @@ import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Drivetrain Test")
@@ -18,7 +19,7 @@ public class DrivetrainTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.drive = new Drivetrain(super.hardwareMap, super.multipleTelemetry, new Pose(0, 0, 0));
+        this.drive = new Drivetrain(super.hardwareMap, new Pose(0, 0, 0));
     }
 
     @Override
@@ -33,7 +34,7 @@ public class DrivetrainTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.logCycles();
-            super.multipleTelemetry.update();
+            TelemetryCore.getInstance().update();
         }
 
         super.end();

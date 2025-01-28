@@ -19,7 +19,7 @@ public class FarBasket extends OpModeCore {
         super.initialize();
         this.trajectories = new FarBasketTrajectories();
 
-        this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart(), super.multipleTelemetry, this);
+        this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
     }
 
     @Override

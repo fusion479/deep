@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Lift Test")
@@ -24,14 +25,14 @@ public class LiftTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.lift = new Lift(super.hardwareMap, super.multipleTelemetry);
+        this.lift = new Lift(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftHighRung(super.multipleTelemetry, this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftLowRung(super.multipleTelemetry, this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(super.multipleTelemetry, this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftHighBasket(super.multipleTelemetry, this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new LiftIncrement(super.multipleTelemetry, this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new LiftDecrement(super.multipleTelemetry, this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new LiftHighRung(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new LiftLowRung(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new LiftHighBasket(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new LiftIncrement(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new LiftDecrement(this.lift));
     }
 
     @Override
@@ -45,14 +46,14 @@ public class LiftTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
-            super.multipleTelemetry.addData("Target", this.lift.getTarget());
-            super.multipleTelemetry.addData("Position", this.lift.getPosition());
-            super.multipleTelemetry.addData("Error", this.lift.getError());
+            TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
+            TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
+            TelemetryCore.getInstance().addData("Error", this.lift.getError());
 
             this.lift.setConstants();
 
             super.logCycles();
-            super.multipleTelemetry.update();
+            TelemetryCore.getInstance().update();
         }
 
         super.end();

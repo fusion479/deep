@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode.commands.extendo;
 
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 
 public class ExtendoScore extends CommandBase {
-    private final MultipleTelemetry telemetry;
     private final Extendo extendo;
 
-    public ExtendoScore(final MultipleTelemetry telemetry, final Extendo extendo) {
-        this.telemetry = telemetry;
-
+    public ExtendoScore(final Extendo extendo) {
         this.extendo = extendo;
         super.addRequirements(extendo);
     }

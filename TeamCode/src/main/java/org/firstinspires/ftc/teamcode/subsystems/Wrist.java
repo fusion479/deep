@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,12 +14,9 @@ public class Wrist extends SubsystemBase {
 
     public static double INCREMENT = 0.25;
 
-    private final MultipleTelemetry telemetry;
     private final Servo wrist;
 
-    public Wrist(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
-        this.telemetry = telemetry;
-
+    public Wrist(final HardwareMap hwMap) {
         this.wrist = hwMap.get(Servo.class, "wrist");
 
         this.setPosition(Wrist.ACCEPTING);

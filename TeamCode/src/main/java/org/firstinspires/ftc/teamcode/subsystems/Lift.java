@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,7 +22,6 @@ public class Lift extends SubsystemBase {
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
-    public static double SLAM = 750;
 
     public static double kP = 0.005;
     public static double kI = 0;
@@ -36,11 +34,7 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx leftPri;
     private final PIDController controller;
 
-    private final MultipleTelemetry telemetry;
-
-    public Lift(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
-        this.telemetry = telemetry;
-
+    public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
         this.leftSec = hwMap.get(DcMotorEx.class, "leftLiftSec");
         this.rightPri = hwMap.get(DcMotorEx.class, "rightLiftPri");
@@ -100,13 +94,6 @@ public class Lift extends SubsystemBase {
                     e.printStackTrace();
                 }
         }).start();
-    }
-
-    public void setPower(double power) {
-        this.leftSec.setPower(power);
-        this.rightSec.setPower(power);
-        this.rightPri.setPower(power);
-        this.leftPri.setPower(power);
     }
 
     public double getTarget() {

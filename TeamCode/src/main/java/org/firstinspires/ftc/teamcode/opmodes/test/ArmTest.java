@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmScore;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "Arm Test")
@@ -21,11 +22,11 @@ public class ArmTest extends OpModeCore {
         super.initialize();
 
         this.gamepad = new GamepadEx(super.gamepad1);
-        this.arm = new Arm(super.hardwareMap, super.multipleTelemetry);
+        this.arm = new Arm(super.hardwareMap);
 
-        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ArmAccepting(super.multipleTelemetry, this.arm));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ArmReady(super.multipleTelemetry, this.arm));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ArmScore(super.multipleTelemetry, this.arm));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new ArmAccepting(this.arm));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new ArmReady(this.arm));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new ArmScore(this.arm));
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ArmTest extends OpModeCore {
             CommandScheduler.getInstance().run();
 
             super.logCycles();
-            super.multipleTelemetry.update();
+            TelemetryCore.getInstance().update();
         }
 
         super.end();

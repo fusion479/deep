@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -14,12 +13,9 @@ public class Arm extends SubsystemBase {
     public static double INTAKE = 0.05;
     public static double SPECIMEN = 0.35;
 
-    private final MultipleTelemetry telemetry;
     private final Servo left, right;
 
-    public Arm(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
-        this.telemetry = telemetry;
-
+    public Arm(final HardwareMap hwMap) {
         this.left = hwMap.get(Servo.class, "leftArm");
         this.right = hwMap.get(Servo.class, "rightArm");
 

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -55,11 +54,10 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, open, close, intakeClose, wristRight, wristLeft, slam, intakeOpen, scoreSpecimen;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
-    private final MultipleTelemetry telemetry;
     private final Lift lift;
     private final Extendo extendo;
     private final Claw claw;
@@ -71,178 +69,140 @@ public class CommandRobot {
 
     private GamepadEx gamepad1;
     private GamepadEx gamepad2;
-    private final OpModeCore opMode;
 
     private boolean intakeToggle;
 
-    public CommandRobot(HardwareMap hwMap, MultipleTelemetry telemetry, Gamepad gamepad1, Gamepad gamepad2, OpModeCore opMode, TeleOpMode mode) {
-        this.telemetry = telemetry;
-
-        this.drivetrain = new Drivetrain(hwMap, telemetry, new Pose(0, 0, 0));
-        this.lift = new Lift(hwMap, telemetry);
-        this.extendo = new Extendo(hwMap, telemetry);
-        this.claw = new Claw(hwMap, telemetry);
-        this.pivot = new Pivot(hwMap, telemetry);
-        this.wrist = new Wrist(hwMap, telemetry);
-        this.arm = new Arm(hwMap, telemetry);
+    public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
+        this.drivetrain = new Drivetrain(hwMap, new Pose(0, 0, 0));
+        this.lift = new Lift(hwMap);
+        this.extendo = new Extendo(hwMap);
+        this.claw = new Claw(hwMap);
+        this.pivot = new Pivot(hwMap);
+        this.wrist = new Wrist(hwMap);
+        this.arm = new Arm(hwMap);
 
         this.intakeToggle = true;
 
         this.gamepad1 = new GamepadEx(gamepad1);
         this.gamepad2 = new GamepadEx(gamepad2);
 
-        this.opMode = opMode;
         this.mode = mode;
 
         this.configureCommands();
         this.configureControls();
     }
 
-    public CommandRobot(HardwareMap hwMap, Pose startPose, MultipleTelemetry telemetry, OpModeCore opMode) {
-        this.telemetry = telemetry;
+    public CommandRobot(HardwareMap hwMap, Pose startPose) {
+        this.lift = new Lift(hwMap);
+        this.extendo = new Extendo(hwMap);
+        this.claw = new Claw(hwMap);
+        this.pivot = new Pivot(hwMap);
+        this.wrist = new Wrist(hwMap);
+        this.arm = new Arm(hwMap);
 
-        this.lift = new Lift(hwMap, telemetry);
-        this.extendo = new Extendo(hwMap, telemetry);
-        this.claw = new Claw(hwMap, telemetry);
-        this.pivot = new Pivot(hwMap, telemetry);
-        this.wrist = new Wrist(hwMap, telemetry);
-        this.arm = new Arm(hwMap, telemetry);
-
-        this.drivetrain = new Drivetrain(hwMap, telemetry, startPose);
-
-        this.opMode = opMode;
+        this.drivetrain = new Drivetrain(hwMap, startPose);
 
         this.configureCommands();
     }
 
-    public void startThreads() {
+    public void startThreads(OpModeCore opMode) {
         if (this.mode == TeleOpMode.OWEN || this.mode == TeleOpMode.RYAN)
-            this.drivetrain.startThread(this.gamepad1, this.opMode);
+            this.drivetrain.startThread(this.gamepad1, opMode);
         else
-            this.drivetrain.startThread(this.gamepad2, this.opMode);
+            this.drivetrain.startThread(this.gamepad2, opMode);
 
-        this.extendo.startThread(this.opMode);
-        this.lift.startThread(this.opMode);
+        this.extendo.startThread(opMode);
+        this.lift.startThread(opMode);
     }
 
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
-                new ClawClose(this.telemetry, this.claw),
-                new WristReady(this.telemetry, this.wrist),
-                new PivotReady(this.telemetry, this.pivot),
-                new ArmReady(this.telemetry, this.arm),
-                //todo: find correct wait amount
-                new ExtendoReady(this.telemetry, this.extendo),
-                new LiftAccepting(this.telemetry, this.lift)
+                new ClawClose(this.claw),
+                new WristReady(this.wrist),
+                new PivotReady(this.pivot),
+                new ArmReady(this.arm),
+                new ExtendoReady(this.extendo),
+                new LiftAccepting(this.lift)
         );
 
         this.accepting = new SequentialCommandGroup(
-                new LiftAccepting(this.telemetry, this.lift),
-                new ExtendoAccepting(this.telemetry, this.extendo),
-                //todo: find correct wait amount
+                new LiftAccepting(this.lift),
+                new ExtendoAccepting(this.extendo),
                 new WaitCommand(400),
-                new ClawOpen(this.telemetry, this.claw),
-                new ArmAccepting(this.telemetry, this.arm),
-                new PivotAccepting(this.telemetry, this.pivot),
-                new WristAccepting(this.telemetry, this.wrist)
+                new ClawOpen(this.claw),
+                new ArmAccepting(this.arm),
+                new PivotAccepting(this.pivot),
+                new WristAccepting(this.wrist)
         );
 
         this.highBasket = new SequentialCommandGroup(
-                new ClawClose(this.telemetry, this.claw),
-                new LiftHighBasket(this.telemetry, this.lift),
-                new WristScore(this.telemetry, this.wrist),
-                new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ClawClose(this.claw),
+                new LiftHighBasket(this.lift),
+                new WristScore(this.wrist),
+                new PivotScore(this.pivot),
+                new ArmScore(this.arm),
+                new ExtendoScore(this.extendo)
         );
 
         this.lowBasket = new SequentialCommandGroup(
-                new ClawClose(this.telemetry, this.claw),
-                new LiftLowBasket(this.telemetry, this.lift),
-                new WristScore(this.telemetry, this.wrist),
-                new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new ClawClose(this.claw),
+                new LiftLowBasket(this.lift),
+                new WristScore(this.wrist),
+                new PivotScore(this.pivot),
+                new ArmScore(this.arm),
+                new ExtendoScore(this.extendo)
         );
 
         this.highRung = new SequentialCommandGroup(
-                new ClawClose(this.telemetry, this.claw),
-                new LiftHighRung(this.telemetry, this.lift),
-                new WristScore(this.telemetry, this.wrist),
-                new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new WristSpecimen(this.wrist),
+                new ArmSpecimen(this.arm),
+                new WaitCommand(250),
+                new ClawClose(this.claw),
+                new LiftHighRung(this.lift),
+                new PivotSpecimen(this.pivot),
+                new ExtendoSpecimen(this.extendo)
         );
 
         this.lowRung = new SequentialCommandGroup(
-                new ClawClose(this.telemetry, this.claw),
-                new LiftLowRung(this.telemetry, this.lift),
-                new WristScore(this.telemetry, this.wrist),
-                new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
+                new WristSpecimen(this.wrist),
+                new ArmSpecimen(this.arm),
+                new WaitCommand(250),
+                new ClawClose(this.claw),
+                new LiftLowRung(this.lift),
+                new PivotSpecimen(this.pivot),
+                new ExtendoSpecimen(this.extendo)
         );
 
         this.specimen = new SequentialCommandGroup(
-                new LiftAccepting(this.telemetry, this.lift),
-                new WristScore(this.telemetry, this.wrist),
-                new PivotScore(this.telemetry, this.pivot),
-                new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo),
+                new LiftAccepting(this.lift),
+                new WristScore(this.wrist),
+                new PivotScore(this.pivot),
+                new ArmScore(this.arm),
+                new ExtendoScore(this.extendo),
                 new WaitCommand(400),
-                new ClawOpen(this.telemetry, this.claw)
-                );
-
-        this.scoreSpecimen = new SequentialCommandGroup(
-                new WristSpecimen(this.telemetry, this.wrist),
-                new ArmSpecimen(this.telemetry, this.arm),
-                new WaitCommand(250),
-                new ClawClose(this.telemetry, this.claw),
-                new LiftHighRung(this.telemetry, this.lift),
-                new PivotSpecimen(this.telemetry, this.pivot),
-                new ExtendoSpecimen(this.telemetry, this.extendo)
+                new ClawOpen(this.claw)
         );
 
-        this.slam = new SequentialCommandGroup(
-                new ArmReady(this.telemetry, this.arm),
-                new PivotReady(this.telemetry, this.pivot),
-                new WaitCommand(250),
-                new ExtendoAccepting(this.telemetry, this.extendo),
-                new WaitCommand(1250),
-                new ClawOpen(this.telemetry, this.claw)
-        );
-
-        this.open = new ClawOpen(this.telemetry, this.claw);
-
-        this.close = new ClawClose(this.telemetry, this.claw);
-
-        this.intakeClose = new SequentialCommandGroup(
-                new ClawOpen(this.telemetry, this.claw),
-                new PivotIntake(this.telemetry, this.pivot),
+        this.intake = new SequentialCommandGroup(
+                new ClawOpen(this.claw),
+                new PivotIntake(this.pivot),
                 new WaitCommand(100),
-                new ArmIntake(this.telemetry, this.arm),
+                new ArmIntake(this.arm),
                 new WaitCommand(200),
-                new ClawClose(this.telemetry, this.claw),
+                new ClawClose(this.claw),
                 new WaitCommand(200),
-                new ArmAccepting(this.telemetry, this.arm)
+                new ArmAccepting(this.arm)
         );
 
-        this.intakeOpen = new SequentialCommandGroup(
-                new ArmAccepting(this.telemetry, this.arm),
-                new WaitCommand(250),
-                new ClawOpen(this.telemetry, this.claw)
-        );
+        this.liftIncrement = new LiftIncrement(this.lift);
 
-        this.liftIncrement = new LiftIncrement(this.telemetry, this.lift);
+        this.liftDecrement = new LiftDecrement(this.lift);
 
-        this.liftDecrement = new LiftDecrement(this.telemetry, this.lift);
+        this.wristRight = new WristRight(this.wrist);
 
-        this.wristRight = new WristRight(this.telemetry, this.wrist);
-
-        this.wristLeft = new WristLeft(this.telemetry, this.wrist);
-        this.pivotDecrement = new PivotDecrement(this.telemetry, this.pivot);
-        this.pivotIncrement = new PivotIncrement(this.telemetry, this.pivot);
-
+        this.wristLeft = new WristLeft(this.wrist);
+        this.pivotDecrement = new PivotDecrement(this.pivot);
+        this.pivotIncrement = new PivotIncrement(this.pivot);
 
 
     }
@@ -273,15 +233,15 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.wristLeft);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.scoreSpecimen);
+                        .whenPressed(this.highRung);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                         .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
+                        .whenPressed(new ConditionalCommand(new ClawClose(this.claw), this.intake, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.open, this.intakeOpen, () -> this.intakeToggle));
+                        .whenPressed(new ClawOpen(this.claw));
                 this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.pivotIncrement);
                 this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
@@ -300,33 +260,6 @@ public class CommandRobot {
             /* ------------------------------------- */
 
             case RYAN_KELLY:
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                        .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
-                            if (this.lift.getPosition() > 100) this.intakeToggle = true;
-                            else this.intakeToggle = !this.intakeToggle;
-                            return this.intakeToggle;
-                        }));
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                        .whenPressed(this.liftDecrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                        .whenPressed(this.liftIncrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                        .whenPressed(this.wristRight);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                        .whenPressed(this.wristLeft);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.highBasket);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                        .whenPressed(this.specimen);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.slam);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.open, this.intakeOpen, () -> this.intakeToggle));
-
-                this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.highBasket);
                 break;
         }
     }

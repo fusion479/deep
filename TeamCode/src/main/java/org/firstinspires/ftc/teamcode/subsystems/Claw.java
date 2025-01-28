@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,13 +10,9 @@ public class Claw extends SubsystemBase {
     public static double OPEN = 0.23;
     public static double CLOSE = 0.65;
 
-    private final MultipleTelemetry telemetry;
-
     private final Servo claw;
 
-    public Claw(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
-        this.telemetry = telemetry;
-
+    public Claw(final HardwareMap hwMap) {
         this.claw = hwMap.get(Servo.class, "claw");
 
         this.setPosition(Claw.CLOSE);

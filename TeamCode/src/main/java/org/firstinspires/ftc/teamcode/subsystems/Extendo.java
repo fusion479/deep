@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -23,7 +22,6 @@ public class Extendo extends SubsystemBase {
     public static int ACCEPTING = 250;
     public static int SPECIMEN = 250;
 
-    private final MultipleTelemetry telemetry;
     private double power;
 
     public final AnalogInput encoder;
@@ -34,8 +32,7 @@ public class Extendo extends SubsystemBase {
     private double rotations = 0;
     private double prevPos = 0;
 
-    public Extendo(final HardwareMap hwMap, final MultipleTelemetry telemetry) {
-        this.telemetry = telemetry;
+    public Extendo(final HardwareMap hwMap) {
         this.controller = new PIDController(Extendo.kP, Extendo.kI, Extendo.kD);
 
         this.extendoBottom = hwMap.get(CRServo.class, "extendoBottom");
@@ -91,11 +88,6 @@ public class Extendo extends SubsystemBase {
 
     public double getError() {
         return this.controller.getLastError();
-    }
-
-    public void setPower(double power) {
-        this.extendoBottom.setPower(power);
-        this.extendoTop.setPower(power);
     }
 
     public boolean isFinished() {
