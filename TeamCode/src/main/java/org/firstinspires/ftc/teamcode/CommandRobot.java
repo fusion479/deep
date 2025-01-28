@@ -32,6 +32,8 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotDecrement;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotIncrement;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
@@ -54,7 +56,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 @Config
 public class CommandRobot {
     public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, open, close, intakeClose, wristRight, wristLeft, slam, intakeOpen, scoreSpecimen;
-
+    public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
     private final MultipleTelemetry telemetry;
@@ -182,13 +184,14 @@ public class CommandRobot {
         );
 
         this.specimen = new SequentialCommandGroup(
-                new ClawOpen(this.telemetry, this.claw),
                 new LiftAccepting(this.telemetry, this.lift),
                 new WristScore(this.telemetry, this.wrist),
                 new PivotScore(this.telemetry, this.pivot),
                 new ArmScore(this.telemetry, this.arm),
-                new ExtendoScore(this.telemetry, this.extendo)
-        );
+                new ExtendoScore(this.telemetry, this.extendo),
+                new WaitCommand(400),
+                new ClawOpen(this.telemetry, this.claw)
+                );
 
         this.scoreSpecimen = new SequentialCommandGroup(
                 new WristSpecimen(this.telemetry, this.wrist),
@@ -237,10 +240,16 @@ public class CommandRobot {
         this.wristRight = new WristRight(this.telemetry, this.wrist);
 
         this.wristLeft = new WristLeft(this.telemetry, this.wrist);
+        this.pivotDecrement = new PivotDecrement(this.telemetry, this.pivot);
+        this.pivotIncrement = new PivotIncrement(this.telemetry, this.pivot);
+
+
+
     }
 
     public void configureControls() {
         switch (this.mode) {
+
             /* ------------------------------------- */
             /* --------------- OWEN ---------------- */
             /* ------------------------------------- */
@@ -273,6 +282,10 @@ public class CommandRobot {
                         .whenPressed(new ConditionalCommand(this.close, this.intakeClose, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.open, this.intakeOpen, () -> this.intakeToggle));
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.pivotIncrement);
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                        .whenPressed(this.pivotDecrement);
                 break;
 
             /* ------------------------------------- */

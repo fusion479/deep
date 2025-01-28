@@ -10,9 +10,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Pivot extends SubsystemBase {
     public static double ACCEPTING = 0;
     public static double READY = 0;
-    public static double SCORE = 0.65;
+    public static double SCORE = 0.75;
     public static double SPECIMEN = 0.75;
     public static double INTAKE = 0.1;
+    public double CURRENT_POSITION = 0;
+    public static double INCREMENT = 0.1;
 
     private final MultipleTelemetry telemetry;
     private final Servo pivot;
@@ -24,8 +26,11 @@ public class Pivot extends SubsystemBase {
 
         this.setPosition(Pivot.READY);
     }
-
+    public double getPosition() {
+        return CURRENT_POSITION;
+    }
     public void setPosition(double position) {
+        this.CURRENT_POSITION = position;
         this.pivot.setPosition(position);
     }
 }
