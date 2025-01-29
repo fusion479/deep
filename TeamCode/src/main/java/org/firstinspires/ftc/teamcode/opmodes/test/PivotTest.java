@@ -6,10 +6,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotDecrement;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotIncrement;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotBasket;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
@@ -28,9 +26,7 @@ public class PivotTest extends OpModeCore {
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new PivotAccepting(this.pivot));
         this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new PivotReady(this.pivot));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new PivotScore(this.pivot));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new PivotIncrement(this.pivot));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new PivotDecrement(this.pivot));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new PivotBasket(this.pivot));
 
     }
 

@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 
-public class ArmScore extends CommandBase {
+public class ArmBasket extends CommandBase {
     private final Arm arm;
 
-    public ArmScore(final Arm arm) {
+    public ArmBasket(final Arm arm) {
         this.arm = arm;
         super.addRequirements(arm);
     }

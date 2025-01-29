@@ -13,15 +13,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmBasket;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
-import org.firstinspires.ftc.teamcode.commands.arm.ArmScore;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoBasket;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
-import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoScore;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
@@ -31,17 +31,15 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotDecrement;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotIncrement;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotBasket;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
-import org.firstinspires.ftc.teamcode.commands.pivot.PivotScore;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristRight;
-import org.firstinspires.ftc.teamcode.commands.wrist.WristScore;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristSpecimen;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
@@ -138,25 +136,25 @@ public class CommandRobot {
         this.highBasket = new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new LiftHighBasket(this.lift),
-                new WristScore(this.wrist),
-                new PivotScore(this.pivot),
-                new ArmScore(this.arm),
-                new ExtendoScore(this.extendo)
+                new WristBasket(this.wrist),
+                new PivotBasket(this.pivot),
+                new ArmBasket(this.arm),
+                new ExtendoBasket(this.extendo)
         );
 
         this.lowBasket = new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new LiftLowBasket(this.lift),
-                new WristScore(this.wrist),
-                new PivotScore(this.pivot),
-                new ArmScore(this.arm),
-                new ExtendoScore(this.extendo)
+                new WristBasket(this.wrist),
+                new PivotBasket(this.pivot),
+                new ArmBasket(this.arm),
+                new ExtendoBasket(this.extendo)
         );
 
         this.highRung = new SequentialCommandGroup(
                 new WristSpecimen(this.wrist),
+                new WaitCommand(150),
                 new ArmSpecimen(this.arm),
-                new WaitCommand(250),
                 new ClawClose(this.claw),
                 new LiftHighRung(this.lift),
                 new PivotSpecimen(this.pivot),
@@ -175,11 +173,11 @@ public class CommandRobot {
 
         this.specimen = new SequentialCommandGroup(
                 new LiftAccepting(this.lift),
-                new WristScore(this.wrist),
-                new PivotScore(this.pivot),
-                new ArmScore(this.arm),
-                new ExtendoScore(this.extendo),
-                new WaitCommand(400),
+                new WristBasket(this.wrist),
+                new PivotBasket(this.pivot),
+                new ArmBasket(this.arm),
+                new ExtendoBasket(this.extendo),
+                new WaitCommand(200),
                 new ClawOpen(this.claw)
         );
 
@@ -201,10 +199,6 @@ public class CommandRobot {
         this.wristRight = new WristRight(this.wrist);
 
         this.wristLeft = new WristLeft(this.wrist);
-        this.pivotDecrement = new PivotDecrement(this.pivot);
-        this.pivotIncrement = new PivotIncrement(this.pivot);
-
-
     }
 
     public void configureControls() {

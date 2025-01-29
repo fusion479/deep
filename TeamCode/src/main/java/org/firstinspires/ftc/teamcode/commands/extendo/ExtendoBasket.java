@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 
-public class ExtendoScore extends CommandBase {
+public class ExtendoBasket extends CommandBase {
     private final Extendo extendo;
 
-    public ExtendoScore(final Extendo extendo) {
+    public ExtendoBasket(final Extendo extendo) {
         this.extendo = extendo;
         super.addRequirements(extendo);
     }

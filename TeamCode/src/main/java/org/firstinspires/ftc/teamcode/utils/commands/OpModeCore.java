@@ -12,13 +12,13 @@ public abstract class OpModeCore extends CommandOpMode {
     private final ElapsedTime period = new ElapsedTime();
 
     public void logCycles() {
-        new TelemetryCore(new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry()));
         TelemetryCore.getInstance().addData("Period (Seconds / 1 Cycle): ", this.period.seconds());
         TelemetryCore.getInstance().addData("Frequency (Hz, Cycles / 1 Second ): ", 1 / this.period.seconds());
     }
 
     @Override
     public void initialize() {
+        new TelemetryCore(new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry()));
         CommandScheduler.getInstance().enable();
         CommandScheduler.getInstance().reset();
     }

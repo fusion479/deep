@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 
-public class PivotScore extends CommandBase {
+public class PivotBasket extends CommandBase {
     private final Pivot pivot;
 
-    public PivotScore(final Pivot pivot) {
+    public PivotBasket(final Pivot pivot) {
         this.pivot = pivot;
         super.addRequirements(pivot);
     }

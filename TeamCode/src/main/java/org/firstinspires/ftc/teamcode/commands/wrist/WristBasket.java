@@ -4,10 +4,10 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class WristScore extends CommandBase {
+public class WristBasket extends CommandBase {
     private final Wrist wrist;
 
-    public WristScore(final Wrist wrist) {
+    public WristBasket(final Wrist wrist) {
         this.wrist = wrist;
         super.addRequirements(wrist);
     }

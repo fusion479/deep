@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
@@ -15,12 +16,12 @@ public class Extendo extends SubsystemBase {
     public static double kI = 0;
     public static double kD = 0;
 
-    public static double OFFSET = 0;
+    public static double OFFSET = 217;
     public static int ALLOWED_ERROR = 10;
     public static int SCORE = -10;
     public static int READY = 0;
-    public static int ACCEPTING = 250;
-    public static int SPECIMEN = 250;
+    public static int ACCEPTING = 165;
+    public static int SPECIMEN = 120;
 
     private double power;
 
@@ -66,6 +67,7 @@ public class Extendo extends SubsystemBase {
                         }
                     }
 
+                    TelemetryCore.getInstance().addData("pls work", currPos);
                     prevPos = currPos;
                 } catch (Exception e) {
                     e.printStackTrace();
