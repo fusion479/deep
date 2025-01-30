@@ -19,7 +19,7 @@
       },
       "controlPoints": [
         {
-        "index": 2,
+          "index": 2,
           "x": 20,
           "y": 75
         }
@@ -28,7 +28,7 @@
     },
     {
       "endPoint": {
-      "index": 3,
+        "index": 3,
         "x": 63,
         "y": 24,
         "heading": "linear",
@@ -38,12 +38,12 @@
       },
       "controlPoints": [
         {
-        "index": 4,
+          "index": 4,
           "x": 20,
           "y": 10.5
         },
         {
-        "index": 5,
+          "index": 5,
           "x": 63,
           "y": 51.4
         }
@@ -52,7 +52,7 @@
     },
     {
       "endPoint": {
-      "index": 6,
+        "index": 6,
         "x": 15,
         "y": 24,
         "heading": "linear",
@@ -65,7 +65,7 @@
     },
     {
       "endPoint": {
-      "index": 7,
+        "index": 7,
         "x": 65,
         "y": 20,
         "heading": "linear",
@@ -75,7 +75,7 @@
       },
       "controlPoints": [
         {
-        "index": 8,
+          "index": 8,
           "x": 65,
           "y": 34
         }
@@ -84,7 +84,7 @@
     },
     {
       "endPoint": {
-      "index": 9,
+        "index": 9,
         "x": 15,
         "y": 20,
         "heading": "linear",
@@ -97,7 +97,7 @@
     },
     {
       "endPoint": {
-      "index": 10,
+        "index": 10,
         "x": 65,
         "y": 13.5,
         "heading": "linear",
@@ -139,7 +139,7 @@
       },
       "controlPoints": [
         {
-        "index": 14,
+          "index": 14,
           "x": 17,
           "y": 30
         }
@@ -158,7 +158,7 @@
       },
       "controlPoints": [
         {
-        "index": 16,
+          "index": 16,
           "x": 20,
           "y": 67
         }
@@ -177,7 +177,7 @@
       },
       "controlPoints": [
         {
-        "index": 18,
+          "index": 18,
           "x": 20,
           "y": 67
         }
@@ -196,7 +196,7 @@
       },
       "controlPoints": [
         {
-        "index": 20,
+          "index": 20,
           "x": 20,
           "y": 65
         }
@@ -215,7 +215,7 @@
       },
       "controlPoints": [
         {
-        "index": 22,
+          "index": 22,
           "x": 20,
           "y": 65
         }
@@ -234,7 +234,7 @@
       },
       "controlPoints": [
         {
-        "index": 24,
+          "index": 24,
           "x": 20,
           "y": 63
         }
@@ -253,7 +253,7 @@
       },
       "controlPoints": [
         {
-        "index": 26,
+          "index": 26,
           "x": 20,
           "y": 63
         }
