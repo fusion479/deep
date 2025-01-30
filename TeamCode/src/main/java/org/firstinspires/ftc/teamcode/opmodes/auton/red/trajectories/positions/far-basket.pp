@@ -1,5 +1,6 @@
 {
   "startPoint": {
+    "index": 0,
     "x": 136,
     "y": 79,
     "heading": "constant",
@@ -8,6 +9,7 @@
   "lines": [
     {
       "endPoint": {
+        "index": 1,
         "x": 106,
         "y": 72,
         "heading": "linear",
@@ -17,6 +19,7 @@
       },
       "controlPoints": [
         {
+         "index": 2,
           "x": 124,
           "y": 69
         }
@@ -25,6 +28,7 @@
     },
     {
       "endPoint": {
+        "index": 3,
         "x": 81,
         "y": 120,
         "heading": "linear",
@@ -34,10 +38,12 @@
       },
       "controlPoints": [
         {
+        "index": 4,
           "x": 124,
           "y": 133.5
         },
         {
+        "index": 5,
           "x": 81,
           "y": 92.6
         }
@@ -46,6 +52,7 @@
     },
     {
       "endPoint": {
+        "index": 6,
         "x": 129,
         "y": 120,
         "heading": "linear",
@@ -58,6 +65,7 @@
     },
     {
       "endPoint": {
+        "index": 7,
         "x": 81,
         "y": 131,
         "heading": "linear",
@@ -67,6 +75,7 @@
       },
       "controlPoints": [
         {
+        "index": 8,
           "x": 79,
           "y": 110
         }
@@ -75,6 +84,7 @@
     },
     {
       "endPoint": {
+        "index": 9,
         "x": 129,
         "y": 131,
         "heading": "linear",
@@ -87,6 +97,7 @@
     },
     {
       "endPoint": {
+        "index": 10,
         "x": 81,
         "y": 136.5,
         "heading": "linear",
@@ -96,6 +107,7 @@
       },
       "controlPoints": [
         {
+        "index": 11,
           "x": 79,
           "y": 123
         }
@@ -104,6 +116,7 @@
     },
     {
       "endPoint": {
+        "index": 12,
         "x": 129,
         "y": 136.5,
         "heading": "linear",
@@ -116,6 +129,7 @@
     },
     {
       "endPoint": {
+        "index": 13,
         "x": 135,
         "y": 114,
         "heading": "linear",
@@ -125,6 +139,7 @@
       },
       "controlPoints": [
         {
+        "index": 14,
           "x": 127,
           "y": 114
         }
@@ -133,6 +148,7 @@
     },
     {
       "endPoint": {
+        "index": 15,
         "x": 106,
         "y": 75,
         "heading": "linear",
@@ -142,6 +158,7 @@
       },
       "controlPoints": [
         {
+        "index": 16,
           "x": 124,
           "y": 77
         }
@@ -150,6 +167,7 @@
     },
     {
       "endPoint": {
+        "index": 17,
         "x": 135,
         "y": 114,
         "heading": "linear",
@@ -159,6 +177,7 @@
       },
       "controlPoints": [
         {
+        "index": 18,
           "x": 124,
           "y": 77
         }
@@ -167,6 +186,7 @@
     },
     {
       "endPoint": {
+        "index": 19,
         "x": 106,
         "y": 78,
         "heading": "linear",
@@ -176,6 +196,7 @@
       },
       "controlPoints": [
         {
+        "index": 20,
           "x": 124,
           "y": 79
         }
@@ -184,6 +205,7 @@
     },
     {
       "endPoint": {
+        "index": 21,
         "x": 135,
         "y": 114,
         "heading": "linear",
@@ -193,6 +215,7 @@
       },
       "controlPoints": [
         {
+        "index": 22,
           "x": 124,
           "y": 79
         }
@@ -201,6 +224,7 @@
     },
     {
       "endPoint": {
+        "index": 23,
         "x": 106,
         "y": 81,
         "heading": "linear",
@@ -210,6 +234,7 @@
       },
       "controlPoints": [
         {
+        "index": 24,
           "x": 124,
           "y": 81
         }
@@ -218,6 +243,7 @@
     },
     {
       "endPoint": {
+        "index": 25,
         "x": 135,
         "y": 114,
         "heading": "linear",
@@ -227,6 +253,7 @@
       },
       "controlPoints": [
         {
+        "index": 26,
           "x": 124,
           "y": 81
         }

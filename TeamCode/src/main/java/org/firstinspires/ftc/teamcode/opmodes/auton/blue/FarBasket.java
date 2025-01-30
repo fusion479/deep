@@ -36,7 +36,14 @@ public class FarBasket extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.setupMid, 0.75),
                         new PathCommand(this.robot, this.trajectories.pushMid, 0.75),
                         new PathCommand(this.robot, this.trajectories.setupBottom, 0.75),
-                        new PathCommand(this.robot, this.trajectories.pushBottom, 0.75)
+                        new PathCommand(this.robot, this.trajectories.pushBottom, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeSecond, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreSecond, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeThird, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreThird, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeFourth, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scoreFourth, 0.75),
+                        new PathCommand(this.robot, this.trajectories.park, 0.75)
                 )
         );
 

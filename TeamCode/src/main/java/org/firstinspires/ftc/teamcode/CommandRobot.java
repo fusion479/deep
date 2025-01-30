@@ -152,13 +152,13 @@ public class CommandRobot {
         );
 
         this.highRung = new SequentialCommandGroup(
-                new WristSpecimen(this.wrist),
-                new WaitCommand(150),
-                new ArmSpecimen(this.arm),
                 new ClawClose(this.claw),
                 new LiftHighRung(this.lift),
+                new ExtendoSpecimen(this.extendo),
+                new WaitCommand(350),
                 new PivotSpecimen(this.pivot),
-                new ExtendoSpecimen(this.extendo)
+                new WristSpecimen(this.wrist),
+                new ArmSpecimen(this.arm)
         );
 
         this.lowRung = new SequentialCommandGroup(
@@ -183,12 +183,13 @@ public class CommandRobot {
 
         this.intake = new SequentialCommandGroup(
                 new ClawOpen(this.claw),
-                new PivotIntake(this.pivot),
                 new WaitCommand(100),
                 new ArmIntake(this.arm),
+                new PivotIntake(this.pivot),
                 new WaitCommand(200),
                 new ClawClose(this.claw),
                 new WaitCommand(200),
+                new PivotAccepting(this.pivot),
                 new ArmAccepting(this.arm)
         );
 

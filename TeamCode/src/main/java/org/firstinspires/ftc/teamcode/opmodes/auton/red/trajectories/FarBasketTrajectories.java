@@ -16,6 +16,8 @@ public class FarBasketTrajectories {
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom;
 
+    // [(136.0, 79.0, 180.0), (106.0, 72.0, 180.0), (124.0, 69.0, -1.0), (81.0, 120.0, 180.0), (124.0, 133.5, -1.0), (81.0, 92.6, -1.0), (129.0, 120.0, 180.0), (81.0, 131.0, 180.0), (79.0, 110.0, -1.0), (129.0, 131.0, 180.0), (81.0, 136.5, 180.0), (79.0, 123.0, -1.0), (129.0, 136.5, 180.0), (135.0, 114.0, 180.0), (127.0, 114.0, -1.0), (106.0, 75.0, 180.0), (124.0, 77.0, -1.0), (135.0, 114.0, 180.0), (124.0, 77.0, -1.0), (106.0, 78.0, 180.0), (124.0, 79.0, -1.0), (135.0, 114.0, 180.0), (124.0, 79.0, -1.0), (106.0, 81.0, 180.0), (124.0, 81.0, -1.0), (135.0, 114.0, 180.0), (124.0, 81.0, -1.0)]
+
     public FarBasketTrajectories() {
         this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.pp"));
 

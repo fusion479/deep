@@ -20,8 +20,8 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
 
-    public static double MAX_VEL = 0.75;
-    public static double MAX_ANGULAR_VEL = 0.6;
+    public static double MAX_VEL = 0.6;
+    public static double MAX_ANGULAR_VEL = 0.4;
 
     private final Follower follower;
 
