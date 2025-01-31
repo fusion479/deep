@@ -13,20 +13,27 @@
         "index": 1,
         "name": "scoreFirst",
         "x": 40,
-        "y": 72,
+        "y": 65,
         "heading": "linear",
         "reverse": false,
         "startDeg": 0,
         "endDeg": 0
       },
-      "controlPoints": [
-        {
-          "index": 2,
-          "name": "scoreFirstControl",
-          "x": 20,
-          "y": 75
-        }
-      ],
+      "controlPoints": [],
+      "color": "#7BC766"
+    },
+    {
+      "endPoint": {
+        "index": 2,
+        "name": "backFirst",
+        "x": 35,
+        "y": 65
+        "heading": "linear",
+        "reverse": false,
+        "startDeg": 0,
+        "endDeg": 0
+      },
+      "controlPoints": [],
       "color": "#7BC766"
     },
     {
@@ -165,7 +172,7 @@
       "endPoint": {
         "index": 15,
         "name": "scoreSecond",
-        "x": 38,
+        "x": 40,
         "y": 79,
         "heading": "linear",
         "reverse": false,
@@ -207,7 +214,7 @@
       "endPoint": {
         "index": 19,
         "name": "scoreThird",
-        "x": 38,
+        "x": 40,
         "y": 76,
         "heading": "linear",
         "reverse": false,
@@ -249,7 +256,7 @@
       "endPoint": {
         "index": 23,
         "name": "scoreFourth",
-        "x": 38,
+        "x": 40,
         "y": 73,
         "heading": "linear",
         "reverse": false,
