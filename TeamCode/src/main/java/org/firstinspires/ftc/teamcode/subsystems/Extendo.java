@@ -69,6 +69,8 @@ public class Extendo extends SubsystemBase {
 
                     TelemetryCore.getInstance().addData("pls work", currPos);
                     prevPos = currPos;
+
+                    Thread.sleep(50);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
