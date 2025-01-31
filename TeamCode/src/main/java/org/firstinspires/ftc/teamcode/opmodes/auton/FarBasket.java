@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auton.blue;
+package org.firstinspires.ftc.teamcode.opmodes.auton;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories.FarBasketTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.FarBasketTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 

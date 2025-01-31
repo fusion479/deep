@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories;
+package org.firstinspires.ftc.teamcode.opmodes.auton.trajectories;
 
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
@@ -14,22 +14,25 @@ import java.util.ArrayList;
 public class FarBasketTrajectories {
     private final ArrayList<Pose> poses;
 
-    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom;
-
-    // [(136.0, 79.0, 180.0), (106.0, 72.0, 180.0), (124.0, 69.0, -1.0), (81.0, 120.0, 180.0), (124.0, 133.5, -1.0), (81.0, 92.6, -1.0), (129.0, 120.0, 180.0), (81.0, 131.0, 180.0), (79.0, 110.0, -1.0), (129.0, 131.0, 180.0), (81.0, 136.5, 180.0), (79.0, 123.0, -1.0), (129.0, 136.5, 180.0), (135.0, 114.0, 180.0), (127.0, 114.0, -1.0), (106.0, 75.0, 180.0), (124.0, 77.0, -1.0), (135.0, 114.0, 180.0), (124.0, 77.0, -1.0), (106.0, 78.0, 180.0), (124.0, 79.0, -1.0), (135.0, 114.0, 180.0), (124.0, 79.0, -1.0), (106.0, 81.0, 180.0), (124.0, 81.0, -1.0), (135.0, 114.0, 180.0), (124.0, 81.0, -1.0)]
+    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
     public FarBasketTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/red/far-basket.pp"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/far-basket.pp"));
 
-        this.scorePreload = buildCurve(
+        this.scorePreload = buildLine(
                 poses.get(0),
-                AutonomousHelpers.poseToPoint(poses.get(2)),
                 poses.get(1),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupTop = buildCurve(
+        this.backFirst = buildLine(
                 poses.get(1),
+                poses.get(2),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.setupTop = buildCurve(
+                poses.get(2),
                 AutonomousHelpers.poseToPoint(poses.get(4)),
                 AutonomousHelpers.poseToPoint(poses.get(5)),
                 poses.get(3),
@@ -116,7 +119,6 @@ public class FarBasketTrajectories {
                 poses.get(25),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-
     }
 
     public Pose getStart() {

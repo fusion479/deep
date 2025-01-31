@@ -1,22 +1,21 @@
-package org.firstinspires.ftc.teamcode.opmodes.auton.red;
+package org.firstinspires.ftc.teamcode.opmodes.auton;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.opmodes.auton.red.trajectories.FarBasketTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.FarBasketTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
-@Autonomous(name = "Red Far Basket", preselectTeleOp = "Main")
-public class FarBasket extends OpModeCore {
+@Autonomous(name = "Far Basket PATH", preselectTeleOp = "Main")
+public class CloseBasket extends OpModeCore {
     private CommandRobot robot;
     private FarBasketTrajectories trajectories;
 
     @Override
     public void initialize() {
-        super.initialize();
         this.trajectories = new FarBasketTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
@@ -47,9 +46,11 @@ public class FarBasket extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.park, 0.75)
                 )
         );
+
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
         }
+
         super.end();
     }
 }

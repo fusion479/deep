@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.auton.blue.trajectories;
+package org.firstinspires.ftc.teamcode.opmodes.auton.trajectories;
 
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
@@ -17,7 +17,7 @@ public class CloseBasketTrajectories {
     public Path scorePreload, getBottom, getMid, getTop, scoreBottom, scoreMid, scoreTop, park;
 
     public CloseBasketTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/close-basket.pp"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/close-basket.pp"));
 
         this.scorePreload = buildLine(
                 poses.get(0),
