@@ -52,6 +52,7 @@ public class FarBasket extends OpModeCore {
                         new SequentialCommandGroup(
                                 robot.open,
                                 new WaitCommand(SCORE_ONE_OPEN),
+                                new PathCommand(robot, this.trajectories.backFirst, 1),
                                 new ParallelCommandGroup(
                                         new PathCommand(robot, this.trajectories.setupTop, 1),
                                         new SequentialCommandGroup(

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class FarBasketTrajectories {
     private final ArrayList<Pose> poses;
 
-    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst, backSecond, backThird, backFourth;
+    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
     public FarBasketTrajectories() {
         this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/blue/far-basket.pp"));
