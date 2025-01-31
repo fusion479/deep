@@ -10,7 +10,7 @@
     {
       "endPoint": {
         "index": 1,
-        "x": 38,
+        "x": 40,
         "y": 72,
         "heading": "linear",
         "reverse": false,

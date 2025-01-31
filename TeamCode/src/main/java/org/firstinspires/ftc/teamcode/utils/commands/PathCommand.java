@@ -38,7 +38,7 @@ public class PathCommand extends CommandBase {
     @Override
     public void initialize() {
         this.follower.setMaxPower(speed);
-        this.follower.followPath(path, true);
+        this.follower.followPath(path, false);
     }
 
     @Override

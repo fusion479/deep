@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, autoReady;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
@@ -113,6 +113,11 @@ public class CommandRobot {
         this.lift.startThread(opMode);
     }
 
+    public void startAutoThreads(OpModeCore opMode) {
+        this.extendo.startThread(opMode);
+        this.lift.startThread(opMode);
+    }
+
     public void configureCommands() {
         this.ready = new SequentialCommandGroup(
                 new ClawClose(this.claw),
@@ -120,6 +125,16 @@ public class CommandRobot {
                 new PivotReady(this.pivot),
                 new ArmReady(this.arm),
                 new ExtendoReady(this.extendo),
+                new LiftAccepting(this.lift)
+        );
+
+        this.autoReady = new SequentialCommandGroup(
+                new ExtendoReady(this.extendo),
+                new WaitCommand(500),
+                new ClawClose(this.claw),
+                new WristReady(this.wrist),
+                new PivotReady(this.pivot),
+                new ArmReady(this.arm),
                 new LiftAccepting(this.lift)
         );
 
@@ -200,6 +215,10 @@ public class CommandRobot {
         this.wristRight = new WristRight(this.wrist);
 
         this.wristLeft = new WristLeft(this.wrist);
+
+        this.open = new ClawOpen(this.claw);
+
+        this.close = new ClawClose(this.claw);
     }
 
     public void configureControls() {
@@ -234,9 +253,9 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
                         .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                        .whenPressed(new ConditionalCommand(new ClawClose(this.claw), this.intake, () -> this.intakeToggle));
+                        .whenPressed(new ConditionalCommand(this.close, this.intake, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                        .whenPressed(new ClawOpen(this.claw));
+                        .whenPressed(this.open);
                 this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.pivotIncrement);
                 this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
