@@ -31,6 +31,7 @@ public class CloseBasket extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.scorePreload, 0.75),
+                        new PathCommand(this.robot, this.trajectories.backFirst, 0.75),
                         new PathCommand(this.robot, this.trajectories.setupTop, 0.75),
                         new PathCommand(this.robot, this.trajectories.pushTop, 0.75),
                         new PathCommand(this.robot, this.trajectories.setupMid, 0.75),

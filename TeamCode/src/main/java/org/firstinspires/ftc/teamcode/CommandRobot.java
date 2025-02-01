@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -52,7 +53,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, autoReady;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
@@ -128,16 +129,6 @@ public class CommandRobot {
                 new LiftAccepting(this.lift)
         );
 
-        this.autoReady = new SequentialCommandGroup(
-                new ExtendoReady(this.extendo),
-                new WaitCommand(500),
-                new ClawClose(this.claw),
-                new WristReady(this.wrist),
-                new PivotReady(this.pivot),
-                new ArmReady(this.arm),
-                new LiftAccepting(this.lift)
-        );
-
         this.accepting = new SequentialCommandGroup(
                 new LiftAccepting(this.lift),
                 new ExtendoAccepting(this.extendo),
@@ -208,6 +199,13 @@ public class CommandRobot {
                 new ArmAccepting(this.arm)
         );
 
+        this.ensure = new SequentialCommandGroup(
+                new ArmAccepting(this.arm),
+                new InstantCommand(() -> this.pivot.setPosition(0.7)),
+                new WaitCommand(750),
+                new ClawOpen(this.claw)
+        );
+
         this.liftIncrement = new LiftIncrement(this.lift);
 
         this.liftDecrement = new LiftDecrement(this.lift);
@@ -251,7 +249,7 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.highBasket);
+                        .whenPressed(this.ensure);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close, this.intake, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
