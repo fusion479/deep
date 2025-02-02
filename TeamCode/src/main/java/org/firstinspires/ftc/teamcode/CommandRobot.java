@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotBasket;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
@@ -53,7 +54,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
@@ -127,6 +128,14 @@ public class CommandRobot {
                 new ArmReady(this.arm),
                 new ExtendoReady(this.extendo),
                 new LiftAccepting(this.lift)
+        );
+
+        this.slam = new SequentialCommandGroup(
+                new LiftSlam(this.lift),
+                new WaitCommand(100),
+                new PivotAccepting(this.pivot),
+                new WaitCommand(400),
+                new ClawOpen(this.claw)
         );
 
         this.accepting = new SequentialCommandGroup(
@@ -249,7 +258,7 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.ensure);
+                        .whenPressed(this.slam);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close, this.intake, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)

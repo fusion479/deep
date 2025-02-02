@@ -23,6 +23,8 @@ public class Lift extends SubsystemBase {
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
+    public static double SLAM = 200;
+
     public static double kP = 0.005;
     public static double kI = 0;
     public static double kD = 0;

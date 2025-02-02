@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.auton;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -78,14 +77,8 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(ENSURE_WAIT),
 
                         // 3RD SPECIMEN
-                        new ParallelCommandGroup(
-                                new SequentialCommandGroup(
-                                        new WaitCommand(READY_WAIT),
-                                        this.robot.specimen
-                                ),
-                                new PathCommand(this.robot, this.trajectories.intakeThird, 0.75)
-                        ),
-
+                        new PathCommand(this.robot, this.trajectories.intakeThird, 0.75),
+                        this.robot.specimen,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
@@ -97,14 +90,8 @@ public class FarBasket extends OpModeCore {
 
 
                         // 4TH SPECIMEN
-                        new ParallelCommandGroup(
-                                new SequentialCommandGroup(
-                                        new WaitCommand(READY_WAIT),
-                                        this.robot.specimen
-                                ),
-                                new PathCommand(this.robot, this.trajectories.intakeFourth, 0.75)
-                        ),
-
+                        new PathCommand(this.robot, this.trajectories.intakeFourth, 0.75),
+                        this.robot.specimen,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
