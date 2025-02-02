@@ -77,7 +77,8 @@ public class FarBasketTrajectories {
         );
 
         this.intakeSecond = buildCurve(
-                poses.get(14),
+                //skips bottom
+                poses.get(11),
                 AutonomousHelpers.poseToPoint(poses.get(16)),
                 poses.get(15),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
@@ -89,6 +90,7 @@ public class FarBasketTrajectories {
                 poses.get(17),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreSecond.setPathEndTimeoutConstraint(3.0);
 
         this.intakeThird = buildCurve(
                 poses.get(17),
@@ -103,6 +105,7 @@ public class FarBasketTrajectories {
                 poses.get(21),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreThird.setPathEndTimeoutConstraint(3.0);
 
         this.intakeFourth = buildCurve(
                 poses.get(21),

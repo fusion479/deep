@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Pivot extends SubsystemBase {
     public static double ACCEPTING = 0;
     public static double READY = 0;
-    public static double SCORE = 0.9;
-    public static double SPECIMEN = 0.9;
-    public static double INTAKE = 0.37;
+    public static double SCORE = 0.82;
+    public static double SPECIMEN = 0.85;
+    public static double INTAKE = 0.5;
 
     private final Servo pivot;
 

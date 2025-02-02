@@ -18,7 +18,7 @@ public class Lift extends SubsystemBase {
     public static double HIGH_BASKET = 1350;
 
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 480;
+    public static double HIGH_RUNG = 470;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;

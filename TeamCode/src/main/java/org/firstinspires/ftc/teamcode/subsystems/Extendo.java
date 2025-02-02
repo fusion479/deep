@@ -20,7 +20,7 @@ public class Extendo extends SubsystemBase {
     public static int ALLOWED_ERROR = 10;
     public static int SCORE = -10;
     public static int READY = 30;
-    public static int ACCEPTING = 205;
+    public static int ACCEPTING = 245;
     public static int SPECIMEN = 155;
 
     private double power;

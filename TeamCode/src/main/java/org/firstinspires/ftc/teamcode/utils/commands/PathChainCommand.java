@@ -18,9 +18,9 @@ public class PathChainCommand extends CommandBase {
         this.follower = robot.getFollower();
     }
 
-    public PathChainCommand(Follower follower, double speed, Path... paths) {
+    public PathChainCommand(CommandRobot robot, double speed, Path... paths) {
         this.pathChain = new PathChain(paths);
-        this.follower = follower;
+        this.follower = robot.getFollower();
         this.speed = speed;
     }
 
