@@ -99,37 +99,39 @@ public class FarBasketTrajectories {
         this.intakeThird = buildCurve(
                 poses.get(17),
                 AutonomousHelpers.poseToPoint(poses.get(20)),
+                AutonomousHelpers.poseToPoint(poses.get(21)),
                 poses.get(19),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreThird = buildCurve(
                 poses.get(19),
-                AutonomousHelpers.poseToPoint(poses.get(22)),
-                poses.get(21),
+                AutonomousHelpers.poseToPoint(poses.get(23)),
+                poses.get(22),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreThird.setPathEndTimeoutConstraint(3.0);
 
         this.intakeFourth = buildCurve(
-                poses.get(21),
-                AutonomousHelpers.poseToPoint(poses.get(24)),
-                poses.get(23),
+                poses.get(22),
+                AutonomousHelpers.poseToPoint(poses.get(25)),
+                AutonomousHelpers.poseToPoint(poses.get(26)),
+                poses.get(24),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreFourth = buildCurve(
-                poses.get(23),
-                AutonomousHelpers.poseToPoint(poses.get(26)),
-                poses.get(25),
+                poses.get(24),
+                AutonomousHelpers.poseToPoint(poses.get(28)),
+                poses.get(27),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreFourth.setPathEndTimeoutConstraint(SCORE_PRELOAD);
 
         this.park = buildCurve(
-                poses.get(25),
-                AutonomousHelpers.poseToPoint(poses.get(28)),
                 poses.get(27),
+                AutonomousHelpers.poseToPoint(poses.get(30)),
+                poses.get(29),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
     }
