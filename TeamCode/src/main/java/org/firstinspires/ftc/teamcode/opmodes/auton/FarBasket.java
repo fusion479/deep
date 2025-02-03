@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.auton;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -18,8 +19,8 @@ public class FarBasket extends OpModeCore {
     public static int HIGH_RUNG_WAIT = 250;
     public static int SLAM_WAIT = 250;
     public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 250;
-    public static int READY_WAIT = 250;
+    public static int CYCLE_SPECIMEN_WAIT = 500;
+    public static int READY_WAIT = 100;
 
     public static double SCORE_SPEED = 0.7;
     public static double NORMAL_SPEED = 0.9;
@@ -54,11 +55,18 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(READY_WAIT),
 
                         // PUSH SAMPLES
-                        new PathChainCommand(
-                                this.robot,
-                                NORMAL_SPEED,
-                                this.trajectories.setupTop,
-                                this.trajectories.pushTop
+                        new ParallelCommandGroup(
+                                new PathChainCommand(
+                                        this.robot,
+                                        NORMAL_SPEED,
+                                        this.trajectories.backFirst,
+                                        this.trajectories.setupTop,
+                                        this.trajectories.pushTop
+                                ),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(READY_WAIT),
+                                        this.robot.getReady()
+                                )
                         ),
 
                         new PathChainCommand(
@@ -70,8 +78,13 @@ public class FarBasket extends OpModeCore {
 
 
                         // 2ND SPECIMEN
-                        this.robot.specimen,
-                        new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED),
+                        new ParallelCommandGroup(
+                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                                        this.robot.getSpecimen()
+                                )
+                        ),
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
@@ -82,9 +95,14 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SLAM_WAIT),
 
                         // 3RD SPECIMEN
-                        new PathCommand(this.robot, this.trajectories.intakeThird, NORMAL_SPEED),
-                        this.robot.specimen,
-                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                        new ParallelCommandGroup(
+                                new PathCommand(this.robot, this.trajectories.intakeThird, NORMAL_SPEED),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                                        this.robot.getSpecimen()
+                                )
+                        ),
+                        new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.highRung,
@@ -95,9 +113,14 @@ public class FarBasket extends OpModeCore {
 
 
                         // 4TH SPECIMEN
-                        new PathCommand(this.robot, this.trajectories.intakeFourth, NORMAL_SPEED),
-                        this.robot.specimen,
-                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                        new ParallelCommandGroup(
+                                new PathCommand(this.robot, this.trajectories.intakeFourth, NORMAL_SPEED),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                                        this.robot.getSpecimen()
+                                )
+                        ),
+                        new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.highRung,

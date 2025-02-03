@@ -53,7 +53,7 @@
             "endPoint": {
                 "index": 5,
                 "name": "setupTop",
-                "x": 60,
+                "x": 53,
                 "y": 24,
                 "heading": "linear",
                 "reverse": false,
@@ -94,7 +94,7 @@
             "endPoint": {
                 "index": 9,
                 "name": "setupMid",
-                "x": 60,
+                "x": 53,
                 "y": 14,
                 "heading": "linear",
                 "reverse": false,
@@ -206,7 +206,7 @@
             "endPoint": {
                 "index": 19,
                 "name": "intakeThird",
-                "x": 9,
+                "x": 11,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -248,7 +248,7 @@
             "endPoint": {
                 "index": 23,
                 "name": "intakeFourth",
-                "x": 8,
+                "x": 11,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,

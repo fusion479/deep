@@ -292,4 +292,38 @@ public class CommandRobot {
     public Follower getFollower() {
         return this.drivetrain.getFollower();
     }
+
+    public Command getReady() {
+        return new SequentialCommandGroup(
+                new ClawClose(this.claw),
+                new WristReady(this.wrist),
+                new PivotReady(this.pivot),
+                new ArmReady(this.arm),
+                new ExtendoReady(this.extendo),
+                new LiftAccepting(this.lift)
+        );
+    }
+
+    public Command getHighBasket() {
+        return new SequentialCommandGroup(
+                new ClawClose(this.claw),
+                new LiftHighBasket(this.lift),
+                new WristBasket(this.wrist),
+                new PivotBasket(this.pivot),
+                new ArmBasket(this.arm),
+                new ExtendoBasket(this.extendo)
+        );
+    }
+
+    public Command getSpecimen() {
+        return new SequentialCommandGroup(
+                new LiftAccepting(this.lift),
+                new WristBasket(this.wrist),
+                new PivotBasket(this.pivot),
+                new ArmBasket(this.arm),
+                new ExtendoBasket(this.extendo),
+                new WaitCommand(200),
+                new ClawOpen(this.claw)
+        );
+    }
 }
