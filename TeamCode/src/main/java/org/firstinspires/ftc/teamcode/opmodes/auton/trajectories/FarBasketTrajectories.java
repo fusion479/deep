@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.auton.trajectories;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildCurve;
 import static org.firstinspires.ftc.teamcode.utils.AutonomousHelpers.buildLine;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.Path;
 
@@ -11,10 +12,12 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
 import java.io.File;
 import java.util.ArrayList;
 
+@Config
 public class FarBasketTrajectories {
     private final ArrayList<Pose> poses;
 
-    public static double SCORE_PRELOAD = 1.0;
+    public static double SCORE_PRELOAD = 2.0;
+    public static double BACK_FIRST = 1.25;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
@@ -35,6 +38,7 @@ public class FarBasketTrajectories {
                 poses.get(4),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.backFirst.setPathEndTimeoutConstraint(BACK_FIRST);
 
         this.setupTop = buildCurve(
                 poses.get(4),
@@ -120,6 +124,7 @@ public class FarBasketTrajectories {
                 poses.get(25),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_PRELOAD);
 
         this.park = buildCurve(
                 poses.get(25),

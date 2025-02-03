@@ -12,7 +12,7 @@
             "endPoint": {
                 "index": 1,
                 "name": "scoreFirst",
-                "x": 100,
+                "x": 37,
                 "y": 72,
                 "heading": "linear",
                 "reverse": false,
@@ -95,7 +95,7 @@
                 "index": 9,
                 "name": "setupMid",
                 "x": 60,
-                "y": 18,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "startDeg": 0,
@@ -116,7 +116,7 @@
                 "index": 11,
                 "name": "pushMid",
                 "x": 15,
-                "y": 18,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "startDeg": 0,
@@ -164,7 +164,7 @@
             "endPoint": {
                 "index": 15,
                 "name": "intakeSecond",
-                "x": 13,
+                "x": 11,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -185,7 +185,7 @@
             "endPoint": {
                 "index": 17,
                 "name": "scoreSecond",
-                "x": 40,
+                "x": 36,
                 "y": 71,
                 "heading": "linear",
                 "reverse": false,
@@ -206,7 +206,7 @@
             "endPoint": {
                 "index": 19,
                 "name": "intakeThird",
-                "x": 13,
+                "x": 9,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -227,7 +227,7 @@
             "endPoint": {
                 "index": 21,
                 "name": "scoreThird",
-                "x": 40,
+                "x": 36,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -248,7 +248,7 @@
             "endPoint": {
                 "index": 23,
                 "name": "intakeFourth",
-                "x": 13,
+                "x": 8,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -269,7 +269,7 @@
             "endPoint": {
                 "index": 25,
                 "name": "scoreFourth",
-                "x": 40,
+                "x": 38,
                 "y": 69,
                 "heading": "linear",
                 "reverse": false,

@@ -16,11 +16,11 @@ public class Extendo extends SubsystemBase {
     public static double kI = 0;
     public static double kD = 0;
 
-    public static double OFFSET = 25;
+    public static double OFFSET = 73.3;
     public static int ALLOWED_ERROR = 3;
-    public static int SCORE = -30;
-    public static int READY = 0;
-    public static int ACCEPTING = 140;
+    public static int SCORE = 0;
+    public static int READY = 50;
+    public static int ACCEPTING = 170;
     public static int SPECIMEN = 100;
 
     private double power;

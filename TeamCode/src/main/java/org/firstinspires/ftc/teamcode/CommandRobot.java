@@ -132,9 +132,7 @@ public class CommandRobot {
 
         this.slam = new SequentialCommandGroup(
                 new LiftSlam(this.lift),
-                new WaitCommand(100),
-                new PivotAccepting(this.pivot),
-                new WaitCommand(400),
+                new WaitCommand(500),
                 new ClawOpen(this.claw)
         );
 

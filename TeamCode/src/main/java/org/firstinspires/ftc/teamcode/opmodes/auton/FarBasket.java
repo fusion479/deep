@@ -15,10 +15,14 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Config
 @Autonomous(name = "Far Basket", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
-    public static int HIGH_RUNG_WAIT = 750;
-    public static int ENSURE_WAIT = 450;
+    public static int HIGH_RUNG_WAIT = 250;
+    public static int SLAM_WAIT = 250;
     public static int SPECIMEN_CLOSE_WAIT = 250;
+    public static int CYCLE_SPECIMEN_WAIT = 250;
     public static int READY_WAIT = 250;
+
+    public static double SCORE_SPEED = 0.7;
+    public static double NORMAL_SPEED = 0.9;
 
     private CommandRobot robot;
     private FarBasketTrajectories trajectories;
@@ -42,23 +46,24 @@ public class FarBasket extends OpModeCore {
                         // PRELOAD
                         this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
-                        new PathCommand(this.robot, this.trajectories.scorePreload, 0.6),
-                        this.robot.ensure,
-                        new WaitCommand(ENSURE_WAIT),
-                        new PathCommand(this.robot, this.trajectories.backFirst, 0.75),
+                        new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
+                        this.robot.slam,
+                        new WaitCommand(SLAM_WAIT),
+                        new PathCommand(this.robot, this.trajectories.backFirst, NORMAL_SPEED),
                         this.robot.ready,
                         new WaitCommand(READY_WAIT),
 
                         // PUSH SAMPLES
                         new PathChainCommand(
                                 this.robot,
-                                0.75,
+                                NORMAL_SPEED,
                                 this.trajectories.setupTop,
                                 this.trajectories.pushTop
                         ),
+
                         new PathChainCommand(
                                 this.robot,
-                                0.75,
+                                NORMAL_SPEED,
                                 this.trajectories.setupMid,
                                 this.trajectories.pushMid
                         ),
@@ -66,44 +71,44 @@ public class FarBasket extends OpModeCore {
 
                         // 2ND SPECIMEN
                         this.robot.specimen,
-                        new PathCommand(this.robot, this.trajectories.intakeSecond, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED),
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
-                        new PathCommand(this.robot, this.trajectories.scoreSecond, 0.6),
-                        this.robot.ensure,
-                        new WaitCommand(ENSURE_WAIT),
+                        new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
+                        this.robot.slam,
+                        new WaitCommand(SLAM_WAIT),
 
                         // 3RD SPECIMEN
-                        new PathCommand(this.robot, this.trajectories.intakeThird, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeThird, NORMAL_SPEED),
                         this.robot.specimen,
-                        new WaitCommand(SPECIMEN_CLOSE_WAIT),
+                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
-                        new PathCommand(this.robot, this.trajectories.scoreThird, 0.6),
-                        this.robot.ensure,
-                        new WaitCommand(ENSURE_WAIT),
+                        new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
+                        this.robot.slam,
+                        new WaitCommand(SLAM_WAIT),
 
 
                         // 4TH SPECIMEN
-                        new PathCommand(this.robot, this.trajectories.intakeFourth, 0.75),
+                        new PathCommand(this.robot, this.trajectories.intakeFourth, NORMAL_SPEED),
                         this.robot.specimen,
-                        new WaitCommand(SPECIMEN_CLOSE_WAIT),
+                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
-                        new PathCommand(this.robot, this.trajectories.scoreFourth, 0.6),
-                        this.robot.ensure,
-                        new WaitCommand(ENSURE_WAIT),
+                        new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
+                        this.robot.slam,
+                        new WaitCommand(SLAM_WAIT),
 
                         // PARK
-                        this.robot.ready,
-                        new PathCommand(this.robot, this.trajectories.park, 0.75)
+                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED),
+                        this.robot.ready
                 )
         );
 
