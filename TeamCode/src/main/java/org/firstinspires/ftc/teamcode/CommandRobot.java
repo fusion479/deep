@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmBasket;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmDriveIn;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoBasket;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoDriveIn;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
@@ -34,6 +36,7 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotBasket;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotDriveIn;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
@@ -54,7 +57,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam;
+    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam, driveInHigh;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
@@ -213,6 +216,16 @@ public class CommandRobot {
                 new ClawOpen(this.claw)
         );
 
+        this.driveInHigh = new SequentialCommandGroup(
+                new ClawClose(this.claw),
+                new LiftHighRung(this.lift),
+                new ExtendoDriveIn(this.extendo),
+                new WaitCommand(350),
+                new PivotDriveIn(this.pivot),
+                new WristSpecimen(this.wrist),
+                new ArmDriveIn(this.arm)
+        );
+
         this.liftIncrement = new LiftIncrement(this.lift);
 
         this.liftDecrement = new LiftDecrement(this.lift);
@@ -252,11 +265,11 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.wristLeft);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.highRung);
+                        .whenPressed(this.driveInHigh);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.slam);
+                        .whenPressed(this.highBasket);
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close, this.intake, () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)

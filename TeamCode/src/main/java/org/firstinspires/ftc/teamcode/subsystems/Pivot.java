@@ -12,6 +12,7 @@ public class Pivot extends SubsystemBase {
     public static double SCORE = 0.35;
     public static double SPECIMEN = 0.01;
     public static double INTAKE = 0.1;
+    public static double DRIVE_IN = 0.45;
 
     private final Servo pivot;
 
