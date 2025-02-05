@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.006;
+    public static double kP = 0.005;
     public static double kI = 0;
     public static double kD = 0;
 
