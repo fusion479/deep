@@ -39,7 +39,7 @@
     "endPoint": {
     "index": 4,
     "name": "backFirst",
-    "x": 35,
+    "x": 25,
     "y": 72,
     "heading": "linear",
     "reverse": false,
@@ -53,7 +53,7 @@
     "endPoint": {
     "index": 5,
     "name": "setupTop",
-    "x": 63,
+    "x": 55,
     "y": 24,
     "heading": "linear",
     "reverse": false,
@@ -94,8 +94,8 @@
     "endPoint": {
     "index": 9,
     "name": "setupMid",
-    "x": 65,
-    "y": 20,
+    "x": 55,
+    "y": 17,
     "heading": "linear",
     "reverse": false,
     "startDeg": 0,
@@ -116,7 +116,7 @@
     "index": 11,
     "name": "pushMid",
     "x": 15,
-    "y": 20,
+    "y": 17,
     "heading": "linear",
     "reverse": false,
     "startDeg": 0,
@@ -164,7 +164,7 @@
     "endPoint": {
     "index": 15,
     "name": "intakeSecond",
-    "x": 9,
+    "x": 11,
     "y": 34,
     "heading": "linear",
     "reverse": false,
@@ -206,7 +206,7 @@
     "endPoint": {
     "index": 19,
     "name": "intakeThird",
-    "x": 9,
+    "x": 13,
     "y": 34,
     "heading": "linear",
     "reverse": false,
@@ -254,7 +254,7 @@
     "endPoint": {
     "index": 24,
     "name": "intakeFourth",
-    "x": 9,
+    "x": 13,
     "y": 34,
     "heading": "linear",
     "reverse": false,

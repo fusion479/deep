@@ -16,14 +16,14 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Config
 @Autonomous(name = "Far Basket", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
-    public static int HIGH_RUNG_WAIT = 250;
-    public static int SLAM_WAIT = 250;
+    public static int HIGH_RUNG_WAIT = 0;
+    public static int SLAM_WAIT = 150;
     public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 500;
-    public static int READY_WAIT = 100;
+    public static int CYCLE_SPECIMEN_WAIT = 0;
+    public static int READY_WAIT = 0;
 
-    public static double SCORE_SPEED = 0.7;
-    public static double NORMAL_SPEED = 0.9;
+    public static double SCORE_SPEED = 0.75;
+    public static double NORMAL_SPEED = 0.95;
 
     private CommandRobot robot;
     private FarBasketTrajectories trajectories;
@@ -50,9 +50,6 @@ public class FarBasket extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
                         this.robot.slam,
                         new WaitCommand(SLAM_WAIT),
-                        new PathCommand(this.robot, this.trajectories.backFirst, NORMAL_SPEED),
-                        this.robot.ready,
-                        new WaitCommand(READY_WAIT),
 
                         // PUSH SAMPLES
                         new ParallelCommandGroup(

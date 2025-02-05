@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class FarBasketTrajectories {
     private final ArrayList<Pose> poses;
 
-    public static double SCORE_PRELOAD = 2.0;
+    public static double SCORE_PRELOAD = 1.35;
     public static double BACK_FIRST = 1.25;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
@@ -126,7 +126,7 @@ public class FarBasketTrajectories {
                 poses.get(27),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_PRELOAD);
+        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_PRELOAD + 0.75);
 
         this.park = buildCurve(
                 poses.get(27),
