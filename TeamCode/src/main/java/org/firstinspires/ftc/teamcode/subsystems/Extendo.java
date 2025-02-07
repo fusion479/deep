@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.005;
+    public static double kP = 0.004;
     public static double kI = 0;
     public static double kD = 0;
 
     public static double OFFSET = 73.3;
     public static int ALLOWED_ERROR = 3;
-    public static int SCORE = 0;
+    public static int SCORE = -5;
     public static int READY = 50;
     public static int ACCEPTING = 210;
     public static int SPECIMEN = 100;
-    public static int DRIVE_IN = 125;
+    public static int DRIVE_IN = 210;
 
     private double power;
 

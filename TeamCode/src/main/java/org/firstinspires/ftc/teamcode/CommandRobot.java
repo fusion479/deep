@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoDriveIn;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftAutonHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
@@ -57,7 +58,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam, driveInHigh;
+    public Command ready, accepting, highBasket, autonHighRung, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam, driveInHigh;
     public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
@@ -167,6 +168,15 @@ public class CommandRobot {
                 new ExtendoBasket(this.extendo)
         );
 
+        this.autonHighRung = new SequentialCommandGroup(
+                new ClawClose(this.claw),
+                new LiftAutonHighRung(this.lift),
+                new ExtendoSpecimen(this.extendo),
+                new WaitCommand(350),
+                new PivotSpecimen(this.pivot),
+                new WristSpecimen(this.wrist),
+                new ArmSpecimen(this.arm)
+        );
         this.highRung = new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new LiftHighRung(this.lift),

@@ -45,7 +45,7 @@ public class FarBasket extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         // PRELOAD
-                        this.robot.highRung,
+                        this.robot.autonHighRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
                         this.robot.slam,
@@ -85,7 +85,7 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.highRung,
+                        this.robot.autonHighRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
                         this.robot.slam,
@@ -102,7 +102,7 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.highRung,
+                        this.robot.autonHighRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
                         this.robot.slam,
@@ -120,7 +120,7 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.highRung,
+                        this.robot.autonHighRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
                         this.robot.slam,
