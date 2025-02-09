@@ -12,7 +12,7 @@
         "endPoint": {
         "index": 1,
         "name": "scoreFirst",
-        "x": 40,
+        "x": 42,
         "y": 72,
         "heading": "linear",
         "reverse": false,
@@ -54,7 +54,7 @@
     "index": 5,
     "name": "setupTop",
     "x": 55,
-    "y": 24,
+    "y": 28,
     "heading": "linear",
     "reverse": false,
     "startDeg": 0,
@@ -164,7 +164,7 @@
     "endPoint": {
     "index": 15,
     "name": "intakeSecond",
-    "x": 11,
+    "x": 9,
     "y": 34,
     "heading": "linear",
     "reverse": false,
@@ -206,7 +206,7 @@
     "endPoint": {
     "index": 19,
     "name": "intakeThird",
-    "x": 13,
+    "x": 11,
     "y": 34,
     "heading": "linear",
     "reverse": false,
@@ -254,7 +254,7 @@
     "endPoint": {
     "index": 24,
     "name": "intakeFourth",
-    "x": 13,
+    "x": 11,
     "y": 34,
     "heading": "linear",
     "reverse": false,

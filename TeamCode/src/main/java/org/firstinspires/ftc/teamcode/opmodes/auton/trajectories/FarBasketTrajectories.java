@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class FarBasketTrajectories {
     private final ArrayList<Pose> poses;
 
-    public static double SCORE_PRELOAD = 1.35;
-    public static double BACK_FIRST = 1.25;
+    public static double SCORE_PRELOAD = 1.4;
+    public static double BACK_FIRST = 1.1;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 

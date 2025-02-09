@@ -5,17 +5,17 @@ import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 
-public class LiftAutonHighRung extends CommandBase {
+public class LiftDriveIn extends CommandBase {
     private final Lift lift;
 
-    public LiftAutonHighRung(final Lift lift) {
+    public LiftDriveIn(final Lift lift) {
         this.lift = lift;
         super.addRequirements(lift);
     }
 
     @Override
     public void initialize() {
-        this.lift.setTarget(Lift.AUTON_HIGH_RUNG);
+        this.lift.setTarget(Lift.DRIVE_IN);
     }
 
     @Override

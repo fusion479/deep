@@ -17,13 +17,13 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Autonomous(name = "Far Basket", preselectTeleOp = "Main")
 public class FarBasket extends OpModeCore {
     public static int HIGH_RUNG_WAIT = 0;
-    public static int SLAM_WAIT = 150;
+    public static int SLAM_WAIT = 200;
     public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 0;
-    public static int READY_WAIT = 0;
+    public static int CYCLE_SPECIMEN_WAIT = 300;
+    public static int READY_WAIT = 500;
 
     public static double SCORE_SPEED = 0.75;
-    public static double NORMAL_SPEED = 0.95;
+    public static double NORMAL_SPEED = 0.85;
 
     private CommandRobot robot;
     private FarBasketTrajectories trajectories;
@@ -45,7 +45,7 @@ public class FarBasket extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         // PRELOAD
-                        this.robot.autonHighRung,
+                        this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
                         this.robot.slam,
@@ -85,7 +85,7 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.autonHighRung,
+                        this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
                         this.robot.slam,
@@ -102,7 +102,7 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.autonHighRung,
+                        this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
                         this.robot.slam,
@@ -120,15 +120,20 @@ public class FarBasket extends OpModeCore {
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
                         this.robot.close,
                         new WaitCommand(SPECIMEN_CLOSE_WAIT),
-                        this.robot.autonHighRung,
+                        this.robot.highRung,
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
                         this.robot.slam,
                         new WaitCommand(SLAM_WAIT),
 
                         // PARK
-                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED),
-                        this.robot.ready
+                        new ParallelCommandGroup(
+                                new PathCommand(this.robot, this.trajectories.backFirst, NORMAL_SPEED),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(READY_WAIT),
+                                        this.robot.getReady()
+                                )
+                        )
                 )
         );
 

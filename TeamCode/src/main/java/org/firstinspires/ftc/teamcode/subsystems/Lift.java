@@ -18,13 +18,13 @@ public class Lift extends SubsystemBase {
     public static double HIGH_BASKET = 1350;
 
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 479;
-    public static double AUTON_HIGH_RUNG = 675;
+    public static double HIGH_RUNG = 630;
+    public static double DRIVE_IN = 475;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
-    public static double SLAM = 220;
+    public static double SLAM = 250;
 
     public static double kP = 0.005;
     public static double kI = 0;
@@ -109,6 +109,13 @@ public class Lift extends SubsystemBase {
 
     public double getPosition() {
         return -this.leftPri.getCurrentPosition();
+    }
+
+    public void setPower(double power) {
+        this.rightSec.setPower(power);
+        this.rightPri.setPower(power);
+        this.leftPri.setPower(power);
+        this.leftSec.setPower(power);
     }
 
     public boolean isFinished() {

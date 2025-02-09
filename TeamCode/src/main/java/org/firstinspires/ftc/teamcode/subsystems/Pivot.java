@@ -10,7 +10,7 @@ public class Pivot extends SubsystemBase {
     public static double ACCEPTING = 0;
     public static double READY = 0;
     public static double SCORE = 0.4;
-    public static double SPECIMEN = 0.01;
+    public static double SPECIMEN = 0.05;
     public static double INTAKE = 0.1;
     public static double DRIVE_IN = 0.45;
 
