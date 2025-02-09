@@ -13,16 +13,19 @@ import java.io.File;
 import java.util.ArrayList;
 
 @Config
-public class FarBasketTrajectories {
+public class SpecFourTrajectories {
     private final ArrayList<Pose> poses;
 
     public static double SCORE_PRELOAD = 1.4;
+    public static double SCORE_SECOND = 1.5;
+    public static double SCORE_THIRD = 1.5;
+    public static double SCORE_FOURTH = 1.5;
     public static double BACK_FIRST = 1.1;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
-    public FarBasketTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/far-basket.pp"));
+    public SpecFourTrajectories() {
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec4.pp"));
 
         this.scorePreload = buildCurve(
                 poses.get(0),
@@ -81,7 +84,6 @@ public class FarBasketTrajectories {
         );
 
         this.intakeSecond = buildCurve(
-                //skips bottom
                 poses.get(11),
                 AutonomousHelpers.poseToPoint(poses.get(16)),
                 poses.get(15),
@@ -94,7 +96,7 @@ public class FarBasketTrajectories {
                 poses.get(17),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.scoreSecond.setPathEndTimeoutConstraint(3.0);
+        this.scoreSecond.setPathEndTimeoutConstraint(SCORE_SECOND);
 
         this.intakeThird = buildCurve(
                 poses.get(17),
@@ -110,7 +112,7 @@ public class FarBasketTrajectories {
                 poses.get(22),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.scoreThird.setPathEndTimeoutConstraint(3.0);
+        this.scoreThird.setPathEndTimeoutConstraint(SCORE_THIRD);
 
         this.intakeFourth = buildCurve(
                 poses.get(22),
@@ -126,7 +128,7 @@ public class FarBasketTrajectories {
                 poses.get(27),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_PRELOAD + 0.75);
+        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_FOURTH);
 
         this.park = buildCurve(
                 poses.get(27),

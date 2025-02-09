@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
-@TeleOp(name = "Ryan's Main")
-public class RyanMain extends OpModeCore {
+@TeleOp(name = "1 Dev Main")
+public class DevMain extends OpModeCore {
     private CommandRobot robot;
     private MultipleTelemetry multipleTelemetry;
 
@@ -22,7 +22,7 @@ public class RyanMain extends OpModeCore {
                 super.hardwareMap,
                 super.gamepad1,
                 super.gamepad2,
-                CommandRobot.TeleOpMode.RYAN
+                CommandRobot.TeleOpMode.DEV
         );
     }
 

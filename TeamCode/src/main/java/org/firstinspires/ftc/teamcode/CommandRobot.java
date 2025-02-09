@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -32,8 +31,6 @@ import org.firstinspires.ftc.teamcode.commands.lift.LiftDriveIn;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftLowBasket;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftLowRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotAccepting;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotBasket;
@@ -58,8 +55,6 @@ import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class CommandRobot {
-    public Command ready, accepting, highBasket, highRung, lowBasket, lowRung, liftIncrement, liftDecrement, specimen, wristRight, wristLeft, intake, open, close, ensure, slam, driveIn;
-    public Command pivotDecrement, pivotIncrement;
     private TeleOpMode mode;
 
     private final Lift lift;
@@ -92,7 +87,6 @@ public class CommandRobot {
 
         this.mode = mode;
 
-        this.configureCommands();
         this.configureControls();
     }
 
@@ -105,16 +99,10 @@ public class CommandRobot {
         this.arm = new Arm(hwMap);
 
         this.drivetrain = new Drivetrain(hwMap, startPose);
-
-        this.configureCommands();
     }
 
     public void startThreads(OpModeCore opMode) {
-        if (this.mode == TeleOpMode.OWEN || this.mode == TeleOpMode.RYAN)
-            this.drivetrain.startThread(this.gamepad1, opMode);
-        else
-            this.drivetrain.startThread(this.gamepad2, opMode);
-
+        this.drivetrain.startThread(this.gamepad1, opMode);
         this.extendo.startThread(opMode);
         this.lift.startThread(opMode);
     }
@@ -124,8 +112,81 @@ public class CommandRobot {
         this.lift.startThread(opMode);
     }
 
-    public void configureCommands() {
-        this.ready = new SequentialCommandGroup(
+    public void configureControls() {
+        switch (this.mode) {
+            case KELLY:
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                                this.intakeToggle = true;
+
+                            else this.intakeToggle = !this.intakeToggle;
+                            return this.intakeToggle;
+                        }));
+
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(this.liftDecrement());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                        .whenPressed(this.wristRight());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.wristLeft());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.driveIn());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.specimen());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.highBasket());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(new ConditionalCommand(this.close(), this.intake(), () -> this.intakeToggle));
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open());
+                break;
+
+            case DEV:
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                                this.intakeToggle = true;
+
+                            else this.intakeToggle = !this.intakeToggle;
+                            return this.intakeToggle;
+                        }));
+
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(this.liftDecrement());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(this.liftIncrement());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                        .whenPressed(this.wristRight());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.wristLeft());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.highRung());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.specimen());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.slam());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenPressed(new ConditionalCommand(this.close(), this.intake(), () -> this.intakeToggle));
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                        .whenPressed(this.open());
+                break;
+        }
+    }
+
+    public enum TeleOpMode {
+        KELLY,
+        DEV
+    }
+
+    public Follower getFollower() {
+        return this.drivetrain.getFollower();
+    }
+
+    public Command ready() {
+        return new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new WristReady(this.wrist),
                 new PivotReady(this.pivot),
@@ -133,24 +194,10 @@ public class CommandRobot {
                 new ExtendoReady(this.extendo),
                 new LiftAccepting(this.lift)
         );
+    }
 
-        this.slam = new SequentialCommandGroup(
-                new LiftSlam(this.lift),
-                new WaitCommand(500),
-                new ClawOpen(this.claw)
-        );
-
-        this.accepting = new SequentialCommandGroup(
-                new LiftAccepting(this.lift),
-                new ExtendoAccepting(this.extendo),
-                new WaitCommand(400),
-                new ClawOpen(this.claw),
-                new ArmAccepting(this.arm),
-                new PivotAccepting(this.pivot),
-                new WristAccepting(this.wrist)
-        );
-
-        this.highBasket = new SequentialCommandGroup(
+    public Command highBasket() {
+        return new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new LiftHighBasket(this.lift),
                 new WristBasket(this.wrist),
@@ -158,37 +205,10 @@ public class CommandRobot {
                 new ArmBasket(this.arm),
                 new ExtendoBasket(this.extendo)
         );
+    }
 
-        this.lowBasket = new SequentialCommandGroup(
-                new ClawClose(this.claw),
-                new LiftLowBasket(this.lift),
-                new WristBasket(this.wrist),
-                new PivotBasket(this.pivot),
-                new ArmBasket(this.arm),
-                new ExtendoBasket(this.extendo)
-        );
-
-        this.highRung = new SequentialCommandGroup(
-                new ClawClose(this.claw),
-                new LiftHighRung(this.lift),
-                new ExtendoSpecimen(this.extendo),
-                new WaitCommand(350),
-                new PivotSpecimen(this.pivot),
-                new WristSpecimen(this.wrist),
-                new ArmSpecimen(this.arm)
-        );
-
-        this.lowRung = new SequentialCommandGroup(
-                new WristSpecimen(this.wrist),
-                new ArmSpecimen(this.arm),
-                new WaitCommand(250),
-                new ClawClose(this.claw),
-                new LiftLowRung(this.lift),
-                new PivotSpecimen(this.pivot),
-                new ExtendoSpecimen(this.extendo)
-        );
-
-        this.specimen = new SequentialCommandGroup(
+    public Command specimen() {
+        return new SequentialCommandGroup(
                 new LiftAccepting(this.lift),
                 new WristBasket(this.wrist),
                 new PivotBasket(this.pivot),
@@ -197,8 +217,34 @@ public class CommandRobot {
                 new WaitCommand(200),
                 new ClawOpen(this.claw)
         );
+    }
 
-        this.intake = new SequentialCommandGroup(
+    public Command accepting() {
+        return new SequentialCommandGroup(
+                new LiftAccepting(this.lift),
+                new ExtendoAccepting(this.extendo),
+                new WaitCommand(400),
+                new ClawOpen(this.claw),
+                new ArmAccepting(this.arm),
+                new PivotAccepting(this.pivot),
+                new WristAccepting(this.wrist)
+        );
+    }
+
+    public Command highRung() {
+        return new SequentialCommandGroup(
+                new ClawClose(this.claw),
+                new LiftHighRung(this.lift),
+                new ExtendoSpecimen(this.extendo),
+                new WaitCommand(350),
+                new PivotSpecimen(this.pivot),
+                new WristSpecimen(this.wrist),
+                new ArmSpecimen(this.arm)
+        );
+    }
+
+    public Command intake() {
+        return new SequentialCommandGroup(
                 new ClawOpen(this.claw),
                 new WaitCommand(100),
                 new ArmIntake(this.arm),
@@ -209,15 +255,18 @@ public class CommandRobot {
                 new PivotAccepting(this.pivot),
                 new ArmAccepting(this.arm)
         );
+    }
 
-        this.ensure = new SequentialCommandGroup(
-                new ArmAccepting(this.arm),
-                new InstantCommand(() -> this.pivot.setPosition(0.7)),
-                new WaitCommand(750),
+    public Command slam() {
+        return new SequentialCommandGroup(
+                new LiftSlam(this.lift),
+                new WaitCommand(500),
                 new ClawOpen(this.claw)
         );
+    }
 
-        this.driveIn = new SequentialCommandGroup(
+    public Command driveIn() {
+        return new SequentialCommandGroup(
                 new ClawClose(this.claw),
                 new LiftDriveIn(this.lift),
                 new ExtendoDriveIn(this.extendo),
@@ -226,118 +275,29 @@ public class CommandRobot {
                 new WristSpecimen(this.wrist),
                 new ArmDriveIn(this.arm)
         );
-
-        this.liftIncrement = new LiftIncrement(this.lift);
-
-        this.liftDecrement = new LiftDecrement(this.lift);
-
-        this.wristRight = new WristRight(this.wrist);
-
-        this.wristLeft = new WristLeft(this.wrist);
-
-        this.open = new ClawOpen(this.claw);
-
-        this.close = new ClawClose(this.claw);
     }
 
-    public void configureControls() {
-        switch (this.mode) {
-
-            /* ------------------------------------- */
-            /* --------------- OWEN ---------------- */
-            /* ------------------------------------- */
-
-            case OWEN:
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
-                        .whenPressed(new ConditionalCommand(this.ready, this.accepting, () -> {
-                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
-                                this.intakeToggle = true;
-
-                            else this.intakeToggle = !this.intakeToggle;
-                            return this.intakeToggle;
-                        }));
-
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                        .whenPressed(this.liftDecrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                        .whenPressed(this.liftIncrement);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                        .whenPressed(this.wristRight);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                        .whenPressed(this.wristLeft);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(this.driveIn);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
-                        .whenPressed(this.specimen);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.highBasket);
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                        .whenPressed(new ConditionalCommand(this.close, this.intake, () -> this.intakeToggle));
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                        .whenPressed(this.open);
-                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                        .whenPressed(this.pivotIncrement);
-                this.gamepad2.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                        .whenPressed(this.pivotDecrement);
-                break;
-
-            /* ------------------------------------- */
-            /* --------------- RYAN ---------------- */
-            /* ------------------------------------- */
-
-            case RYAN:
-                break;
-
-            /* ------------------------------------- */
-            /* ------------ RYAN & KELLY ----------- */
-            /* ------------------------------------- */
-
-            case RYAN_KELLY:
-                break;
-        }
+    public Command close() {
+        return new ClawClose(this.claw);
     }
 
-    public enum TeleOpMode {
-        OWEN,
-        RYAN,
-        RYAN_KELLY
+    public Command open() {
+        return new ClawOpen(this.claw);
     }
 
-    public Follower getFollower() {
-        return this.drivetrain.getFollower();
+    public Command liftIncrement() {
+        return new LiftIncrement(this.lift);
     }
 
-    public Command getReady() {
-        return new SequentialCommandGroup(
-                new ClawClose(this.claw),
-                new WristReady(this.wrist),
-                new PivotReady(this.pivot),
-                new ArmReady(this.arm),
-                new ExtendoReady(this.extendo),
-                new LiftAccepting(this.lift)
-        );
+    public Command liftDecrement() {
+        return new LiftDecrement(this.lift);
     }
 
-    public Command getHighBasket() {
-        return new SequentialCommandGroup(
-                new ClawClose(this.claw),
-                new LiftHighBasket(this.lift),
-                new WristBasket(this.wrist),
-                new PivotBasket(this.pivot),
-                new ArmBasket(this.arm),
-                new ExtendoBasket(this.extendo)
-        );
+    public Command wristRight() {
+        return new WristRight(this.wrist);
     }
 
-    public Command getSpecimen() {
-        return new SequentialCommandGroup(
-                new LiftAccepting(this.lift),
-                new WristBasket(this.wrist),
-                new PivotBasket(this.pivot),
-                new ArmBasket(this.arm),
-                new ExtendoBasket(this.extendo),
-                new WaitCommand(200),
-                new ClawOpen(this.claw)
-        );
+    public Command wristLeft() {
+        return new WristLeft(this.wrist);
     }
 }
