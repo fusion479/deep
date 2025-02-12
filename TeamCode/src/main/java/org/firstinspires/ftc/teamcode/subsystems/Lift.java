@@ -92,11 +92,12 @@ public class Lift extends SubsystemBase {
                     voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        switch (voltage){
+                        switch (voltage) {
                             case voltage < this.LOW_VOLTAGE:
                                 power = this.lowController.calculate(this.getPosition());
                             case voltage >= this.LOW_VOLTAGE:
                                 power = this.highController.calculate(this.getPosition());
+                        }
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
