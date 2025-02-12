@@ -52,7 +52,7 @@ public class SpecFiveTrajectories {
         this.setupMid = buildCurve(
                 poses.get(8),
                 AutonomousHelpers.poseToPoint(poses.get(10)),
-                poses.get(9)
+                poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
@@ -77,7 +77,7 @@ public class SpecFiveTrajectories {
 
         this.intakeSecond = buildCurve(
                 poses.get(14),
-                AutonomousHelpers.poseToPoint(poses.get(16))
+                AutonomousHelpers.poseToPoint(poses.get(16)),
                 poses.get(15),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

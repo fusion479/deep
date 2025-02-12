@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.ftc.LogWriter;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -43,7 +42,7 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
-    private VoltageSensor voltageSensor;
+    private final VoltageSensor voltageSensor;
     private final PIDController highController;
     private final PIDController lowController;
 
@@ -92,10 +91,10 @@ public class Lift extends SubsystemBase {
                     voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        switch (voltage) {
-                            case voltage < this.LOW_VOLTAGE:
-                                power = this.lowController.calculate(this.getPosition());
-                            case voltage >= this.LOW_VOLTAGE:
+                        if (voltage>this.LOW_VOLTAGE) {
+                            power = this.lowController.calculate(this.getPosition());
+                        }
+                        else{
                                 power = this.highController.calculate(this.getPosition());
                         }
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
@@ -117,7 +116,7 @@ public class Lift extends SubsystemBase {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-        }).start;
+        }).start();
     }
 
     public double getTarget() {
@@ -140,9 +139,9 @@ public class Lift extends SubsystemBase {
         this.leftSec.setPower(power);
     }
 
-   // public boolean isFinished() {
-   //     return this.controller.isFinished();
-   // }
+    public boolean isFinished() {
+       return this.lowController.isFinished();
+    }
 
     public double getError() {
             return this.lowController.getLastError();
