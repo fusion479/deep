@@ -47,16 +47,22 @@
 },
 "controlPoints": [
   {
-    "x": 20,
-    "y": 10.5,
-    "name": "setupTopSecondControl",
+    "x": 35,
+    "y": 72,
+    "name": "setupTopFirstControl",
     "index": 5
+  },
+  {
+    "x": 20,
+    "y": 7.8,
+    "name": "setupTopSecondControl",
+    "index": 6
   },
   {
     "x": 63,
     "y": 51.4,
     "name": "setupTopThirdControl",
-    "index": 6
+    "index": 7
   }
 ],
 "color": "#C97AD7"
@@ -70,7 +76,7 @@
   "name": "pushTop",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 7
+  "index": 8
 },
 "controlPoints": [],
 "color": "#987A9B"
@@ -84,14 +90,14 @@
   "name": "setupMid",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 8
+  "index": 9
 },
 "controlPoints": [
   {
     "x": 63,
     "y": 34,
     "name": "setupMidControl",
-    "index": 9
+    "index": 10
   }
 ],
 "color": "#9AA56D"
@@ -105,7 +111,7 @@
   "name": "pushMid",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 10
+  "index": 11
 },
 "controlPoints": [],
 "color": "#6DC56B"
@@ -119,14 +125,14 @@
   "name": "setupBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 11
+  "index": 12
 },
 "controlPoints": [
   {
     "x": 63,
     "y": 22,
     "name": "setupBottomControl",
-    "index": 12
+    "index": 13
   }
 ],
 "color": "#7BB679"
@@ -140,7 +146,7 @@
   "name": "pushBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 13
+  "index": 14
 },
 "controlPoints": [],
 "color": "#85C966"
@@ -154,14 +160,14 @@
   "name": "intakeSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 14
+  "index": 15
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 37,
     "name": "intakeSecondControl",
-    "index": 15
+    "index": 16
   }
 ],
 "color": "#56765A"
@@ -175,14 +181,14 @@
   "startDeg": 0,
   "endDeg": 0,
   "name": "scoreSecond",
-  "index": 16
+  "index": 17
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 67,
     "name": "scoreSecondControl",
-    "index": 17
+    "index": 18
   }
 ],
 "color": "#95886D"
@@ -196,20 +202,20 @@
   "name": "intakeThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 18
+  "index": 19
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeThirdFirstControl",
-    "index": 19
+    "index": 20
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeThirdSecondControl",
-    "index": 20
+    "index": 21
   }
 ],
 "color": "#DA67A9"
@@ -223,14 +229,14 @@
   "name": "scoreThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 21
+  "index": 22
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 65,
     "name": "scoreThirdControl",
-    "index": 22
+    "index": 23
   }
 ],
 "color": "#A65596"
@@ -244,20 +250,20 @@
   "name": "intakeFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 23
+  "index": 24
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFourthFirstControl",
-    "index": 24
+    "index": 25
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFourthSecondControl",
-    "index": 25
+    "index": 26
   }
 ],
 "color": "#88C58B"
@@ -271,14 +277,14 @@
   "name": "scoreFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 26
+  "index": 27
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 63,
     "name": "scoreFourthControl",
-    "index": 27
+    "index": 28
   }
 ],
 "color": "#D9B96B"
@@ -292,20 +298,20 @@
   "name": "intakeFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 28
+  "index": 29
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFifthFirstControl",
-    "index": 29
+    "index": 30
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFifthSecondControl",
-    "index": 30
+    "index": 31
   }
 ],
 "color": "#D5568A"
@@ -319,14 +325,14 @@
   "name": "scoreFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 31
+  "index": 32
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 61,
     "name": "scoreFifthControl",
-    "index": 32
+    "index": 33
   }
 ],
 "color": "#B677D7"
@@ -340,20 +346,20 @@
   "name": "park",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 33
+  "index": 34
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "parkControl",
-    "index": 34
+    "index": 35
   },
   {
     "x": 37,
     "y": 30,
     "name": "parkSecondControl",
-    "index": 35
+    "index": 36
   }
 ],
 "color": "#D8B67C"
