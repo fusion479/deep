@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.ftc.LogWriter;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -30,12 +32,15 @@ public class Lift extends SubsystemBase {
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
+    public static double LOW_VOLTAGE = 12;
 
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
-    private final PIDController controller;
+    private VoltageSensor voltageSensor;
+    private final PIDController highController;
+    private final PIDController lowController;
 
     public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
@@ -63,8 +68,12 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
-        this.controller.setAllowedError(15);
+        this.highController = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.highController.setAllowedError(15);
+        this.lowController = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.lowController.setAllowedError(15);
+
+        this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.setTarget(0);
     }
@@ -74,9 +83,15 @@ public class Lift extends SubsystemBase {
             while (opMode.opModeIsActive())
                 try {
                     double power;
+                    double voltage;
+                    voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition());
+                        switch (voltage){
+                            case voltage < this.LOW_VOLTAGE:
+                                power = this.lowController.calculate(this.getPosition());
+                            case voltage >= this.LOW_VOLTAGE:
+                                power = this.highController.calculate(this.getPosition());
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
@@ -96,7 +111,7 @@ public class Lift extends SubsystemBase {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-        }).start();
+        }).start;
     }
 
     public double getTarget() {
