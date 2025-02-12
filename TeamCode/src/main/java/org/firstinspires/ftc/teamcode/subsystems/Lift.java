@@ -140,7 +140,14 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isFinished() {
-       return this.lowController.isFinished();
+        double voltage;
+        voltage = voltageSensor.getVoltage();
+        if (voltage < LOW_VOLTAGE) {
+            return this.lowController.isFinished();
+        }
+        else{
+            return this.highController.isFinished();
+        }
     }
 
     public double getError() {
