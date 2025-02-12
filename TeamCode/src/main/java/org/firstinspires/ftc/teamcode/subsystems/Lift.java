@@ -5,10 +5,10 @@ import com.acmerobotics.roadrunner.ftc.LogWriter;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
@@ -28,10 +28,15 @@ public class Lift extends SubsystemBase {
 
     public static double SLAM = 250;
 
-    public static double kP = 0.005;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kG = 0;
+    public static double lowkP = 0.005;
+    public static double lowkI = 0;
+    public static double lowkD = 0;
+    public static double lowkG = 0;
+    public static double highkP = 0.005;
+    public static double highkI = 0;
+    public static double highkD = 0;
+    public static double highkG = 0;
+
     public static double LOW_VOLTAGE = 12;
 
     private final DcMotorEx rightSec;
@@ -68,9 +73,9 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.highController = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.highController = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
         this.highController.setAllowedError(15);
-        this.lowController = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.lowController = new PIDController(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
         this.lowController.setAllowedError(15);
 
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
@@ -115,11 +120,12 @@ public class Lift extends SubsystemBase {
     }
 
     public double getTarget() {
-        return this.controller.getTarget();
+        return this.lowController.getTarget();
     }
 
     public void setTarget(double target) {
-        this.controller.setTarget(target);
+        this.highController.setTarget(target);
+        this.lowController.setTarget(target);
     }
 
     public double getPosition() {
@@ -133,15 +139,16 @@ public class Lift extends SubsystemBase {
         this.leftSec.setPower(power);
     }
 
-    public boolean isFinished() {
-        return this.controller.isFinished();
-    }
+   // public boolean isFinished() {
+   //     return this.controller.isFinished();
+   // }
 
     public double getError() {
-        return this.controller.getLastError();
-    }
+            return this.lowController.getLastError();
+        }
 
     public void setConstants() {
-        this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.lowController.setCoefficients(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
+        this.highController.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
     }
 }
