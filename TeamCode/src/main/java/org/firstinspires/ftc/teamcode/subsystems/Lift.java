@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 
@@ -26,16 +27,24 @@ public class Lift extends SubsystemBase {
 
     public static double SLAM = 250;
 
-    public static double kP = 0.005;
-    public static double kI = 0;
-    public static double kD = 0;
-    public static double kG = 0;
+    public static double lowkP = 0.005;
+    public static double lowkI = 0;
+    public static double lowkD = 0;
+    public static double lowkG = 0;
+    public static double highkP = 0.005;
+    public static double highkI = 0;
+    public static double highkD = 0;
+    public static double highkG = 0;
+
+    public static double LOW_VOLTAGE = 12;
 
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
-    private final PIDController controller;
+    private final VoltageSensor voltageSensor;
+    private final PIDController highController;
+    private final PIDController lowController;
 
     public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
@@ -63,8 +72,12 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
-        this.controller.setAllowedError(15);
+        this.highController = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
+        this.highController.setAllowedError(15);
+        this.lowController = new PIDController(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
+        this.lowController.setAllowedError(15);
+
+        this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.setTarget(0);
     }
@@ -74,9 +87,16 @@ public class Lift extends SubsystemBase {
             while (opMode.opModeIsActive())
                 try {
                     double power;
+                    double voltage;
+                    voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition());
+                        if (voltage>this.LOW_VOLTAGE) {
+                            power = this.lowController.calculate(this.getPosition());
+                        }
+                        else{
+                                power = this.highController.calculate(this.getPosition());
+                        }
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
@@ -100,11 +120,12 @@ public class Lift extends SubsystemBase {
     }
 
     public double getTarget() {
-        return this.controller.getTarget();
+        return this.lowController.getTarget();
     }
 
     public void setTarget(double target) {
-        this.controller.setTarget(target);
+        this.highController.setTarget(target);
+        this.lowController.setTarget(target);
     }
 
     public double getPosition() {
@@ -119,14 +140,22 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isFinished() {
-        return this.controller.isFinished();
+        double voltage;
+        voltage = voltageSensor.getVoltage();
+        if (voltage < LOW_VOLTAGE) {
+            return this.lowController.isFinished();
+        }
+        else{
+            return this.highController.isFinished();
+        }
     }
 
     public double getError() {
-        return this.controller.getLastError();
-    }
+            return this.lowController.getLastError();
+        }
 
     public void setConstants() {
-        this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.lowController.setCoefficients(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
+        this.highController.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
     }
 }

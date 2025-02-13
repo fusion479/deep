@@ -54,6 +54,17 @@ public class AutonomousHelpers {
         return path;
     }
 
+    public static Path buildCurve(Pose startPose, Point firstControlPoint, Point secondControlPoint,
+                                  Point thirdControlPoint, Pose endPose, HeadingInterpolation interpolation) {
+        Point startPoint = new Point(startPose.getX(), startPose.getY());
+        Point endPoint = new Point(endPose.getX(), endPose.getY());
+
+        Path path = new Path(new BezierCurve(startPoint, firstControlPoint, secondControlPoint, thirdControlPoint, endPoint));
+        setHeadingInterpolation(path, startPose.getHeading(), endPose.getHeading(), interpolation);
+
+        return path;
+    }
+
     public static ArrayList<Pose> getPoses(String path) {
         try {
             ArrayList<Pose> poses = new ArrayList<Pose>();
