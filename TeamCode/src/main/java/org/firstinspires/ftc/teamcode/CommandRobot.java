@@ -28,7 +28,6 @@ import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDriveIn;
-import org.firstinspires.ftc.teamcode.commands.lift.LiftHighBasket;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftSlam;
@@ -70,6 +69,10 @@ public class CommandRobot {
     private GamepadEx gamepad2;
 
     private boolean intakeToggle;
+
+    public static int acceptingWait = 700;
+    public static int readyWait = 700;
+
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
         this.drivetrain = new Drivetrain(hwMap, new Pose(0, 0, 0));
@@ -136,8 +139,6 @@ public class CommandRobot {
                         .whenPressed(this.driveIn());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
                         .whenPressed(this.specimen());
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.X)
-                        .whenPressed(this.highBasket());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenPressed(new ConditionalCommand(this.close(), this.intake(), () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
@@ -190,20 +191,10 @@ public class CommandRobot {
                 new ClawClose(this.claw),
                 new WristReady(this.wrist),
                 new PivotReady(this.pivot),
-                new ArmReady(this.arm),
                 new ExtendoReady(this.extendo),
+                new WaitCommand(readyWait),
+                new ArmSpecimen(this.arm),
                 new LiftAccepting(this.lift)
-        );
-    }
-
-    public Command highBasket() {
-        return new SequentialCommandGroup(
-                new ClawClose(this.claw),
-                new LiftHighBasket(this.lift),
-                new WristBasket(this.wrist),
-                new PivotBasket(this.pivot),
-                new ArmBasket(this.arm),
-                new ExtendoBasket(this.extendo)
         );
     }
 
@@ -223,7 +214,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new LiftAccepting(this.lift),
                 new ExtendoAccepting(this.extendo),
-                new WaitCommand(400),
+                new WaitCommand(acceptingWait),
                 new ClawOpen(this.claw),
                 new ArmAccepting(this.arm),
                 new PivotAccepting(this.pivot),

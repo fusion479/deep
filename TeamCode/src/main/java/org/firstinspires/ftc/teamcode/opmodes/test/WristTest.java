@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristSpecimen;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
@@ -26,7 +27,7 @@ public class WristTest extends OpModeCore {
 
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new WristBasket(this.wrist));
         this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new WristReady(this.wrist));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new WristAccepting(this.wrist));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new WristSpecimen(this.wrist));
     }
 
     @Override
