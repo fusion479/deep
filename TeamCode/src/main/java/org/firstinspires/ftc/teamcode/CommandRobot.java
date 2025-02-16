@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmBasket;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmDriveIn;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
-import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
@@ -70,8 +69,8 @@ public class CommandRobot {
 
     private boolean intakeToggle;
 
-    public static int acceptingWait = 700;
-    public static int readyWait = 700;
+    public static int ACCEPTING_WAIT = 700;
+    public static int READY_WAIT = 700;
 
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
@@ -192,7 +191,7 @@ public class CommandRobot {
                 new WristReady(this.wrist),
                 new PivotReady(this.pivot),
                 new ExtendoReady(this.extendo),
-                new WaitCommand(readyWait),
+                new WaitCommand(READY_WAIT),
                 new ArmSpecimen(this.arm),
                 new LiftAccepting(this.lift)
         );
@@ -214,7 +213,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new LiftAccepting(this.lift),
                 new ExtendoAccepting(this.extendo),
-                new WaitCommand(acceptingWait),
+                new WaitCommand(ACCEPTING_WAIT),
                 new ClawOpen(this.claw),
                 new ArmAccepting(this.arm),
                 new PivotAccepting(this.pivot),

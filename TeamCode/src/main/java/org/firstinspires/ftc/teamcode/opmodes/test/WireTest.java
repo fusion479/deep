@@ -18,13 +18,12 @@ public class WireTest extends OpModeCore {
     public void initialize() {
         super.initialize();
 
-        // one of these is a cr servo as well - hopefully everything else will work except that one
         this.wire = super.hardwareMap.get(Servo.class, "wire");
+        this.wire.setPosition(1);
+
         this.gamepad = new GamepadEx(this.gamepad1);
         this.gamepad.getGamepadButton(GamepadKeys.Button.A).whenPressed(new InstantCommand(() -> this.wire.setPosition(1)));
         this.gamepad.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(() -> this.wire.setPosition(0)));
-
-        this.wire.setPosition(1);
     }
 
     @Override
