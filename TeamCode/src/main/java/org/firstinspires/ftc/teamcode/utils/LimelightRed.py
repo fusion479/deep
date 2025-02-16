@@ -86,14 +86,14 @@ def runPipeline(frame, llrobot):
         hsv_denoised = hsv
 
         # Create masks for each color
-        yellow_mask = cv2.inRange(
-            hsv_denoised, np.array(HSV_YELLOW_RANGE[0]), np.array(HSV_YELLOW_RANGE[1])
+        red_mask = cv2.inRange(
+            hsv_denoised, np.array(HSV_RED_RANGE_1[0]), np.array(HSV_RED_RANGE_1[1])
         )
 
         sobel_kernel = SOBEL_KERNEL
 
         kernel = np.ones((5, 5), np.uint8)
-        masked_frame = cv2.bitwise_and(frame, frame, mask=yellow_mask)
+        masked_frame = cv2.bitwise_and(frame, frame, mask=red_mask)
         gray_masked = cv2.cvtColor(masked_frame, cv2.COLOR_BGR2GRAY)
 
         sobelx = cv2.Sobel(gray_masked, cv2.CV_32F, 1, 0, ksize=sobel_kernel)
@@ -107,7 +107,7 @@ def runPipeline(frame, llrobot):
         edges = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel)
         edges = cv2.dilate(edges, np.ones((3, 3), np.uint8), iterations=3)
         edges = cv2.bitwise_not(edges)
-        edges = cv2.bitwise_and(edges, edges, mask=yellow_mask)
+        edges = cv2.bitwise_and(edges, edges, mask=red_mask)
 
         contours, _ = cv2.findContours(
             edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
@@ -130,7 +130,7 @@ def runPipeline(frame, llrobot):
 
             game_pieces.append(
                 {
-                    "color": "yellow",
+                    "color": "red",
                     "position": center,
                     "angle": angle,
                     "area": area,
