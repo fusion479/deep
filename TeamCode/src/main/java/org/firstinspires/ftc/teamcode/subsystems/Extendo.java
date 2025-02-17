@@ -7,25 +7,25 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
-import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.008;
+    public static double kP = 0.005;
     public static double kI = 0;
     public static double kD = 0;
 
-    public static double OFFSET = 11.45
-            ;
+    public static double OFFSET = 11.45;
     public static int ALLOWED_ERROR = 3;
     public static int SCORE = -5;
     public static int READY = 20;
-    public static int ACCEPTING = 210;
+    public static int ACCEPTING = 250;
     public static int SPECIMEN = 100;
-    public static int DRIVE_IN = 210;
+    public static int DRIVE_IN = 120;
+    public static int TELE_OFFSET = 75;
 
     private double power;
+    private double telePower;
 
     public final AnalogInput encoder;
     private final CRServo extendoBottom;
@@ -53,24 +53,33 @@ public class Extendo extends SubsystemBase {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
                 try {
-                    double currPos = this.getPosition();
+                    if (telePower == 0.0) {
+                        double currPos = this.getPosition();
 
-                    if (prevPos - currPos > 180) rotations++;
-                    else if (180 < currPos - prevPos) rotations--;
+                        if (prevPos - currPos > 180) rotations++;
+                        else if (180 < currPos - prevPos) rotations--;
 
-                    this.power = this.controller.calculate(currPos + 360 * rotations);
-                    if (!this.controller.isFinished()) {
-                        synchronized (this.extendoBottom) {
-                            this.extendoBottom.setPower(-this.power);
+                        this.power = this.controller.calculate(currPos + 360 * rotations);
+                        if (!this.controller.isFinished()) {
+                            synchronized (this.extendoBottom) {
+                                this.extendoBottom.setPower(-this.power);
+                            }
+
+                            synchronized (this.extendoTop) {
+                                this.extendoTop.setPower(-this.power);
+                            }
                         }
 
-                        synchronized (this.extendoTop) {
-                            this.extendoTop.setPower(-this.power);
-                        }
+                        prevPos = currPos;
+                    } else {
+                        this.extendoTop.setPower(this.telePower);
+                        this.extendoBottom.setPower(this.telePower);
+
+                        if (this.telePower > 0)
+                            this.controller.setTarget(this.getPosition() - TELE_OFFSET);
+                        else
+                            this.controller.setTarget(this.getPosition());
                     }
-
-                    TelemetryCore.getInstance().addData("pls work", currPos);
-                    prevPos = currPos;
 
                     Thread.sleep(50);
                 } catch (Exception e) {
@@ -90,6 +99,10 @@ public class Extendo extends SubsystemBase {
 
     public void setPosition(double position) {
         this.controller.setTarget(position);
+    }
+
+    public void setPower(double power) {
+        this.telePower = power;
     }
 
     public double getError() {

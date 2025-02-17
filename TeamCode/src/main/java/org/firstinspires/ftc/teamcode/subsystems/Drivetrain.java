@@ -15,13 +15,13 @@ import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 @Config
 public class Drivetrain extends SubsystemBase {
     public static double MAX_ACCEL = 0.3;
-    public static double MAX_ANGULAR_ACCEL = 0.1;
+    public static double MAX_ANGULAR_ACCEL = 0.2;
 
     public static double MAX_DEACCEL = 0.5;
     public static double MAX_ANGULAR_DEACCEL = 0.5;
 
-    public static double MAX_VEL = 0.6;
-    public static double MAX_ANGULAR_VEL = 0.4;
+    public static double MAX_VEL = 0.75;
+    public static double MAX_ANGULAR_VEL = 0.6;
 
     private final Follower follower;
 
@@ -56,7 +56,7 @@ public class Drivetrain extends SubsystemBase {
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
 
-                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, true);
+                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, false);
                         this.follower.update();
                     }
                     Thread.sleep(10);

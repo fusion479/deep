@@ -18,19 +18,21 @@ public class Lift extends SubsystemBase {
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 200;
-    public static double DRIVE_IN = 475;
+    public static double HIGH_RUNG = 500;
+    public static double DRIVE_IN = 465;
+    public static double CLIMB = -Integer.MAX_VALUE;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
     public static double SLAM = 250;
 
-    public static double lowkP = 0.005;
+    public static double lowkP = 0.009;
     public static double lowkI = 0;
     public static double lowkD = 0;
     public static double lowkG = 0;
-    public static double highkP = 0.005;
+
+    public static double highkP = 0.007;
     public static double highkI = 0;
     public static double highkD = 0;
     public static double highkG = 0;
@@ -90,11 +92,10 @@ public class Lift extends SubsystemBase {
                     voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        if (voltage>this.LOW_VOLTAGE) {
+                        if (voltage > LOW_VOLTAGE) {
                             power = this.lowController.calculate(this.getPosition());
-                        }
-                        else{
-                                power = this.highController.calculate(this.getPosition());
+                        } else {
+                            power = this.highController.calculate(this.getPosition());
                         }
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
@@ -143,15 +144,14 @@ public class Lift extends SubsystemBase {
         voltage = voltageSensor.getVoltage();
         if (voltage < LOW_VOLTAGE) {
             return this.lowController.isFinished();
-        }
-        else{
+        } else {
             return this.highController.isFinished();
         }
     }
 
     public double getError() {
-            return this.lowController.getLastError();
-        }
+        return this.lowController.getLastError();
+    }
 
     public void setConstants() {
         this.lowController.setCoefficients(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);

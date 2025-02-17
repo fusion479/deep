@@ -36,6 +36,8 @@ public class DevMain extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            this.robot.update();
+
             super.logCycles();
             super.telemetry.update();
         }

@@ -39,7 +39,6 @@ import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
-import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristRight;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristSpecimen;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
@@ -49,6 +48,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @Config
@@ -72,6 +72,8 @@ public class CommandRobot {
     public static int ACCEPTING_WAIT = 700;
     public static int READY_WAIT = 700;
 
+    private GamepadTrigger lt, rt;
+
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
         this.drivetrain = new Drivetrain(hwMap, new Pose(0, 0, 0));
@@ -88,6 +90,9 @@ public class CommandRobot {
         this.gamepad2 = new GamepadEx(gamepad2);
 
         this.mode = mode;
+
+        this.lt = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.extendo::setPower, this.gamepad1);
+        this.rt = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, p -> this.extendo.setPower(-p), this.gamepad1);
 
         this.configureControls();
     }
@@ -188,10 +193,9 @@ public class CommandRobot {
     public Command ready() {
         return new SequentialCommandGroup(
                 new ClawClose(this.claw),
-                new WristReady(this.wrist),
+                new WristSpecimen(this.wrist),
                 new PivotReady(this.pivot),
                 new ExtendoReady(this.extendo),
-                new WaitCommand(READY_WAIT),
                 new ArmSpecimen(this.arm),
                 new LiftAccepting(this.lift)
         );
@@ -204,7 +208,7 @@ public class CommandRobot {
                 new PivotBasket(this.pivot),
                 new ArmBasket(this.arm),
                 new ExtendoBasket(this.extendo),
-                new WaitCommand(200),
+                new WaitCommand(400),
                 new ClawOpen(this.claw)
         );
     }
@@ -260,7 +264,6 @@ public class CommandRobot {
                 new ClawClose(this.claw),
                 new LiftDriveIn(this.lift),
                 new ExtendoDriveIn(this.extendo),
-                new WaitCommand(350),
                 new PivotDriveIn(this.pivot),
                 new WristSpecimen(this.wrist),
                 new ArmDriveIn(this.arm)
@@ -289,5 +292,18 @@ public class CommandRobot {
 
     public Command wristLeft() {
         return new WristLeft(this.wrist);
+    }
+
+    public void update() {
+        this.rt.update();
+        this.lt.update();
+
+        if (this.extendo.getPosition() > 100) {
+            Drivetrain.MAX_ANGULAR_VEL = 0.4;
+            Drivetrain.MAX_ANGULAR_ACCEL = 0.1;
+        } else {
+            Drivetrain.MAX_ANGULAR_ACCEL = 0.2;
+            Drivetrain.MAX_ANGULAR_VEL = 0.6;
+        }
     }
 }

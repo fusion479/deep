@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.test;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -31,6 +32,7 @@ public class LiftTest extends OpModeCore {
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new LiftIncrement(this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new LiftDecrement(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> this.lift.setTarget(Lift.CLIMB)));
     }
 
     @Override

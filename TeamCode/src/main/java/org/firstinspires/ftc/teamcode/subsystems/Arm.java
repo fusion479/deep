@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Arm extends SubsystemBase {
-    public static double ACCEPTING = 0.25;
+    public static double ACCEPTING = 0.3;
     public static double SCORE = 0.95;
     public static double READY = 0.9;
     public static double INTAKE = 0.05;
