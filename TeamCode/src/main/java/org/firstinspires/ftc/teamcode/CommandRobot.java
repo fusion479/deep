@@ -39,6 +39,7 @@ import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
+import org.firstinspires.ftc.teamcode.commands.wrist.WristReady;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristRight;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristSpecimen;
 import org.firstinspires.ftc.teamcode.subsystems.Arm;
@@ -73,7 +74,6 @@ public class CommandRobot {
     public static int READY_WAIT = 700;
 
     private GamepadTrigger lt, rt;
-
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
         this.drivetrain = new Drivetrain(hwMap, new Pose(0, 0, 0));
@@ -193,7 +193,7 @@ public class CommandRobot {
     public Command ready() {
         return new SequentialCommandGroup(
                 new ClawClose(this.claw),
-                new WristSpecimen(this.wrist),
+                new WristReady(this.wrist),
                 new PivotReady(this.pivot),
                 new ExtendoReady(this.extendo),
                 new ArmSpecimen(this.arm),

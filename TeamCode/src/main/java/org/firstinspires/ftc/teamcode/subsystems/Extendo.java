@@ -17,15 +17,15 @@ public class Extendo extends SubsystemBase {
 
     public static double OFFSET = 11.45;
     public static int ALLOWED_ERROR = 3;
-    public static int SCORE = -5;
-    public static int READY = 20;
+    public static int SCORE = -30;
+    public static int READY = 70;
     public static int ACCEPTING = 250;
     public static int SPECIMEN = 100;
     public static int DRIVE_IN = 120;
     public static int TELE_OFFSET = 75;
 
     private double power;
-    private double telePower;
+    private boolean toggleController;
 
     public final AnalogInput encoder;
     private final CRServo extendoBottom;
@@ -53,11 +53,13 @@ public class Extendo extends SubsystemBase {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
                 try {
-                    if (telePower == 0.0) {
-                        double currPos = this.getPosition();
+                    double currPos = this.getPosition();
 
-                        if (prevPos - currPos > 180) rotations++;
-                        else if (180 < currPos - prevPos) rotations--;
+                    if (prevPos - currPos > 180) rotations++;
+                    else if (180 < currPos - prevPos) rotations--;
+
+                    if (this.toggleController) {
+
 
                         this.power = this.controller.calculate(currPos + 360 * rotations);
                         if (!this.controller.isFinished()) {
@@ -69,18 +71,12 @@ public class Extendo extends SubsystemBase {
                                 this.extendoTop.setPower(-this.power);
                             }
                         }
-
-                        prevPos = currPos;
                     } else {
-                        this.extendoTop.setPower(this.telePower);
-                        this.extendoBottom.setPower(this.telePower);
-
-                        if (this.telePower > 0)
-                            this.controller.setTarget(this.getPosition() - TELE_OFFSET);
-                        else
-                            this.controller.setTarget(this.getPosition());
+                        this.extendoTop.setPower(this.power);
+                        this.extendoBottom.setPower(this.power);
                     }
 
+                    prevPos = currPos;
                     Thread.sleep(50);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,11 +94,13 @@ public class Extendo extends SubsystemBase {
     }
 
     public void setPosition(double position) {
+        this.toggleController = true;
         this.controller.setTarget(position);
     }
 
     public void setPower(double power) {
-        this.telePower = power;
+        this.toggleController = false;
+        this.power = power;
     }
 
     public double getError() {
