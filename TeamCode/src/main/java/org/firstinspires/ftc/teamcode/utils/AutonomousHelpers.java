@@ -11,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AutonomousHelpers {
@@ -65,9 +64,9 @@ public class AutonomousHelpers {
         return path;
     }
 
-    public static ArrayList<Pose> getPoses(String path) {
+    public static JSONObject getPoses(String path) {
         try {
-            ArrayList<Pose> poses = new ArrayList<Pose>();
+            JSONObject poses = new JSONObject();
             String jsonString = "";
 
             File file = new File(path);
@@ -79,7 +78,7 @@ public class AutonomousHelpers {
             JSONObject data = new JSONObject(jsonString);
             JSONArray lines = data.getJSONArray("lines");
 
-            poses.add(new Pose(
+            poses.put("startPoint", new Pose(
                     data.getJSONObject("startPoint").getDouble("x"),
                     data.getJSONObject("startPoint").getDouble("y"),
                     lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg")
@@ -88,11 +87,11 @@ public class AutonomousHelpers {
             for (int i = 0; i < lines.length(); i++) {
                 JSONObject line = lines.getJSONObject(i);
                 System.out.println(line);
-                poses.add(getPose(line.getJSONObject("endPoint")));
+                poses.put(line.getString("name"), getPose(line.getJSONObject("endPoint")));
 
                 JSONArray controlPoints = line.getJSONArray("controlPoints");
                 for (int j = 0; j < controlPoints.length(); j++) {
-                    poses.add(getPose(controlPoints.getJSONObject(j)));
+                    poses.put(line.getString("name"), getPose(controlPoints.getJSONObject(j)));
                 }
             }
 

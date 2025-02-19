@@ -8,13 +8,13 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.Path;
 
 import org.firstinspires.ftc.teamcode.utils.AutonomousHelpers;
+import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 
 @Config
 public class SpecFourTrajectories {
-    private final ArrayList<Pose> poses;
+    private final JSONObject poses;
 
     public static double SCORE_PRELOAD = 1.4;
     public static double INTAKE_SECOND = 1.3;
@@ -31,6 +31,7 @@ public class SpecFourTrajectories {
     public static double SETUP_BOTTOM = 1.1;
     public static double PUSH_BOTTOM = 1.1;
     public static double PARK = 1.4;
+
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
     public SpecFourTrajectories() {
