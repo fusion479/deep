@@ -14,17 +14,24 @@ import java.util.ArrayList;
 
 @Config
 public class SpecFiveSweepTrajectories {
-    private final ArrayList<Pose> poses;
+    public final ArrayList<Pose> poses;
+
     public static double SCORE_PRELOAD = 1.4;
+    public static double SETUP_TOP = 3;
     public static double SCORE_SECOND = 1.5;
     public static double SCORE_THIRD = 1.5;
     public static double SCORE_FOURTH = 1.5;
     public static double BACK_FIRST = 1.1;
+    public static double SWEEP_TOP = 3;
+    public static double SETUP_MID = 3;
+    public static double SWEEP_MID = 3;
+    public static double SETUP_BOTTOM = 3;
+    public static double SWEEP_BOTTOM = 3;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, sweepTop, setupMid, sweepMid, setupBottom, sweepBottom;
 
     public SpecFiveSweepTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/far-5-basket.pp"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec5sweep.pp"));
 
         this.scorePreload = buildCurve(
                 poses.get(0),
@@ -33,6 +40,7 @@ public class SpecFiveSweepTrajectories {
                 poses.get(1),
                 AutonomousHelpers.HeadingInterpolation.CONSTANT
         );
+        this.scorePreload.setPathEndTimeoutConstraint(SCORE_PRELOAD);
 
         this.setupTop = buildCurve(
                 poses.get(1),
@@ -40,36 +48,42 @@ public class SpecFiveSweepTrajectories {
                 poses.get(4),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.setupTop.setPathEndTimeoutConstraint(SETUP_TOP);
 
         this.sweepTop = buildLine(
                 poses.get(4),
                 poses.get(6),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.sweepTop.setPathEndTimeoutConstraint(SWEEP_TOP);
 
         this.setupMid = buildLine(
                 poses.get(6),
                 poses.get(7),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.setupMid.setPathEndTimeoutConstraint(SETUP_MID);
 
         this.sweepMid = buildLine(
                 poses.get(7),
                 poses.get(8),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.setupMid.setPathEndTimeoutConstraint(SWEEP_MID);
 
         this.setupBottom = buildLine(
                 poses.get(8),
                 poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.setupMid.setPathEndTimeoutConstraint(SETUP_BOTTOM);
 
         this.sweepBottom = buildLine(
                 poses.get(9),
                 poses.get(10),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.setupMid.setPathEndTimeoutConstraint(SWEEP_BOTTOM);
 
         this.intakeSecond = buildCurve(
                 poses.get(10),
@@ -84,6 +98,7 @@ public class SpecFiveSweepTrajectories {
                 poses.get(13),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreSecond.setPathEndTimeoutConstraint(SCORE_SECOND);
 
         this.intakeThird = buildCurve(
                 poses.get(13),
@@ -99,6 +114,7 @@ public class SpecFiveSweepTrajectories {
                 poses.get(18),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreThird.setPathEndTimeoutConstraint(SCORE_THIRD);
 
         this.intakeFourth = buildCurve(
                 poses.get(18),
@@ -114,6 +130,7 @@ public class SpecFiveSweepTrajectories {
                 poses.get(23),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_FOURTH);
 
         this.intakeFifth = buildCurve(
                 poses.get(23),

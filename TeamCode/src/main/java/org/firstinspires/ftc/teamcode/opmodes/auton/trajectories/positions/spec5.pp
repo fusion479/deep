@@ -1,6 +1,6 @@
 {
   "startPoint": {
-  "x": 8,
+  "x": 10,
   "y": 65,
   "heading": "linear",
   "startDeg": 0,
