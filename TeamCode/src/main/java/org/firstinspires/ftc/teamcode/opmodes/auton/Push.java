@@ -40,13 +40,15 @@ public class Push extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.scorePreload, SPEED),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
-                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.strafeBottom, this.trajectories.pushBottom),
                         new PathCommand(this.robot, this.trajectories.intakeSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.intakeThird, SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreThird, SPEED),
                         new PathCommand(this.robot, this.trajectories.intakeFourth, SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SPEED),
+                        new PathCommand(this.robot, this.trajectories.intakeFifth, SPEED),
+                        new PathCommand(this.robot, this.trajectories.scoreFifth, SPEED),
                         new PathCommand(this.robot, this.trajectories.park, SPEED)
                 )
         );

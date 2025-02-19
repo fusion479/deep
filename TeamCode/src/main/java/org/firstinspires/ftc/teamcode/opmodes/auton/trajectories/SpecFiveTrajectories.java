@@ -21,7 +21,7 @@ public class SpecFiveTrajectories {
     public static double SCORE_FOURTH = 1.5;
     public static double BACK_FIRST = 1.1;
 
-    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, strafeBottom, pushBottom;
+    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
 
     public SpecFiveTrajectories() {
         this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec5.pp"));
@@ -54,15 +54,20 @@ public class SpecFiveTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.pushMid = buildCurve(
+        this.strafeMid = buildLine(
                 poses.get(8),
-                AutonomousHelpers.poseToPoint(poses.get(10)),
                 poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupBottom = buildLine(
+        this.pushMid = buildLine(
                 poses.get(9),
+                poses.get(10),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.setupBottom = buildLine(
+                poses.get(10),
                 poses.get(11),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

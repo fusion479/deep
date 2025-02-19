@@ -94,29 +94,36 @@
 },
 {
   "endPoint": {
+  "x": 44,
+  "y": 13.5,
+  "heading": "linear",
+  "reverse": false,
+  "name": "strafeMiddle",
+  "startDeg": 0,
+  "endDeg": 0,
+  "index": 9
+},
+"controlPoints": [],
+"color": "#D9C968"
+},
+{
+  "endPoint": {
   "x": 12,
-  "y": 13,
+  "y": 13.5,
   "heading": "linear",
   "reverse": false,
   "name": "pushMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 9
+  "index": 10
 },
-"controlPoints": [
-  {
-    "x": 60,
-    "y": 10,
-    "name": "pushMiddleControl",
-    "index": 10
-  }
-],
+"controlPoints": [],
 "color": "#8CAC79"
 },
 {
   "endPoint": {
-  "x": 50,
-  "y": 13,
+  "x": 55,
+  "y": 13.5,
   "heading": "linear",
   "reverse": false,
   "name": "setupBottom",
@@ -129,8 +136,8 @@
 },
 {
   "endPoint": {
-  "x": 50,
-  "y": 12.5,
+  "x": 55,
+  "y": 10,
   "heading": "linear",
   "reverse": false,
   "name": "strafeBottom",
@@ -144,7 +151,7 @@
 {
   "endPoint": {
   "x": 12,
-  "y": 12.5,
+  "y": 10,
   "heading": "linear",
   "reverse": false,
   "name": "pushBottom",
