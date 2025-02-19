@@ -10,7 +10,7 @@
 "lines": [
   {
     "endPoint": {
-    "x": 42,
+    "x": 41,
     "y": 72,
     "heading": "linear",
     "startDeg": 0,
@@ -80,7 +80,7 @@
 },
 {
   "endPoint": {
-  "x": 47,
+  "x": 44,
   "y": 24,
   "heading": "linear",
   "reverse": false,
@@ -95,7 +95,7 @@
 {
   "endPoint": {
   "x": 12,
-  "y": 14,
+  "y": 13,
   "heading": "linear",
   "reverse": false,
   "name": "pushMiddle",
@@ -115,14 +115,28 @@
 },
 {
   "endPoint": {
-  "x": 47,
-  "y": 14,
+  "x": 50,
+  "y": 13,
   "heading": "linear",
   "reverse": false,
   "name": "setupBottom",
   "startDeg": 0,
   "endDeg": 0,
   "index": 11
+},
+"controlPoints": [],
+"color": "#A6ACDB"
+},
+{
+  "endPoint": {
+  "x": 50,
+  "y": 12.5,
+  "heading": "linear",
+  "reverse": false,
+  "name": "strafeBottom",
+  "startDeg": 0,
+  "endDeg": 0,
+  "index": 12
 },
 "controlPoints": [],
 "color": "#A6ACDB"
@@ -136,21 +150,14 @@
   "name": "pushBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 12
+  "index": 13
 },
-"controlPoints": [
-  {
-    "x": 60,
-    "y": 13,
-    "name": "pushBottomControl",
-    "index": 13
-  }
-],
+"controlPoints": [],
 "color": "#B7B88C"
 },
 {
   "endPoint": {
-  "x": 9,
+  "x": 9.1,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -343,7 +350,7 @@
   "name": "park",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 33
+  "index": 32
 },
 "controlPoints": [
   {
