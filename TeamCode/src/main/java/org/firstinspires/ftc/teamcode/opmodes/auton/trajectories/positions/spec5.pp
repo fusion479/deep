@@ -59,8 +59,8 @@
     "index": 6
   },
   {
-    "x": 63,
-    "y": 51.4,
+    "x": 56,
+    "y": 51,
     "name": "setupTopThirdControl",
     "index": 7
   }
@@ -94,7 +94,7 @@
 },
 "controlPoints": [
   {
-    "x": 63,
+    "x": 58,
     "y": 34,
     "name": "setupMidControl",
     "index": 10
@@ -129,7 +129,7 @@
 },
 "controlPoints": [
   {
-    "x": 63,
+    "x": 59,
     "y": 22,
     "name": "setupBottomControl",
     "index": 13
@@ -153,7 +153,7 @@
 },
 {
   "endPoint": {
-  "x": 9,
+  "x": 8,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -164,8 +164,8 @@
 },
 "controlPoints": [
   {
-    "x": 20,
-    "y": 37,
+    "x": 19,
+    "y": 28,
     "name": "intakeSecondControl",
     "index": 16
   }
@@ -195,7 +195,7 @@
 },
 {
   "endPoint": {
-  "x": 9,
+  "x": 8,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -243,7 +243,7 @@
 },
 {
   "endPoint": {
-  "x": 9,
+  "x": 8,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -291,7 +291,7 @@
 },
 {
   "endPoint": {
-  "x": 9,
+  "x": 8,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -339,8 +339,8 @@
 },
 {
   "endPoint": {
-  "x": 9,
-  "y": 35,
+  "x": 8,
+  "y": 34,
   "heading": "linear",
   "reverse": false,
   "name": "park",
