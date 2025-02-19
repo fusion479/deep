@@ -17,7 +17,8 @@ public class Push extends OpModeCore {
     private CommandRobot robot;
     private SpecFiveTrajectories trajectories;
 
-    public static double SPEED = 0.85;
+    public static double SPEED = 1;
+    public static double PUSH = 0.9;
 
     @Override
     public void initialize() {
@@ -37,9 +38,9 @@ public class Push extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.scorePreload, SPEED),
-                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupTop, this.trajectories.pushTop),
-                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupMid, this.trajectories.pushMid),
-                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupBottom, this.trajectories.pushBottom),
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
                         new PathCommand(this.robot, this.trajectories.intakeSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.intakeThird, SPEED),
