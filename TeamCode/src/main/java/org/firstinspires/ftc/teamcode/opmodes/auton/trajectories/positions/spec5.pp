@@ -36,14 +36,15 @@
 },
 {
   "endPoint": {
-  "x": 35,
+  "x": 50,
   "y": 24,
   "heading": "linear",
   "reverse": false,
   "name": "setupTop",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 4
+  "index": 4,
+  "degrees": 0
 },
 "controlPoints": [
   {
@@ -74,52 +75,53 @@
   "heading": "linear",
   "reverse": false,
   "name": "pushTop",
+  "degrees": 0,
   "startDeg": 0,
   "endDeg": 0,
   "index": 8
 },
 "controlPoints": [],
-"color": "#987A9B"
+"color": "#B7DCA5"
 },
 {
   "endPoint": {
-  "x": 35,
-  "y": 14,
+  "x": 50,
+  "y": 24,
   "heading": "linear",
   "reverse": false,
-  "name": "setupMid",
+  "name": "setupMiddle",
   "startDeg": 0,
   "endDeg": 0,
   "index": 9
 },
-"controlPoints": [
-  {
-    "x": 35.44615384615385,
-    "y": 21.876923076923077,
-    "name": "setupMidControl",
-    "index": 10
-  }
-],
-"color": "#9AA56D"
+"controlPoints": [],
+"color": "#D9C968"
 },
 {
   "endPoint": {
   "x": 12,
-  "y": 14,
+  "y": 13,
   "heading": "linear",
   "reverse": false,
-  "name": "pushMid",
+  "name": "pushMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 11
+  "index": 10
 },
-"controlPoints": [],
-"color": "#6DC56B"
+"controlPoints": [
+  {
+    "x": 60,
+    "y": 10,
+    "name": "pushMiddleControl",
+    "index": 11
+  }
+],
+"color": "#8CAC79"
 },
 {
   "endPoint": {
-  "x": 35,
-  "y": 8,
+  "x": 50,
+  "y": 13,
   "heading": "linear",
   "reverse": false,
   "name": "setupBottom",
@@ -127,33 +129,33 @@
   "endDeg": 0,
   "index": 12
 },
-"controlPoints": [
-  {
-    "x": 30.184615384615384,
-    "y": 15.5076923076923,
-    "name": "setupBottomControl",
-    "index": 13
-  }
-],
-"color": "#7BB679"
+"controlPoints": [],
+"color": "#A6ACDB"
 },
 {
   "endPoint": {
   "x": 12,
-  "y": 8,
+  "y": 8.5,
   "heading": "linear",
   "reverse": false,
   "name": "pushBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 14
+  "index": 13
 },
-"controlPoints": [],
-"color": "#85C966"
+"controlPoints": [
+  {
+    "x": 60,
+    "y": 6,
+    "name": "pushBottomControl",
+    "index": 14
+  }
+],
+"color": "#B7B88C"
 },
 {
   "endPoint": {
-  "x": 8,
+  "x": 9,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -164,13 +166,13 @@
 },
 "controlPoints": [
   {
-    "x": 9.415384615384616,
-    "y": 25.476923076923082,
+    "x": 12,
+    "y": 20,
     "name": "intakeSecondControl",
     "index": 16
   }
 ],
-"color": "#56765A"
+"color": "#5D7D7C"
 },
 {
   "endPoint": {
@@ -178,9 +180,9 @@
   "y": 71,
   "heading": "linear",
   "reverse": false,
+  "name": "scoreSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "name": "scoreSecond",
   "index": 17
 },
 "controlPoints": [
@@ -191,11 +193,11 @@
     "index": 18
   }
 ],
-"color": "#95886D"
+"color": "#B755BB"
 },
 {
   "endPoint": {
-  "x": 8,
+  "x": 9,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -218,7 +220,7 @@
     "index": 21
   }
 ],
-"color": "#DA67A9"
+"color": "#8A796B"
 },
 {
   "endPoint": {
@@ -239,11 +241,11 @@
     "index": 23
   }
 ],
-"color": "#A65596"
+"color": "#5B7D9C"
 },
 {
   "endPoint": {
-  "x": 8,
+  "x": 9,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -266,7 +268,7 @@
     "index": 26
   }
 ],
-"color": "#88C58B"
+"color": "#6AD79B"
 },
 {
   "endPoint": {
@@ -287,11 +289,11 @@
     "index": 28
   }
 ],
-"color": "#D9B96B"
+"color": "#98D5B5"
 },
 {
   "endPoint": {
-  "x": 8,
+  "x": 9,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -314,7 +316,7 @@
     "index": 31
   }
 ],
-"color": "#D5568A"
+"color": "#D9998A"
 },
 {
   "endPoint": {
@@ -331,15 +333,15 @@
   {
     "x": 20,
     "y": 61,
-    "name": "scoreFifthControl",
+    "name": "scoreFifthFirstControl",
     "index": 33
   }
 ],
-"color": "#B677D7"
+"color": "#97BA65"
 },
 {
   "endPoint": {
-  "x": 8,
+  "x": 9,
   "y": 34,
   "heading": "linear",
   "reverse": false,
@@ -352,7 +354,7 @@
   {
     "x": 15,
     "y": 67,
-    "name": "parkControl",
+    "name": "parkFirstControl",
     "index": 35
   },
   {
@@ -362,7 +364,7 @@
     "index": 36
   }
 ],
-"color": "#D8B67C"
+"color": "#5BB6B9"
 }
 ]
 }
