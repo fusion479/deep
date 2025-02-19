@@ -22,6 +22,7 @@ public class Extendo extends SubsystemBase {
     public static int ACCEPTING = 250;
     public static int SPECIMEN = 100;
     public static int DRIVE_IN = 120;
+    public static double SWEEP = 0;
     public static int TELE_OFFSET = 75;
 
     private double power;

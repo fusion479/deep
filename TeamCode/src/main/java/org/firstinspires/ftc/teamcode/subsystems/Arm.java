@@ -13,6 +13,7 @@ public class Arm extends SubsystemBase {
     public static double INTAKE = 0.15;
     public static double SPECIMEN = 0.6;
     public static double DRIVE_IN = 0.35;
+    public static double SWEEP = 0;
 
     private final Servo left, right;
 

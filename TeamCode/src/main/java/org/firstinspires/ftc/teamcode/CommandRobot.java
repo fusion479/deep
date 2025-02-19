@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmBasket;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmDriveIn;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmSweep;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawOpen;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoAccepting;
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoBasket;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoDriveIn;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
+import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSweep;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDriveIn;
@@ -36,6 +38,7 @@ import org.firstinspires.ftc.teamcode.commands.pivot.PivotDriveIn;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
+import org.firstinspires.ftc.teamcode.commands.pivot.PivotSweep;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
@@ -267,6 +270,16 @@ public class CommandRobot {
                 new PivotDriveIn(this.pivot),
                 new WristSpecimen(this.wrist),
                 new ArmDriveIn(this.arm)
+        );
+    }
+
+    public Command sweep() {
+        return new SequentialCommandGroup(
+                new LiftAccepting(this.lift),
+                new ClawClose(this.claw),
+                new PivotSweep(this.pivot),
+                new ArmSweep(this.arm),
+                new ExtendoSweep(this.extendo)
         );
     }
 
