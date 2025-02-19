@@ -169,7 +169,7 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                         .whenPressed(this.wristRight());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                        .whenPressed(this.wristLeft());
+                        .whenPressed(this.sweep());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                         .whenPressed(this.highRung());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)

@@ -24,7 +24,7 @@ public class SpecFiveTrajectories {
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom;
 
     public SpecFiveTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/far-5-basket.pp"));
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec5.pp"));
 
         this.scorePreload = buildCurve(
                 poses.get(0),

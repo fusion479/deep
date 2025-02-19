@@ -82,7 +82,7 @@ public class AutonomousHelpers {
             poses.add(new Pose(
                     data.getJSONObject("startPoint").getDouble("x"),
                     data.getJSONObject("startPoint").getDouble("y"),
-                    lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg")
+                    Math.toRadians(lines.getJSONObject(0).getJSONObject("endPoint").getDouble("startDeg"))
             ));
 
             for (int i = 0; i < lines.length(); i++) {
@@ -106,7 +106,7 @@ public class AutonomousHelpers {
         return new Pose(
                 object.getDouble("x"),
                 object.getDouble("y"),
-                object.has("startDeg") ? object.getDouble("startDeg") : -1.0
+                object.has("startDeg") ? Math.toRadians(object.getDouble("startDeg")) : -1.0
         );
     }
 

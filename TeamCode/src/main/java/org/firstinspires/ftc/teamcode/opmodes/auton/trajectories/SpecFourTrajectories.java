@@ -17,20 +17,11 @@ public class SpecFourTrajectories {
     private final ArrayList<Pose> poses;
 
     public static double SCORE_PRELOAD = 1.4;
-    public static double INTAKE_SECOND = 1.3;
     public static double SCORE_SECOND = 1.5;
-    public static double INTAKE_THIRD = 1.3;
     public static double SCORE_THIRD = 1.5;
-    public static double INTAKE_FOURTH = 1.3;
     public static double SCORE_FOURTH = 1.5;
     public static double BACK_FIRST = 1.1;
-    public static double SETUP_TOP = 1.1;
-    public static double PUSH_TOP = 1.1;
-    public static double SETUP_MID = 1.1;
-    public static double PUSH_MID = 1.1;
-    public static double SETUP_BOTTOM = 1.1;
-    public static double PUSH_BOTTOM = 1.1;
-    public static double PARK = 1.4;
+
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, pushTop, setupMid, pushMid, setupBottom, pushBottom, backFirst;
 
     public SpecFourTrajectories() {
@@ -59,14 +50,12 @@ public class SpecFourTrajectories {
                 poses.get(5),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.setupTop.setPathEndTimeoutConstraint(SETUP_TOP);
 
         this.pushTop = buildLine(
                 poses.get(5),
                 poses.get(8),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.pushTop.setPathEndTimeoutConstraint(PUSH_TOP);
 
         this.setupMid = buildCurve(
                 poses.get(8),
@@ -74,14 +63,12 @@ public class SpecFourTrajectories {
                 poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.setupMid.setPathEndTimeoutConstraint(SETUP_MID);
 
         this.pushMid = buildLine(
                 poses.get(9),
                 poses.get(11),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.pushMid.setPathEndTimeoutConstraint(PUSH_MID);
 
         this.setupBottom = buildCurve(
                 poses.get(11),
@@ -89,14 +76,12 @@ public class SpecFourTrajectories {
                 poses.get(12),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.setupBottom.setPathEndTimeoutConstraint(SETUP_BOTTOM);
 
         this.pushBottom = buildLine(
                 poses.get(12),
                 poses.get(14),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.pushBottom.setPathEndTimeoutConstraint(PUSH_BOTTOM);
 
         this.intakeSecond = buildCurve(
                 poses.get(11),
@@ -104,7 +89,6 @@ public class SpecFourTrajectories {
                 poses.get(15),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.intakeSecond.setPathEndTimeoutConstraint(INTAKE_SECOND);
 
         this.scoreSecond = buildCurve(
                 poses.get(15),
@@ -121,7 +105,6 @@ public class SpecFourTrajectories {
                 poses.get(19),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.intakeThird.setPathEndTimeoutConstraint(INTAKE_THIRD);
 
         this.scoreThird = buildCurve(
                 poses.get(19),
@@ -138,7 +121,6 @@ public class SpecFourTrajectories {
                 poses.get(24),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.intakeFourth.setPathEndTimeoutConstraint(INTAKE_FOURTH);
 
         this.scoreFourth = buildCurve(
                 poses.get(24),
@@ -154,7 +136,6 @@ public class SpecFourTrajectories {
                 poses.get(29),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-        this.park.setPathEndTimeoutConstraint(PARK);
     }
 
     public Pose getStart() {

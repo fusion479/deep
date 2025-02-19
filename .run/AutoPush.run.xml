@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AutoPush" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/far-4-basket.pp sdcard/FIRST/positions/far-4-basket.pp; adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/far-5-basket.pp sdcard/FIRST/positions/far-5-basket.pp; adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/push.pp sdcard/FIRST/positions/push.pp;" />
+    <option name="SCRIPT_TEXT" value="adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/spec4.pp sdcard/FIRST/positions/spec4.pp; adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/spec5.pp sdcard/FIRST/positions/spec5.pp; adb push TeamCode/src/main/java/org/firstinspires/ftc/teamcode/opmodes/auton/trajectories/positions/spec5sweep.pp sdcard/FIRST/positions/spec5sweep.pp;" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
