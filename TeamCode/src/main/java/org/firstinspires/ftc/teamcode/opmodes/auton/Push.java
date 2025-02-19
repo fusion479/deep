@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFourTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFiveTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
@@ -15,13 +15,13 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Autonomous(name = "Push", preselectTeleOp = "Main")
 public class Push extends OpModeCore {
     private CommandRobot robot;
-    private SpecFourTrajectories trajectories;
+    private SpecFiveTrajectories trajectories;
 
-    public static double SPEED = 0.65;
+    public static double SPEED = 0.85;
 
     @Override
     public void initialize() {
-        this.trajectories = new SpecFourTrajectories();
+        this.trajectories = new SpecFiveTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
     }
@@ -33,10 +33,10 @@ public class Push extends OpModeCore {
 
         super.waitForStart();
 
+        this.robot.startAutoThreads(this);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.scorePreload, SPEED),
-                        new PathCommand(this.robot, this.trajectories.backFirst, SPEED),
                         new PathChainCommand(this.robot, SPEED, this.trajectories.setupTop, this.trajectories.pushTop),
                         new PathChainCommand(this.robot, SPEED, this.trajectories.setupMid, this.trajectories.pushMid),
                         new PathChainCommand(this.robot, SPEED, this.trajectories.setupBottom, this.trajectories.pushBottom),

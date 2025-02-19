@@ -49,9 +49,8 @@ public class SpecFiveTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupMid = buildCurve(
+        this.setupMid = buildLine(
                 poses.get(8),
-                AutonomousHelpers.poseToPoint(poses.get(10)),
                 poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );

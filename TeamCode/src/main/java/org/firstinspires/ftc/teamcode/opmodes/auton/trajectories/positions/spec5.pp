@@ -36,8 +36,8 @@
 },
 {
   "endPoint": {
-  "x": 50,
-  "y": 24,
+  "x": 55,
+  "y": 35,
   "heading": "linear",
   "reverse": false,
   "name": "setupTop",
@@ -48,22 +48,10 @@
 },
 "controlPoints": [
   {
-    "x": 35,
-    "y": 72,
-    "name": "setupTopFirstControl",
-    "index": 5
-  },
-  {
     "x": 20,
-    "y": 7.8,
+    "y": 25,
     "name": "setupTopSecondControl",
-    "index": 6
-  },
-  {
-    "x": 56,
-    "y": 51,
-    "name": "setupTopThirdControl",
-    "index": 7
+    "index": 5
   }
 ],
 "color": "#C97AD7"
@@ -78,9 +66,16 @@
   "degrees": 0,
   "startDeg": 0,
   "endDeg": 0,
-  "index": 8
+  "index": 6
 },
-"controlPoints": [],
+"controlPoints": [
+  {
+    "x": 60,
+    "y": 22,
+    "name": "pushTopControl",
+    "index": 7
+  }
+],
 "color": "#B7DCA5"
 },
 {
@@ -92,7 +87,7 @@
   "name": "setupMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 9
+  "index": 8
 },
 "controlPoints": [],
 "color": "#D9C968"
@@ -106,14 +101,14 @@
   "name": "pushMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 10
+  "index": 9
 },
 "controlPoints": [
   {
     "x": 60,
     "y": 10,
     "name": "pushMiddleControl",
-    "index": 11
+    "index": 10
   }
 ],
 "color": "#8CAC79"
@@ -127,7 +122,7 @@
   "name": "setupBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 12
+  "index": 11
 },
 "controlPoints": [],
 "color": "#A6ACDB"
@@ -141,14 +136,14 @@
   "name": "pushBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 13
+  "index": 12
 },
 "controlPoints": [
   {
     "x": 60,
     "y": 6,
     "name": "pushBottomControl",
-    "index": 14
+    "index": 13
   }
 ],
 "color": "#B7B88C"
@@ -162,14 +157,14 @@
   "name": "intakeSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 15
+  "index": 14
 },
 "controlPoints": [
   {
     "x": 12,
     "y": 20,
     "name": "intakeSecondControl",
-    "index": 16
+    "index": 15
   }
 ],
 "color": "#5D7D7C"
@@ -183,14 +178,14 @@
   "name": "scoreSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 17
+  "index": 16
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 67,
     "name": "scoreSecondControl",
-    "index": 18
+    "index": 17
   }
 ],
 "color": "#B755BB"
@@ -204,20 +199,20 @@
   "name": "intakeThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 19
+  "index": 18
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeThirdFirstControl",
-    "index": 20
+    "index": 19
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeThirdSecondControl",
-    "index": 21
+    "index": 20
   }
 ],
 "color": "#8A796B"
@@ -231,14 +226,14 @@
   "name": "scoreThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 22
+  "index": 21
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 65,
     "name": "scoreThirdControl",
-    "index": 23
+    "index": 22
   }
 ],
 "color": "#5B7D9C"
@@ -252,20 +247,20 @@
   "name": "intakeFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 24
+  "index": 23
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFourthFirstControl",
-    "index": 25
+    "index": 24
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFourthSecondControl",
-    "index": 26
+    "index": 25
   }
 ],
 "color": "#6AD79B"
@@ -279,14 +274,14 @@
   "name": "scoreFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 27
+  "index": 26
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 63,
     "name": "scoreFourthControl",
-    "index": 28
+    "index": 27
   }
 ],
 "color": "#98D5B5"
@@ -300,20 +295,20 @@
   "name": "intakeFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 29
+  "index": 28
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFifthFirstControl",
-    "index": 30
+    "index": 29
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFifthSecondControl",
-    "index": 31
+    "index": 30
   }
 ],
 "color": "#D9998A"
@@ -327,14 +322,14 @@
   "name": "scoreFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 32
+  "index": 31
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 61,
     "name": "scoreFifthFirstControl",
-    "index": 33
+    "index": 32
   }
 ],
 "color": "#97BA65"
@@ -348,20 +343,20 @@
   "name": "park",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 34
+  "index": 33
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "parkFirstControl",
-    "index": 35
+    "index": 34
   },
   {
     "x": 37,
     "y": 30,
     "name": "parkSecondControl",
-    "index": 36
+    "index": 35
   }
 ],
 "color": "#5BB6B9"
