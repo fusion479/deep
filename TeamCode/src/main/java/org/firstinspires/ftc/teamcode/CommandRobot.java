@@ -91,8 +91,8 @@ public class CommandRobot {
 
         this.mode = mode;
 
-        this.lt = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, this.extendo::setPower, this.gamepad1);
-        this.rt = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, p -> this.extendo.setPower(-p), this.gamepad1);
+        this.lt = new GamepadTrigger(GamepadKeys.Trigger.LEFT_TRIGGER, p -> this.extendo.setPower(p / 2), this.gamepad1);
+        this.rt = new GamepadTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER, p -> this.extendo.setPower(-p / 2), this.gamepad1);
 
         this.configureControls();
     }
