@@ -81,7 +81,7 @@
     "index": 8,
     "name": "pushTop",
     "x": 15,
-    "y": 24,
+    "y": 28,
     "heading": "linear",
     "reverse": false,
     "startDeg": 0,
@@ -129,7 +129,7 @@
     "endPoint": {
     "index": 12,
     "name": "setupBottom",
-    "x": 65,
+    "x": 55,
     "y": 13.5,
     "heading": "linear",
     "reverse": false,
@@ -164,7 +164,7 @@
     "endPoint": {
     "index": 15,
     "name": "intakeSecond",
-    "x": 9,
+    "x": 11,
     "y": 34,
     "heading": "linear",
     "reverse": false,
@@ -302,7 +302,7 @@
     "endPoint": {
     "index": 29,
     "name": "park",
-    "x": 9,
+    "x": 11,
     "y": 34,
     "heading": "linear",
     "reverse": false,
