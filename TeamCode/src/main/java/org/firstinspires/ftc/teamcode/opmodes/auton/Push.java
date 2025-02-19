@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFourTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Config
@@ -36,12 +37,9 @@ public class Push extends OpModeCore {
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.scorePreload, SPEED),
                         new PathCommand(this.robot, this.trajectories.backFirst, SPEED),
-                        new PathCommand(this.robot, this.trajectories.setupTop, SPEED),
-                        new PathCommand(this.robot, this.trajectories.pushTop, SPEED),
-                        new PathCommand(this.robot, this.trajectories.setupMid, SPEED),
-                        new PathCommand(this.robot, this.trajectories.pushMid, SPEED),
-                        new PathCommand(this.robot, this.trajectories.setupBottom, SPEED),
-                        new PathCommand(this.robot, this.trajectories.pushBottom, SPEED),
+                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupTop, this.trajectories.pushTop),
+                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupMid, this.trajectories.pushMid),
+                        new PathChainCommand(this.robot, SPEED, this.trajectories.setupBottom, this.trajectories.pushBottom),
                         new PathCommand(this.robot, this.trajectories.intakeSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SPEED),
                         new PathCommand(this.robot, this.trajectories.intakeThird, SPEED),
