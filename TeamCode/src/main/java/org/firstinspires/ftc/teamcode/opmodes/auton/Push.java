@@ -39,7 +39,6 @@ public class Push extends OpModeCore {
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
-                        new PathCommand(this.robot, this.trajectories.backFirst, SCORE_SPEED),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),

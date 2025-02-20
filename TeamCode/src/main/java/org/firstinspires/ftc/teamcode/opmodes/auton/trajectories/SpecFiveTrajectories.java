@@ -19,9 +19,9 @@ public class SpecFiveTrajectories {
     public static double SCORE_SECOND = 1.5;
     public static double SCORE_THIRD = 1.5;
     public static double SCORE_FOURTH = 1.5;
-    public static double BACK_FIRST = 1.1;
+    public static double SCORE_FIFTH = 1.5;
 
-    public Path scorePreload, backFirst, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
+    public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
 
     public SpecFiveTrajectories() {
         this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec5.pp"));
@@ -33,12 +33,7 @@ public class SpecFiveTrajectories {
                 poses.get(1),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
-
-        this.backFirst = buildLine(
-                poses.get(1),
-                poses.get(4),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
+        this.scorePreload.setPathEndTimeoutConstraint(SCORE_PRELOAD);
 
         this.setupTop = buildCurve(
                 poses.get(4),
@@ -110,6 +105,7 @@ public class SpecFiveTrajectories {
                 poses.get(17),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreSecond.setPathEndTimeoutConstraint(SCORE_SECOND);
 
         this.intakeThird = buildCurve(
                 poses.get(17),
@@ -125,6 +121,7 @@ public class SpecFiveTrajectories {
                 poses.get(22),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreThird.setPathEndTimeoutConstraint(SCORE_THIRD);
 
         this.intakeFourth = buildCurve(
                 poses.get(22),
@@ -140,6 +137,7 @@ public class SpecFiveTrajectories {
                 poses.get(27),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreFourth.setPathEndTimeoutConstraint(SCORE_FOURTH);
 
         this.intakeFifth = buildCurve(
                 poses.get(27),
@@ -156,6 +154,7 @@ public class SpecFiveTrajectories {
                 poses.get(32),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
+        this.scoreFifth.setPathEndTimeoutConstraint(SCORE_FIFTH);
 
         this.park = buildCurve(
                 poses.get(32),
