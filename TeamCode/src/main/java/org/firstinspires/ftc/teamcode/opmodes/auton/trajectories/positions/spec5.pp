@@ -36,14 +36,29 @@
 },
 {
   "endPoint": {
-  "x": 55,
+  "x": 36,
+  "y": 72,
+  "heading": "linear",
+  "reverse": false,
+  "name": "backFirst",
+  "degrees": 0,
+  "startDeg": 0,
+  "endDeg": 0,
+  "index": 4
+},
+"controlPoints": [],
+"color": "#B7DCA5"
+},
+{
+  "endPoint": {
+  "x": 45,
   "y": 35,
   "heading": "linear",
   "reverse": false,
   "name": "setupTop",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 4,
+  "index": 5,
   "degrees": 0
 },
 "controlPoints": [
@@ -51,10 +66,25 @@
     "x": 20,
     "y": 40,
     "name": "setupTopSecondControl",
-    "index": 5
+    "index": 6
   }
 ],
 "color": "#C97AD7"
+},
+{
+  "endPoint": {
+  "x": 55,
+  "y": 24,
+  "heading": "linear",
+  "reverse": false,
+  "name": "strafeTop",
+  "degrees": 0,
+  "startDeg": 0,
+  "endDeg": 0,
+  "index": 7
+},
+"controlPoints": [],
+"color": "#B7DCA5"
 },
 {
   "endPoint": {
@@ -63,19 +93,11 @@
   "heading": "linear",
   "reverse": false,
   "name": "pushTop",
-  "degrees": 0,
   "startDeg": 0,
   "endDeg": 0,
-  "index": 6
+  "index": 8
 },
-"controlPoints": [
-  {
-    "x": 60,
-    "y": 22,
-    "name": "pushTopControl",
-    "index": 7
-  }
-],
+"controlPoints": [],
 "color": "#B7DCA5"
 },
 {
@@ -87,7 +109,7 @@
   "name": "setupMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 8
+  "index": 9
 },
 "controlPoints": [],
 "color": "#D9C968"
@@ -101,7 +123,7 @@
   "name": "strafeMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 9
+  "index": 10
 },
 "controlPoints": [],
 "color": "#D9C968"
@@ -115,7 +137,7 @@
   "name": "pushMiddle",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 10
+  "index": 11
 },
 "controlPoints": [],
 "color": "#8CAC79"
@@ -123,24 +145,10 @@
 {
   "endPoint": {
   "x": 55,
-  "y": 13.5,
+  "y": 13,
   "heading": "linear",
   "reverse": false,
   "name": "setupBottom",
-  "startDeg": 0,
-  "endDeg": 0,
-  "index": 11
-},
-"controlPoints": [],
-"color": "#A6ACDB"
-},
-{
-  "endPoint": {
-  "x": 55,
-  "y": 10,
-  "heading": "linear",
-  "reverse": false,
-  "name": "strafeBottom",
   "startDeg": 0,
   "endDeg": 0,
   "index": 12
@@ -150,14 +158,28 @@
 },
 {
   "endPoint": {
+  "x": 55,
+  "y": 10.5,
+  "heading": "linear",
+  "reverse": false,
+  "name": "strafeBottom",
+  "startDeg": 0,
+  "endDeg": 0,
+  "index": 13
+},
+"controlPoints": [],
+"color": "#A6ACDB"
+},
+{
+  "endPoint": {
   "x": 12,
-  "y": 10,
+  "y": 10.5,
   "heading": "linear",
   "reverse": false,
   "name": "pushBottom",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 13
+  "index": 14
 },
 "controlPoints": [],
 "color": "#B7B88C"
@@ -171,35 +193,35 @@
   "name": "intakeSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 14
+  "index": 15
 },
 "controlPoints": [
   {
     "x": 12,
     "y": 20,
     "name": "intakeSecondControl",
-    "index": 15
+    "index": 16
   }
 ],
 "color": "#5D7D7C"
 },
 {
   "endPoint": {
-  "x": 42,
+  "x": 41,
   "y": 71,
   "heading": "linear",
   "reverse": false,
   "name": "scoreSecond",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 16
+  "index": 17
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 67,
     "name": "scoreSecondControl",
-    "index": 17
+    "index": 18
   }
 ],
 "color": "#B755BB"
@@ -213,41 +235,41 @@
   "name": "intakeThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 18
+  "index": 19
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeThirdFirstControl",
-    "index": 19
+    "index": 20
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeThirdSecondControl",
-    "index": 20
+    "index": 21
   }
 ],
 "color": "#8A796B"
 },
 {
   "endPoint": {
-  "x": 42,
+  "x": 41,
   "y": 70,
   "heading": "linear",
   "reverse": false,
   "name": "scoreThird",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 21
+  "index": 22
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 65,
     "name": "scoreThirdControl",
-    "index": 22
+    "index": 23
   }
 ],
 "color": "#5B7D9C"
@@ -261,41 +283,41 @@
   "name": "intakeFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 23
+  "index": 24
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFourthFirstControl",
-    "index": 24
+    "index": 25
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFourthSecondControl",
-    "index": 25
+    "index": 26
   }
 ],
 "color": "#6AD79B"
 },
 {
   "endPoint": {
-  "x": 42,
+  "x": 41,
   "y": 69,
   "heading": "linear",
   "reverse": false,
   "name": "scoreFourth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 26
+  "index": 27
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 63,
     "name": "scoreFourthControl",
-    "index": 27
+    "index": 28
   }
 ],
 "color": "#98D5B5"
@@ -309,41 +331,41 @@
   "name": "intakeFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 28
+  "index": 29
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "intakeFifthFirstControl",
-    "index": 29
+    "index": 30
   },
   {
     "x": 37,
     "y": 30,
     "name": "intakeFifthSecondControl",
-    "index": 30
+    "index": 31
   }
 ],
 "color": "#D9998A"
 },
 {
   "endPoint": {
-  "x": 42,
+  "x": 41,
   "y": 68,
   "heading": "linear",
   "reverse": false,
   "name": "scoreFifth",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 31
+  "index": 32
 },
 "controlPoints": [
   {
     "x": 20,
     "y": 61,
     "name": "scoreFifthFirstControl",
-    "index": 32
+    "index": 33
   }
 ],
 "color": "#97BA65"
@@ -357,20 +379,20 @@
   "name": "park",
   "startDeg": 0,
   "endDeg": 0,
-  "index": 32
+  "index": 34
 },
 "controlPoints": [
   {
     "x": 15,
     "y": 67,
     "name": "parkFirstControl",
-    "index": 34
+    "index": 35
   },
   {
     "x": 37,
     "y": 30,
     "name": "parkSecondControl",
-    "index": 35
+    "index": 36
   }
 ],
 "color": "#5BB6B9"
