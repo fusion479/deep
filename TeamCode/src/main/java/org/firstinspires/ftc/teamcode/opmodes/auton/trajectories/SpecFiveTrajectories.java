@@ -36,131 +36,131 @@ public class SpecFiveTrajectories {
         this.scorePreload.setPathEndTimeoutConstraint(SCORE_PRELOAD);
 
         this.setupTop = buildCurve(
+                poses.get(1),
+                AutonomousHelpers.poseToPoint(poses.get(5)),
                 poses.get(4),
-                AutonomousHelpers.poseToPoint(poses.get(6)),
-                poses.get(5),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
 
         this.strafeTop = buildLine(
-                poses.get(5),
-                poses.get(7),
+                poses.get(4),
+                poses.get(6),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
 
         this.pushTop = buildLine(
+                poses.get(6),
+                poses.get(7),
+                AutonomousHelpers.HeadingInterpolation.LINEAR
+        );
+
+        this.setupMid = buildLine(
                 poses.get(7),
                 poses.get(8),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupMid = buildLine(
+        this.strafeMid = buildLine(
                 poses.get(8),
                 poses.get(9),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.strafeMid = buildLine(
+        this.pushMid = buildLine(
                 poses.get(9),
                 poses.get(10),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.pushMid = buildLine(
+        this.setupBottom = buildLine(
                 poses.get(10),
                 poses.get(11),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupBottom = buildLine(
+        this.strafeBottom = buildLine(
                 poses.get(11),
                 poses.get(12),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.strafeBottom = buildLine(
+        this.pushBottom = buildLine(
                 poses.get(12),
                 poses.get(13),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.pushBottom = buildLine(
-                poses.get(13),
-                poses.get(14),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
         this.intakeSecond = buildCurve(
+                poses.get(13),
+                AutonomousHelpers.poseToPoint(poses.get(15)),
                 poses.get(14),
-                AutonomousHelpers.poseToPoint(poses.get(16)),
-                poses.get(15),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreSecond = buildCurve(
-                poses.get(15),
-                AutonomousHelpers.poseToPoint(poses.get(18)),
-                poses.get(17),
+                poses.get(14),
+                AutonomousHelpers.poseToPoint(poses.get(17)),
+                poses.get(16),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreSecond.setPathEndTimeoutConstraint(SCORE_SECOND);
 
         this.intakeThird = buildCurve(
-                poses.get(17),
+                poses.get(16),
+                AutonomousHelpers.poseToPoint(poses.get(19)),
                 AutonomousHelpers.poseToPoint(poses.get(20)),
-                AutonomousHelpers.poseToPoint(poses.get(21)),
-                poses.get(19),
+                poses.get(18),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreThird = buildCurve(
-                poses.get(19),
-                AutonomousHelpers.poseToPoint(poses.get(23)),
-                poses.get(22),
+                poses.get(18),
+                AutonomousHelpers.poseToPoint(poses.get(22)),
+                poses.get(21),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreThird.setPathEndTimeoutConstraint(SCORE_THIRD);
 
         this.intakeFourth = buildCurve(
-                poses.get(22),
+                poses.get(21),
+                AutonomousHelpers.poseToPoint(poses.get(24)),
                 AutonomousHelpers.poseToPoint(poses.get(25)),
-                AutonomousHelpers.poseToPoint(poses.get(26)),
-                poses.get(24),
+                poses.get(23),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreFourth = buildCurve(
-                poses.get(24),
-                AutonomousHelpers.poseToPoint(poses.get(28)),
-                poses.get(27),
+                poses.get(23),
+                AutonomousHelpers.poseToPoint(poses.get(27)),
+                poses.get(26),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreFourth.setPathEndTimeoutConstraint(SCORE_FOURTH);
 
         this.intakeFifth = buildCurve(
-                poses.get(27),
+                poses.get(26),
+                AutonomousHelpers.poseToPoint(poses.get(29)),
                 AutonomousHelpers.poseToPoint(poses.get(30)),
-                AutonomousHelpers.poseToPoint(poses.get(31)),
-                poses.get(29),
+                poses.get(28),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
 
         this.scoreFifth = buildCurve(
-                poses.get(29),
-                AutonomousHelpers.poseToPoint(poses.get(33)),
-                poses.get(32),
+                poses.get(28),
+                AutonomousHelpers.poseToPoint(poses.get(32)),
+                poses.get(31),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreFifth.setPathEndTimeoutConstraint(SCORE_FIFTH);
 
         this.park = buildCurve(
-                poses.get(32),
+                poses.get(31),
+                AutonomousHelpers.poseToPoint(poses.get(34)),
                 AutonomousHelpers.poseToPoint(poses.get(35)),
-                AutonomousHelpers.poseToPoint(poses.get(36)),
-                poses.get(34),
+                poses.get(33),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
