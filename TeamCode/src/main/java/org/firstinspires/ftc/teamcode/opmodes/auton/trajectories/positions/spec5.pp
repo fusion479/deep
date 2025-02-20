@@ -36,7 +36,7 @@
         },
         {
             "endPoint": {
-                "x": 45,
+                "x": 35,
                 "y": 35,
                 "heading": "linear",
                 "reverse": false,
@@ -48,8 +48,8 @@
             },
             "controlPoints": [
                 {
-                    "x": 20,
-                    "y": 40,
+                    "x": 12,
+                    "y": 73,
                     "name": "setupTopSecondControl",
                     "index": 5
                 }
@@ -58,8 +58,8 @@
         },
         {
             "endPoint": {
-                "x": 55,
-                "y": 24,
+                "x": 60,
+                "y": 31,
                 "heading": "linear",
                 "reverse": false,
                 "name": "strafeTop",
