@@ -36,7 +36,7 @@
         },
         {
             "endPoint": {
-                "x": 35,
+                "x": 36,
                 "y": 35,
                 "heading": "linear",
                 "reverse": false,
@@ -58,7 +58,7 @@
         },
         {
             "endPoint": {
-                "x": 60,
+                "x": 56,
                 "y": 31,
                 "heading": "linear",
                 "reverse": false,
@@ -73,7 +73,7 @@
         },
         {
             "endPoint": {
-                "x": 12,
+                "x": 20,
                 "y": 24,
                 "heading": "linear",
                 "reverse": false,
@@ -87,7 +87,7 @@
         },
         {
             "endPoint": {
-                "x": 44,
+                "x": 41,
                 "y": 24,
                 "heading": "linear",
                 "reverse": false,
@@ -101,7 +101,7 @@
         },
         {
             "endPoint": {
-                "x": 44,
+                "x": 41,
                 "y": 13.5,
                 "heading": "linear",
                 "reverse": false,
@@ -115,7 +115,7 @@
         },
         {
             "endPoint": {
-                "x": 12,
+                "x": 20,
                 "y": 13.5,
                 "heading": "linear",
                 "reverse": false,
@@ -157,7 +157,7 @@
         },
         {
             "endPoint": {
-                "x": 12,
+                "x": 13,
                 "y": 10.5,
                 "heading": "linear",
                 "reverse": false,
@@ -171,7 +171,7 @@
         },
         {
             "endPoint": {
-                "x": 9.1,
+                "x": 15,
                 "y": 34,
                 "heading": "linear",
                 "reverse": false,
@@ -192,7 +192,7 @@
         },
         {
             "endPoint": {
-                "x": 41,
+                "x": 38,
                 "y": 71,
                 "heading": "linear",
                 "reverse": false,
@@ -213,8 +213,8 @@
         },
         {
             "endPoint": {
-                "x": 9,
-                "y": 34,
+                "x": 15,
+                "y": 45,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeThird",
@@ -231,7 +231,7 @@
                 },
                 {
                     "x": 37,
-                    "y": 30,
+                    "y": 40,
                     "name": "intakeThirdSecondControl",
                     "index": 20
                 }
@@ -240,7 +240,7 @@
         },
         {
             "endPoint": {
-                "x": 41,
+                "x": 38,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -261,8 +261,8 @@
         },
         {
             "endPoint": {
-                "x": 9,
-                "y": 34,
+                "x": 15,
+                "y": 45,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeFourth",
@@ -279,7 +279,7 @@
                 },
                 {
                     "x": 37,
-                    "y": 30,
+                    "y": 40,
                     "name": "intakeFourthSecondControl",
                     "index": 25
                 }
@@ -288,7 +288,7 @@
         },
         {
             "endPoint": {
-                "x": 41,
+                "x": 38,
                 "y": 69,
                 "heading": "linear",
                 "reverse": false,
@@ -309,8 +309,8 @@
         },
         {
             "endPoint": {
-                "x": 9,
-                "y": 34,
+                "x": 15,
+                "y": 45,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeFifth",
@@ -327,7 +327,7 @@
                 },
                 {
                     "x": 37,
-                    "y": 30,
+                    "y": 40,
                     "name": "intakeFifthSecondControl",
                     "index": 30
                 }
@@ -336,7 +336,7 @@
         },
         {
             "endPoint": {
-                "x": 41,
+                "x": 38,
                 "y": 68,
                 "heading": "linear",
                 "reverse": false,

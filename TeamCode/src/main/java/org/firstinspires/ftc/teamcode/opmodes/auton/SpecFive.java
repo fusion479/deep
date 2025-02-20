@@ -19,12 +19,14 @@ public class SpecFive extends OpModeCore {
     private CommandRobot robot;
     private SpecFiveTrajectories trajectories;
 
-    public static int HIGH_RUNG_WAIT = 0;
-    public static int SLAM_WAIT = 200;
-    public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 300;
+    public static int HIGH_RUNG_WAIT = 200;
+    public static int SLAM_WAIT = 300;
+    public static int SPECIMEN_CLOSE_WAIT = 300;
+    public static int CYCLE_SPECIMEN_WAIT = 750;
+    public static int INTAKE_SECOND_WAIT = 1500;
+    public static int SCORE_WAIT = 150;
     public static int PARK_WAIT = 500;
-    public static int READY_WAIT = 100;
+    public static int READY_WAIT = 750;
 
     public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
@@ -51,23 +53,25 @@ public class SpecFive extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
                         // PUSH SAMPLES
                         new ParallelCommandGroup(
-                                new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
-                                new WaitCommand(READY_WAIT),
-                                this.robot.ready()
+                                new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.strafeTop, this.trajectories.pushTop),
+                                new SequentialCommandGroup(
+                                        new WaitCommand(READY_WAIT),
+                                        this.robot.ready()
+                                )
                         ),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
-                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
 
                         // 2ND SPECIMEN
                         new ParallelCommandGroup(
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED),
+                                new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
                                 new SequentialCommandGroup(
-                                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                                        new WaitCommand(INTAKE_SECOND_WAIT),
                                         this.robot.specimen()
                                 )
                         ),
@@ -77,6 +81,7 @@ public class SpecFive extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
@@ -94,6 +99,7 @@ public class SpecFive extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
@@ -111,6 +117,7 @@ public class SpecFive extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
@@ -128,6 +135,7 @@ public class SpecFive extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreFifth, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 

@@ -16,10 +16,10 @@ import java.util.ArrayList;
 public class SpecFiveTrajectories {
     private final ArrayList<Pose> poses;
     public static double SCORE_PRELOAD = 1.4;
-    public static double SCORE_SECOND = 1.5;
-    public static double SCORE_THIRD = 1.5;
-    public static double SCORE_FOURTH = 1.5;
-    public static double SCORE_FIFTH = 1.5;
+    public static double SCORE_SECOND = 3;
+    public static double SCORE_THIRD = 2;
+    public static double SCORE_FOURTH = 2;
+    public static double SCORE_FIFTH = 2;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
 
@@ -92,15 +92,9 @@ public class SpecFiveTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.intakeSecond = buildCurve(
-                poses.get(13),
-                AutonomousHelpers.poseToPoint(poses.get(15)),
-                poses.get(14),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
 
         this.scoreSecond = buildCurve(
-                poses.get(14),
+                poses.get(13),
                 AutonomousHelpers.poseToPoint(poses.get(17)),
                 poses.get(16),
                 AutonomousHelpers.HeadingInterpolation.LINEAR

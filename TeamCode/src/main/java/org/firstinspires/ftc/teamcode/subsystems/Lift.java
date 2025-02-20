@@ -13,19 +13,19 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MIN_POWER = -0.1;
+    public static double MIN_POWER = -0.2;
 
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 620;
+    public static double HIGH_RUNG = 665;
     public static double DRIVE_IN = 465;
     public static double CLIMB = -Integer.MAX_VALUE;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
-    public static double SLAM = 250;
+    public static double SLAM = 230;
 
     public static double lowkP = 0.009;
     public static double lowkI = 0;
