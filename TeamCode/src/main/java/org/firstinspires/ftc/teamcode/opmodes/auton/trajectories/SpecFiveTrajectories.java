@@ -15,11 +15,11 @@ import java.util.ArrayList;
 @Config
 public class SpecFiveTrajectories {
     private final ArrayList<Pose> poses;
-    public static double SCORE_PRELOAD = 1.4;
-    public static double SCORE_SECOND = 3;
-    public static double SCORE_THIRD = 2;
-    public static double SCORE_FOURTH = 2;
-    public static double SCORE_FIFTH = 2;
+    public static double SCORE_PRELOAD = 1.7;
+    public static double SCORE_SECOND = 5;
+    public static double SCORE_THIRD = 3;
+    public static double SCORE_FOURTH = 3;
+    public static double SCORE_FIFTH = 3;
 
     public Path scorePreload, intakeSecond, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, intakeFifth, scoreFifth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
 
@@ -93,8 +93,9 @@ public class SpecFiveTrajectories {
         );
 
 
-        this.scoreSecond = buildLine(
+        this.scoreSecond = buildCurve(
                 poses.get(13),
+                AutonomousHelpers.poseToPoint(poses.get(15)),
                 poses.get(14),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
@@ -102,46 +103,46 @@ public class SpecFiveTrajectories {
 
         this.intakeThird = buildLine(
                 poses.get(14),
-                poses.get(15),
+                poses.get(16),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreThird = buildLine(
-                poses.get(15),
                 poses.get(16),
+                poses.get(17),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreThird.setPathEndTimeoutConstraint(SCORE_THIRD);
 
         this.intakeFourth = buildLine(
-                poses.get(16),
                 poses.get(17),
+                poses.get(18),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreFourth = buildLine(
-                poses.get(17),
                 poses.get(18),
+                poses.get(19),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreFourth.setPathEndTimeoutConstraint(SCORE_FOURTH);
 
         this.intakeFifth = buildLine(
-                poses.get(18),
                 poses.get(19),
+                poses.get(20),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
         this.scoreFifth = buildLine(
-                poses.get(19),
                 poses.get(20),
+                poses.get(21),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
         this.scoreFifth.setPathEndTimeoutConstraint(SCORE_FIFTH);
 
         this.park = buildLine(
-                poses.get(20),
                 poses.get(21),
+                poses.get(22),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 

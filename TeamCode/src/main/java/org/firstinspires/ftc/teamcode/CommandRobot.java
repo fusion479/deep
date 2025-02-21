@@ -76,7 +76,7 @@ public class CommandRobot {
 
     public static int ACCEPTING_WAIT = 700;
     public static int READY_WAIT = 700;
-    public static int SLAM_WAIT = 300;
+    public static int SLAM_WAIT = 500;
 
     private GamepadTrigger lt, rt;
 
@@ -213,7 +213,6 @@ public class CommandRobot {
                 new PivotBasket(this.pivot),
                 new ArmBasket(this.arm),
                 new ExtendoBasket(this.extendo),
-                new WaitCommand(SLAM_WAIT),
                 new ClawOpen(this.claw)
         );
     }
@@ -259,7 +258,7 @@ public class CommandRobot {
     public Command slam() {
         return new SequentialCommandGroup(
                 new LiftSlam(this.lift),
-                new WaitCommand(300),
+                new WaitCommand(SLAM_WAIT),
                 new ClawOpen(this.claw)
         );
     }
