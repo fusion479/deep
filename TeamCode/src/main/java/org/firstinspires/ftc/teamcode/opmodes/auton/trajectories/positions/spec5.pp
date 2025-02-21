@@ -10,7 +10,7 @@
     "lines": [
         {
             "endPoint": {
-                "x": 38,
+                "x": 36,
                 "y": 72,
                 "heading": "linear",
                 "startDeg": 0,
@@ -26,7 +26,7 @@
                     "index": 2
                 },
                 {
-                    "x": 25,
+                    "x": 18,
                     "y": 75,
                     "name": "scorePreloadSecondControl",
                     "index": 3
