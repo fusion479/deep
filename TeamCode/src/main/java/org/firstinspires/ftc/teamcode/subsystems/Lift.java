@@ -37,15 +37,12 @@ public class Lift extends SubsystemBase {
     public static double highkD = 0;
     public static double highkG = 0;
 
-    public static double LOW_VOLTAGE = 12;
-
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
     private final VoltageSensor voltageSensor;
-    private final PIDController highController;
-    private final PIDController lowController;
+    private final PIDController controller;
 
     public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
@@ -73,10 +70,8 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.highController = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
-        this.highController.setAllowedError(15);
-        this.lowController = new PIDController(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
-        this.lowController.setAllowedError(15);
+        this.controller = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
+        this.controller.setAllowedError(15);
 
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
@@ -88,15 +83,9 @@ public class Lift extends SubsystemBase {
             while (opMode.opModeIsActive())
                 try {
                     double power;
-                    double voltage;
-                    voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        if (voltage > LOW_VOLTAGE) {
-                            power = this.lowController.calculate(this.getPosition());
-                        } else {
-                            power = this.highController.calculate(this.getPosition());
-                        }
+                        power = this.controller.calculate(this.getPosition() * (12.0 / voltageSensor.getVoltage()));
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
@@ -120,41 +109,26 @@ public class Lift extends SubsystemBase {
     }
 
     public double getTarget() {
-        return this.lowController.getTarget();
+        return this.controller.getTarget();
     }
 
     public void setTarget(double target) {
-        this.highController.setTarget(target);
-        this.lowController.setTarget(target);
+        this.controller.setTarget(target);
     }
 
     public double getPosition() {
         return -this.leftPri.getCurrentPosition();
     }
 
-    public void setPower(double power) {
-        this.rightSec.setPower(power);
-        this.rightPri.setPower(power);
-        this.leftPri.setPower(power);
-        this.leftSec.setPower(power);
-    }
-
     public boolean isFinished() {
-        double voltage;
-        voltage = voltageSensor.getVoltage();
-        if (voltage < LOW_VOLTAGE) {
-            return this.lowController.isFinished();
-        } else {
-            return this.highController.isFinished();
-        }
+        return this.controller.isFinished();
     }
 
     public double getError() {
-        return this.lowController.getLastError();
+        return this.controller.getLastError();
     }
 
     public void setConstants() {
-        this.lowController.setCoefficients(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
-        this.highController.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
+        this.controller.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
     }
 }
