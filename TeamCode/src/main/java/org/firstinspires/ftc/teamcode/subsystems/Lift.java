@@ -27,15 +27,10 @@ public class Lift extends SubsystemBase {
 
     public static double SLAM = 250;
 
-    public static double lowkP = 0.009;
-    public static double lowkI = 0;
-    public static double lowkD = 0;
-    public static double lowkG = 0;
-
-    public static double highkP = 0.007;
-    public static double highkI = 0;
-    public static double highkD = 0;
-    public static double highkG = 0;
+    public static double kP = 0.009;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kG = 0;
 
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
@@ -70,9 +65,7 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.controller = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
-        this.controller.setAllowedError(15);
-
+        this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.setTarget(0);
@@ -129,6 +122,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void setConstants() {
-        this.controller.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
+        this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
     }
 }
