@@ -75,8 +75,8 @@ public class CommandRobot {
     private boolean intakeToggle;
 
     public static int ACCEPTING_WAIT = 700;
-    public static int READY_WAIT = 700;
-    public static int SLAM_WAIT = 500;
+    public static int SLAM_WAIT = 600;
+    public static int SPECIMEN_WAIT = 300;
 
     private GamepadTrigger lt, rt;
 
@@ -141,9 +141,9 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(this.liftIncrement());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                        .whenPressed(this.wristRight());
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.wristLeft());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.wristRight());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                         .whenPressed(this.driveIn());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
@@ -213,6 +213,7 @@ public class CommandRobot {
                 new PivotBasket(this.pivot),
                 new ArmBasket(this.arm),
                 new ExtendoBasket(this.extendo),
+                new WaitCommand(SPECIMEN_WAIT),
                 new ClawOpen(this.claw)
         );
     }
@@ -259,7 +260,11 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new LiftSlam(this.lift),
                 new WaitCommand(SLAM_WAIT),
-                new ClawOpen(this.claw)
+                new ClawOpen(this.claw),
+                new WaitCommand(100),
+                new LiftIncrement(this.lift),
+                new LiftIncrement(this.lift),
+                new LiftIncrement(this.lift)
         );
     }
 

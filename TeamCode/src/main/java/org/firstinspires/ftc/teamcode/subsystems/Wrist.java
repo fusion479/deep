@@ -19,6 +19,7 @@ public class Wrist extends SubsystemBase {
     public Wrist(final HardwareMap hwMap) {
         this.wrist = hwMap.get(Servo.class, "wrist");
 
+        this.wrist.setDirection(Servo.Direction.REVERSE);
         this.setPosition(Wrist.ACCEPTING);
     }
 

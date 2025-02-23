@@ -19,7 +19,7 @@ public class Lift extends SubsystemBase {
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
     public static double HIGH_RUNG = 590;
-    public static double DRIVE_IN = 465;
+    public static double DRIVE_IN = 500;
     public static double CLIMB = -Integer.MAX_VALUE;
 
     public static double ACCEPTING = 10;
@@ -27,7 +27,7 @@ public class Lift extends SubsystemBase {
 
     public static double SLAM = 250;
 
-    public static double kP = 0.009;
+    public static double kP = 0.006;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;
@@ -78,7 +78,7 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition() * (12.0 / voltageSensor.getVoltage()));
+                        power = this.controller.calculate(this.getPosition() * (12.5 / voltageSensor.getVoltage()));
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 

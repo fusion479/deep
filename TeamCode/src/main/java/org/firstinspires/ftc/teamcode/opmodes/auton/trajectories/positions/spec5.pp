@@ -10,7 +10,7 @@
     "lines": [
         {
             "endPoint": {
-                "x": 36,
+                "x": 35.5,
                 "y": 72,
                 "heading": "linear",
                 "startDeg": 0,
@@ -73,8 +73,8 @@
         },
         {
             "endPoint": {
-                "x": 12,
-                "y": 26,
+                "x": 20,
+                "y": 28,
                 "heading": "linear",
                 "reverse": false,
                 "name": "pushTop",
@@ -115,7 +115,7 @@
         },
         {
             "endPoint": {
-                "x": 12,
+                "x": 20,
                 "y": 13.5,
                 "heading": "linear",
                 "reverse": false,
@@ -157,7 +157,7 @@
         },
         {
             "endPoint": {
-                "x": 13.5,
+                "x": 13,
                 "y": 11,
                 "heading": "linear",
                 "reverse": false,
@@ -171,7 +171,7 @@
         },
         {
             "endPoint": {
-                "x": 38,
+                "x": 31,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -192,8 +192,8 @@
         },
         {
             "endPoint": {
-                "x": 13.5,
-                "y": 45,
+                "x": 15,
+                "y": 39,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeThird",
@@ -206,8 +206,8 @@
         },
         {
             "endPoint": {
-                "x": 38,
-                "y": 73,
+                "x": 33,
+                "y": 71,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreThird",
@@ -220,8 +220,8 @@
         },
         {
             "endPoint": {
-                "x": 13.5,
-                "y": 45,
+                "x": 15.5,
+                "y": 39,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeFourth",
@@ -234,8 +234,8 @@
         },
         {
             "endPoint": {
-                "x": 38,
-                "y": 72,
+                "x": 34,
+                "y": 70,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFourth",
@@ -248,8 +248,8 @@
         },
         {
             "endPoint": {
-                "x": 13.5,
-                "y": 45,
+                "x": 15.5,
+                "y": 39,
                 "heading": "linear",
                 "reverse": false,
                 "name": "intakeFifth",
@@ -262,8 +262,8 @@
         },
         {
             "endPoint": {
-                "x": 38,
-                "y": 71,
+                "x": 35,
+                "y": 69,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFifth",
