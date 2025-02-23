@@ -19,16 +19,16 @@ public class SpecFive extends OpModeCore {
     private CommandRobot robot;
     private SpecFiveTrajectories trajectories;
 
-    public static int HIGH_RUNG_WAIT = 250;
+    public static int HIGH_RUNG_WAIT = 100;
     public static int SLAM_WAIT = 250;
-    public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 350;
+    public static int SPECIMEN_CLOSE_WAIT = 100;
+    public static int CYCLE_SPECIMEN_WAIT = 500;
     public static int INTAKE_SECOND_WAIT = 1200;
-    public static int SCORE_WAIT = 200;
-    public static int PARK_WAIT = 450;
-    public static int READY_WAIT = 200;
+    public static int SCORE_WAIT = 0;
+    public static int PARK_WAIT = 400;
+    public static int READY_WAIT = 275;
 
-    public static double SCORE_SPEED = 0.9;
+    public static double SCORE_SPEED = 1;
     public static double NORMAL_SPEED = 1;
     public static double PUSH = 0.9;
 

@@ -172,7 +172,7 @@
         {
             "endPoint": {
                 "x": 31,
-                "y": 69,
+                "y": 67,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreSecond",
@@ -207,7 +207,7 @@
         {
             "endPoint": {
                 "x": 34,
-                "y": 68,
+                "y": 70,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreThird",
@@ -235,7 +235,7 @@
         {
             "endPoint": {
                 "x": 34.5,
-                "y": 67,
+                "y": 69,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFourth",
@@ -263,7 +263,7 @@
         {
             "endPoint": {
                 "x": 35,
-                "y": 66,
+                "y": 68,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFifth",

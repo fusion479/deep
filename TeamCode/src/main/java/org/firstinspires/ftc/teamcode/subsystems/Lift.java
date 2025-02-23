@@ -18,7 +18,7 @@ public class Lift extends SubsystemBase {
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 590;
+    public static double HIGH_RUNG = 595;
     public static double DRIVE_IN = 500;
     public static double CLIMB = -Integer.MAX_VALUE;
 
@@ -78,7 +78,7 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition() * (12.5 / voltageSensor.getVoltage()));
+                        power = this.controller.calculate(this.getPosition() * (12.25 / voltageSensor.getVoltage()));
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 

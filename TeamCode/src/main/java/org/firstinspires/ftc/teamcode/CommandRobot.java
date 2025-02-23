@@ -263,6 +263,7 @@ public class CommandRobot {
                 new ClawOpen(this.claw),
                 new WaitCommand(100),
                 new LiftIncrement(this.lift),
+                new LiftIncrement(this.lift),
                 new LiftIncrement(this.lift)
         );
     }
