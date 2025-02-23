@@ -16,23 +16,27 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 @Config
 @Autonomous(name = "4-Spec Far Basket", preselectTeleOp = "Main")
 public class SpecFour extends OpModeCore {
-    public static int HIGH_RUNG_WAIT = 0;
-    public static int SLAM_WAIT = 200;
-    public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 300;
-    public static int READY_WAIT = 500;
-
-    public static double SCORE_SPEED = 0.75;
-    public static double NORMAL_SPEED = 0.85;
-
     private CommandRobot robot;
     private SpecFourTrajectories trajectories;
+
+    public static int HIGH_RUNG_WAIT = 250;
+    public static int SLAM_WAIT = 250;
+    public static int SPECIMEN_CLOSE_WAIT = 300;
+    public static int CYCLE_SPECIMEN_WAIT = 350;
+    public static int INTAKE_SECOND_WAIT = 1200;
+    public static int SCORE_WAIT = 300;
+    public static int PARK_WAIT = 450;
+    public static int READY_WAIT = 200;
+
+    public static double SCORE_SPEED = 0.9;
+    public static double NORMAL_SPEED = 1;
+    public static double PUSH = 0.9;
 
     @Override
     public void initialize() {
         this.trajectories = new SpecFourTrajectories();
 
-        robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
+        this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
     }
 
     @Override
@@ -42,43 +46,32 @@ public class SpecFour extends OpModeCore {
 
         super.waitForStart();
 
+        this.robot.startAutoThreads(this);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
                         // PRELOAD
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
                         // PUSH SAMPLES
                         new ParallelCommandGroup(
-                                new PathChainCommand(
-                                        this.robot,
-                                        NORMAL_SPEED,
-                                        this.trajectories.backFirst,
-                                        this.trajectories.setupTop,
-                                        this.trajectories.pushTop
-                                ),
+                                new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
                                 new SequentialCommandGroup(
                                         new WaitCommand(READY_WAIT),
                                         this.robot.ready()
                                 )
                         ),
-
-                        new PathChainCommand(
-                                this.robot,
-                                NORMAL_SPEED,
-                                this.trajectories.setupMid,
-                                this.trajectories.pushMid
-                        ),
-
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
 
                         // 2ND SPECIMEN
                         new ParallelCommandGroup(
-                                new PathCommand(this.robot, this.trajectories.intakeSecond, NORMAL_SPEED),
+                                new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
                                 new SequentialCommandGroup(
-                                        new WaitCommand(CYCLE_SPECIMEN_WAIT),
+                                        new WaitCommand(INTAKE_SECOND_WAIT),
                                         this.robot.specimen()
                                 )
                         ),
@@ -88,6 +81,7 @@ public class SpecFour extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
@@ -105,9 +99,9 @@ public class SpecFour extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
-
 
                         // 4TH SPECIMEN
                         new ParallelCommandGroup(
@@ -123,21 +117,21 @@ public class SpecFour extends OpModeCore {
                         this.robot.highRung(),
                         new WaitCommand(HIGH_RUNG_WAIT),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
+                        new WaitCommand(SCORE_WAIT),
                         this.robot.slam(),
                         new WaitCommand(SLAM_WAIT),
 
                         // PARK
                         new ParallelCommandGroup(
-                                new PathCommand(this.robot, this.trajectories.backFirst, NORMAL_SPEED),
+                                new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED),
                                 new SequentialCommandGroup(
-                                        new WaitCommand(READY_WAIT),
+                                        new WaitCommand(PARK_WAIT),
                                         this.robot.ready()
                                 )
                         )
                 )
         );
 
-        this.robot.startAutoThreads(this);
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
         }
