@@ -13,39 +13,31 @@ import org.firstinspires.ftc.teamcode.utils.PIDController;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MIN_POWER = -0.1;
+    public static double MIN_POWER = -0.2;
 
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 500;
-    public static double DRIVE_IN = 465;
+    public static double HIGH_RUNG = 590;
+    public static double DRIVE_IN = 500;
     public static double CLIMB = -Integer.MAX_VALUE;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
-    public static double SLAM = 250;
+    public static double SLAM = 260;
 
-    public static double lowkP = 0.009;
-    public static double lowkI = 0;
-    public static double lowkD = 0;
-    public static double lowkG = 0;
-
-    public static double highkP = 0.007;
-    public static double highkI = 0;
-    public static double highkD = 0;
-    public static double highkG = 0;
-
-    public static double LOW_VOLTAGE = 12;
+    public static double kP = 0.006;
+    public static double kI = 0;
+    public static double kD = 0;
+    public static double kG = 0;
 
     private final DcMotorEx rightSec;
     private final DcMotorEx leftSec;
     private final DcMotorEx rightPri;
     private final DcMotorEx leftPri;
     private final VoltageSensor voltageSensor;
-    private final PIDController highController;
-    private final PIDController lowController;
+    private final PIDController controller;
 
     public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
@@ -73,11 +65,7 @@ public class Lift extends SubsystemBase {
         this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        this.highController = new PIDController(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
-        this.highController.setAllowedError(15);
-        this.lowController = new PIDController(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
-        this.lowController.setAllowedError(15);
-
+        this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.setTarget(0);
@@ -88,15 +76,9 @@ public class Lift extends SubsystemBase {
             while (opMode.opModeIsActive())
                 try {
                     double power;
-                    double voltage;
-                    voltage = voltageSensor.getVoltage();
 
                     synchronized (this.rightPri) {
-                        if (voltage > LOW_VOLTAGE) {
-                            power = this.lowController.calculate(this.getPosition());
-                        } else {
-                            power = this.highController.calculate(this.getPosition());
-                        }
+                        power = this.controller.calculate(this.getPosition() * (12.5 / voltageSensor.getVoltage()));
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
@@ -120,41 +102,26 @@ public class Lift extends SubsystemBase {
     }
 
     public double getTarget() {
-        return this.lowController.getTarget();
+        return this.controller.getTarget();
     }
 
     public void setTarget(double target) {
-        this.highController.setTarget(target);
-        this.lowController.setTarget(target);
+        this.controller.setTarget(target);
     }
 
     public double getPosition() {
         return -this.leftPri.getCurrentPosition();
     }
 
-    public void setPower(double power) {
-        this.rightSec.setPower(power);
-        this.rightPri.setPower(power);
-        this.leftPri.setPower(power);
-        this.leftSec.setPower(power);
-    }
-
     public boolean isFinished() {
-        double voltage;
-        voltage = voltageSensor.getVoltage();
-        if (voltage < LOW_VOLTAGE) {
-            return this.lowController.isFinished();
-        } else {
-            return this.highController.isFinished();
-        }
+        return this.controller.isFinished();
     }
 
     public double getError() {
-        return this.lowController.getLastError();
+        return this.controller.getLastError();
     }
 
     public void setConstants() {
-        this.lowController.setCoefficients(Lift.lowkP, Lift.lowkI, Lift.lowkD, Lift.lowkG);
-        this.highController.setCoefficients(Lift.highkP, Lift.highkI, Lift.highkD, Lift.highkG);
+        this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
     }
 }

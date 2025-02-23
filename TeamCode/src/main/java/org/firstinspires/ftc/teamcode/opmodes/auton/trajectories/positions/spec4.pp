@@ -12,7 +12,7 @@
             "endPoint": {
                 "index": 1,
                 "name": "scoreFirst",
-                "x": 42,
+                "x": 38,
                 "y": 72,
                 "heading": "linear",
                 "reverse": false,

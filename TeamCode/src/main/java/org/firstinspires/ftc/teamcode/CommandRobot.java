@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.ArmAccepting;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmBasket;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmDriveIn;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmIntake;
+import org.firstinspires.ftc.teamcode.commands.arm.ArmReady;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSpecimen;
 import org.firstinspires.ftc.teamcode.commands.arm.ArmSweep;
 import org.firstinspires.ftc.teamcode.commands.claw.ClawClose;
@@ -74,7 +75,8 @@ public class CommandRobot {
     private boolean intakeToggle;
 
     public static int ACCEPTING_WAIT = 700;
-    public static int READY_WAIT = 700;
+    public static int SLAM_WAIT = 600;
+    public static int SPECIMEN_WAIT = 300;
 
     private GamepadTrigger lt, rt;
 
@@ -139,9 +141,9 @@ public class CommandRobot {
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(this.liftIncrement());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                        .whenPressed(this.wristRight());
-                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(this.wristLeft());
+                this.gamepad1.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(this.wristRight());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.Y)
                         .whenPressed(this.driveIn());
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.B)
@@ -199,7 +201,7 @@ public class CommandRobot {
                 new WristReady(this.wrist),
                 new PivotReady(this.pivot),
                 new ExtendoReady(this.extendo),
-                new ArmSpecimen(this.arm),
+                new ArmReady(this.arm),
                 new LiftAccepting(this.lift)
         );
     }
@@ -211,7 +213,7 @@ public class CommandRobot {
                 new PivotBasket(this.pivot),
                 new ArmBasket(this.arm),
                 new ExtendoBasket(this.extendo),
-                new WaitCommand(400),
+                new WaitCommand(SPECIMEN_WAIT),
                 new ClawOpen(this.claw)
         );
     }
@@ -257,8 +259,12 @@ public class CommandRobot {
     public Command slam() {
         return new SequentialCommandGroup(
                 new LiftSlam(this.lift),
-                new WaitCommand(500),
-                new ClawOpen(this.claw)
+                new WaitCommand(SLAM_WAIT),
+                new ClawOpen(this.claw),
+                new WaitCommand(100),
+                new LiftIncrement(this.lift),
+                new LiftIncrement(this.lift),
+                new LiftIncrement(this.lift)
         );
     }
 

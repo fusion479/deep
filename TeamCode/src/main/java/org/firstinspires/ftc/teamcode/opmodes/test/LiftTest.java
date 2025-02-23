@@ -46,6 +46,7 @@ public class LiftTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            this.lift.setTarget(this.lift.getTarget());
             TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
             TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
             TelemetryCore.getInstance().addData("Error", this.lift.getError());

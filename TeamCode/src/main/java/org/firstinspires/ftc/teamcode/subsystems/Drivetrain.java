@@ -23,6 +23,8 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_VEL = 0.75;
     public static double MAX_ANGULAR_VEL = 0.6;
 
+    public static boolean FIELD_CENTRIC = false;
+
     private final Follower follower;
 
     private double xPower = 0.0;
@@ -56,7 +58,7 @@ public class Drivetrain extends SubsystemBase {
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
 
-                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, false);
+                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, FIELD_CENTRIC);
                         this.follower.update();
                     }
                     Thread.sleep(10);

@@ -12,12 +12,13 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Config
-@Autonomous(name = "Push", preselectTeleOp = "Main")
+@Autonomous(name = "5 SPEC PATH (PUSH)", preselectTeleOp = "Main")
 public class Push extends OpModeCore {
     private CommandRobot robot;
     private SpecFiveTrajectories trajectories;
 
-    public static double SPEED = 1;
+    public static double SCORE_SPEED = 1;
+    public static double NORMAL_SPEED = 1;
     public static double PUSH = 0.9;
 
     @Override
@@ -37,19 +38,18 @@ public class Push extends OpModeCore {
         this.robot.startAutoThreads(this);
         CommandScheduler.getInstance().schedule(
                 new SequentialCommandGroup(
-                        new PathCommand(this.robot, this.trajectories.scorePreload, SPEED),
+                        new PathCommand(this.robot, this.trajectories.scorePreload, SCORE_SPEED),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupTop, this.trajectories.pushTop),
                         new PathChainCommand(this.robot, PUSH, this.trajectories.setupMid, this.trajectories.pushMid),
-                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.strafeBottom, this.trajectories.pushBottom),
-                        new PathCommand(this.robot, this.trajectories.intakeSecond, SPEED),
-                        new PathCommand(this.robot, this.trajectories.scoreSecond, SPEED),
-                        new PathCommand(this.robot, this.trajectories.intakeThird, SPEED),
-                        new PathCommand(this.robot, this.trajectories.scoreThird, SPEED),
-                        new PathCommand(this.robot, this.trajectories.intakeFourth, SPEED),
-                        new PathCommand(this.robot, this.trajectories.scoreFourth, SPEED),
-                        new PathCommand(this.robot, this.trajectories.intakeFifth, SPEED),
-                        new PathCommand(this.robot, this.trajectories.scoreFifth, SPEED),
-                        new PathCommand(this.robot, this.trajectories.park, SPEED)
+                        new PathChainCommand(this.robot, PUSH, this.trajectories.setupBottom, this.trajectories.pushBottom),
+                        new PathCommand(this.robot, this.trajectories.scoreSecond, SCORE_SPEED),
+                        new PathCommand(this.robot, this.trajectories.intakeThird, NORMAL_SPEED),
+                        new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
+                        new PathCommand(this.robot, this.trajectories.intakeFourth, NORMAL_SPEED),
+                        new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
+                        new PathCommand(this.robot, this.trajectories.intakeFifth, NORMAL_SPEED),
+                        new PathCommand(this.robot, this.trajectories.scoreFifth, SCORE_SPEED),
+                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )
         );
 
