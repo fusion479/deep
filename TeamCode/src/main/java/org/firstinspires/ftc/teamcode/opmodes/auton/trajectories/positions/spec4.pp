@@ -192,7 +192,7 @@
         },
         {
             "endPoint": {
-                "x": 16,
+                "x": 15,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,
@@ -220,7 +220,7 @@
         },
         {
             "endPoint": {
-                "x": 16,
+                "x": 15,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,

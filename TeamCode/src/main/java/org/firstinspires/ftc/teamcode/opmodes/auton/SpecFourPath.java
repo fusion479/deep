@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Config
-@Autonomous(name = "5-Spec Path", preselectTeleOp = "Main")
+@Autonomous(name = "4-Spec Path", preselectTeleOp = "Main")
 public class SpecFourPath extends OpModeCore {
     private CommandRobot robot;
     private SpecFourTrajectories trajectories;
