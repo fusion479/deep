@@ -77,17 +77,6 @@ public class Lift extends SubsystemBase {
         this.setTarget(0);
     }
 
-//    @Override
-//    public void periodic() {
-//        double power;
-//        power = this.controller.calculate(this.getPosition() * (12.25 / voltageSensor.getVoltage()));
-//
-//        this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
-//        this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
-//        this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
-//        this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
-//    }
-
     public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive())

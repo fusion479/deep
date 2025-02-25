@@ -54,27 +54,6 @@ public class Extendo extends SubsystemBase {
         return -(Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360));
     }
 
-//    @Override
-//    public void periodic() {
-//        double currPos = this.getPosition();
-//
-//        if (prevPos - currPos > 180) rotations++;
-//        else if (180 < currPos - prevPos) rotations--;
-//
-//        if (this.toggleController) {
-//            this.power = this.controller.calculate(currPos + 360 * rotations);
-//            if (!this.controller.isFinished()) {
-//                this.extendoBottom.setPower(-this.power);
-//                this.extendoTop.setPower(-this.power);
-//            }
-//        } else {
-//            this.extendoTop.setPower(this.power);
-//            this.extendoBottom.setPower(this.power);
-//        }
-//
-//        prevPos = currPos;
-//    }
-
     public void startThread(OpModeCore opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
@@ -133,9 +112,5 @@ public class Extendo extends SubsystemBase {
 
     public double getError() {
         return this.controller.getLastError();
-    }
-
-    public boolean isFinished() {
-        return this.controller.isFinished();
     }
 }
