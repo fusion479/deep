@@ -10,6 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Config
 public class Lift extends SubsystemBase {
@@ -66,10 +70,23 @@ public class Lift extends SubsystemBase {
         this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
+        this.controller.setAllowedError(15);
+
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
         this.setTarget(0);
     }
+
+//    @Override
+//    public void periodic() {
+//        double power;
+//        power = this.controller.calculate(this.getPosition() * (12.25 / voltageSensor.getVoltage()));
+//
+//        this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
+//        this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
+//        this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
+//        this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
+//    }
 
     public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
@@ -96,16 +113,18 @@ public class Lift extends SubsystemBase {
 
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    TelemetryCore.getInstance().addLine(errors.toString());
                 }
         }).start();
     }
 
-    public double getTarget() {
+    public synchronized double getTarget() {
         return this.controller.getTarget();
     }
 
-    public void setTarget(double target) {
+    public synchronized void setTarget(double target) {
         this.controller.setTarget(target);
     }
 
@@ -113,7 +132,7 @@ public class Lift extends SubsystemBase {
         return -this.leftPri.getCurrentPosition();
     }
 
-    public boolean isFinished() {
+    public synchronized boolean isFinished() {
         return this.controller.isFinished();
     }
 

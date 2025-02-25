@@ -7,7 +7,11 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Config
 public class Extendo extends SubsystemBase {
@@ -50,6 +54,27 @@ public class Extendo extends SubsystemBase {
         return -(Extendo.OFFSET - (this.encoder.getVoltage() / 3.3 * 360));
     }
 
+//    @Override
+//    public void periodic() {
+//        double currPos = this.getPosition();
+//
+//        if (prevPos - currPos > 180) rotations++;
+//        else if (180 < currPos - prevPos) rotations--;
+//
+//        if (this.toggleController) {
+//            this.power = this.controller.calculate(currPos + 360 * rotations);
+//            if (!this.controller.isFinished()) {
+//                this.extendoBottom.setPower(-this.power);
+//                this.extendoTop.setPower(-this.power);
+//            }
+//        } else {
+//            this.extendoTop.setPower(this.power);
+//            this.extendoBottom.setPower(this.power);
+//        }
+//
+//        prevPos = currPos;
+//    }
+
     public void startThread(OpModeCore opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive()) {
@@ -80,7 +105,9 @@ public class Extendo extends SubsystemBase {
                     prevPos = currPos;
                     Thread.sleep(50);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    TelemetryCore.getInstance().addLine(errors.toString());
                 }
             }
         }).start();
@@ -94,7 +121,7 @@ public class Extendo extends SubsystemBase {
         return this.controller.getTarget();
     }
 
-    public void setPosition(double position) {
+    public synchronized void setPosition(double position) {
         this.toggleController = true;
         this.controller.setTarget(position);
     }

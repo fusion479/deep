@@ -5,10 +5,12 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFourTrajectories;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
@@ -22,7 +24,7 @@ public class SpecFour extends OpModeCore {
     public static int HIGH_RUNG_WAIT = 250;
     public static int SLAM_WAIT = 250;
     public static int SPECIMEN_CLOSE_WAIT = 250;
-    public static int CYCLE_SPECIMEN_WAIT = 500;
+    public static int CYCLE_SPECIMEN_WAIT = 450;
     public static int INTAKE_SECOND_WAIT = 1200;
     public static int SCORE_WAIT = 275;
     public static int PARK_WAIT = 450;
@@ -34,6 +36,7 @@ public class SpecFour extends OpModeCore {
 
     @Override
     public void initialize() {
+        super.initialize();
         this.trajectories = new SpecFourTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
@@ -134,6 +137,13 @@ public class SpecFour extends OpModeCore {
 
         while (opModeIsActive()) {
             CommandScheduler.getInstance().run();
+
+            Pose pose = this.robot.getFollower().getPose();
+            TelemetryCore.getInstance().addData("x", pose.getX());
+            TelemetryCore.getInstance().addData("y", pose.getY());
+            TelemetryCore.getInstance().addData("heading", pose.getHeading());
+
+            TelemetryCore.getInstance().update();
         }
 
         super.end();

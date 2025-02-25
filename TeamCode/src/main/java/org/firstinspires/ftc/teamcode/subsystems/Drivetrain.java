@@ -10,6 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Config
 public class Drivetrain extends SubsystemBase {
@@ -61,7 +65,9 @@ public class Drivetrain extends SubsystemBase {
                     }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    TelemetryCore.getInstance().addLine(errors.toString());
                 }
         }).start();
     }

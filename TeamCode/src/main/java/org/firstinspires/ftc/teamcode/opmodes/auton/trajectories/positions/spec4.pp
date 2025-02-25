@@ -37,7 +37,7 @@
         {
             "endPoint": {
                 "x": 48,
-                "y": 39,
+                "y": 43,
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupTop",
@@ -74,7 +74,7 @@
         {
             "endPoint": {
                 "x": 20,
-                "y": 28,
+                "y": 30,
                 "heading": "linear",
                 "reverse": false,
                 "name": "pushTop",
@@ -130,7 +130,7 @@
         {
             "endPoint": {
                 "x": 47,
-                "y": 14,
+                "y": 17,
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupBottom",
@@ -157,8 +157,8 @@
         },
         {
             "endPoint": {
-                "x": 13.5,
-                "y": 11,
+                "x": 15,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "pushBottom",
