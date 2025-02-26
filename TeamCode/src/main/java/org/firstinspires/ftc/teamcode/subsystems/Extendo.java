@@ -92,11 +92,11 @@ public class Extendo extends SubsystemBase {
         }).start();
     }
 
-    public void setConstants() {
+    public synchronized void setConstants() {
         this.controller.setCoefficients(Extendo.kP, Extendo.kI, Extendo.kD);
     }
 
-    public double getTarget() {
+    public synchronized double getTarget() {
         return this.controller.getTarget();
     }
 
@@ -105,12 +105,12 @@ public class Extendo extends SubsystemBase {
         this.controller.setTarget(position);
     }
 
-    public void setPower(double power) {
+    public synchronized void setPower(double power) {
         this.toggleController = false;
         this.power = power;
     }
 
-    public double getError() {
+    public synchronized double getError() {
         return this.controller.getLastError();
     }
 }

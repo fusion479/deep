@@ -10,7 +10,7 @@
     "lines": [
         {
             "endPoint": {
-                "x": 35.5,
+                "x": 36,
                 "y": 72,
                 "heading": "linear",
                 "startDeg": 0,
@@ -37,7 +37,7 @@
         {
             "endPoint": {
                 "x": 48,
-                "y": 43,
+                "y": 39,
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupTop",
@@ -74,7 +74,7 @@
         {
             "endPoint": {
                 "x": 20,
-                "y": 30,
+                "y": 28,
                 "heading": "linear",
                 "reverse": false,
                 "name": "pushTop",
@@ -130,7 +130,7 @@
         {
             "endPoint": {
                 "x": 47,
-                "y": 17,
+                "y": 14,
                 "heading": "linear",
                 "reverse": false,
                 "name": "setupBottom",
@@ -157,8 +157,8 @@
         },
         {
             "endPoint": {
-                "x": 15,
-                "y": 14,
+                "x": 13.5,
+                "y": 11,
                 "heading": "linear",
                 "reverse": false,
                 "name": "pushBottom",
@@ -171,7 +171,7 @@
         },
         {
             "endPoint": {
-                "x": 31,
+                "x": 31.5,
                 "y": 67,
                 "heading": "linear",
                 "reverse": false,
@@ -206,7 +206,7 @@
         },
         {
             "endPoint": {
-                "x": 34,
+                "x": 34.5,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -234,7 +234,7 @@
         },
         {
             "endPoint": {
-                "x": 34.5,
+                "x": 35,
                 "y": 69,
                 "heading": "linear",
                 "reverse": false,
@@ -248,8 +248,8 @@
         },
         {
             "endPoint": {
-                "x": 16,
-                "y": 39,
+                "x": 15,
+                "y": 38,
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",

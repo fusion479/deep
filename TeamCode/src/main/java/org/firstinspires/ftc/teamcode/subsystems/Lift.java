@@ -117,7 +117,7 @@ public class Lift extends SubsystemBase {
         this.controller.setTarget(target);
     }
 
-    public double getPosition() {
+    public synchronized double getPosition() {
         return -this.leftPri.getCurrentPosition();
     }
 
@@ -125,11 +125,11 @@ public class Lift extends SubsystemBase {
         return this.controller.isFinished();
     }
 
-    public double getError() {
+    public synchronized double getError() {
         return this.controller.getLastError();
     }
 
-    public void setConstants() {
+    public synchronized void setConstants() {
         this.controller.setCoefficients(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
     }
 }
