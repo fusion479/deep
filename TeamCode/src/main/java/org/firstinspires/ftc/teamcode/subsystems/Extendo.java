@@ -19,7 +19,7 @@ public class Extendo extends SubsystemBase {
     public static double kI = 0;
     public static double kD = 0;
 
-    public static double OFFSET = 11.45;
+    public static double OFFSET = 289.6;
     public static int ALLOWED_ERROR = 3;
     public static int SCORE = -30;
     public static int READY = 40;
