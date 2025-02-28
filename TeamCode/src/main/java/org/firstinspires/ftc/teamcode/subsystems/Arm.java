@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Arm extends SubsystemBase {
     public static double ACCEPTING = 0.9;
     public static double SCORE = 0.55;
-    public static double READY = 0.55;
+    public static double READY = 0.57;
     public static double INTAKE = 0.97;
     public static double SPECIMEN = 0.78;
-    public static double DRIVE_IN = 0.75;
+    public static double DRIVE_IN = 0.85;
     public static double SWEEP = 0;
 
     private final Servo arm;

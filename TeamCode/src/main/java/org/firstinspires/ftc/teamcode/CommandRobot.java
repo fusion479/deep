@@ -78,6 +78,8 @@ public class CommandRobot {
     public static int SLAM_WAIT = 600;
     public static int SPECIMEN_WAIT = 300;
 
+    public static double ARM_THRESH = 0.56;
+
     private GamepadTrigger lt, rt;
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
@@ -157,7 +159,7 @@ public class CommandRobot {
             case DEV:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
-                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() < ARM_THRESH)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;

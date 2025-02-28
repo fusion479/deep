@@ -25,6 +25,7 @@ public class Lift extends SubsystemBase {
     public static double HIGH_RUNG = 595;
     public static double DRIVE_IN = 500;
     public static double CLIMB = -Integer.MAX_VALUE;
+    public static double COMPENSATE = 12.0;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
@@ -84,7 +85,7 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition() * (12.25 / voltageSensor.getVoltage()));
+                        power = this.controller.calculate(this.getPosition() * (COMPENSATE / voltageSensor.getVoltage()));
                         this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
