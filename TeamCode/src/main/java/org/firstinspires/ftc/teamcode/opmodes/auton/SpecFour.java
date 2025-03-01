@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
 import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFourTrajectories;
+import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
@@ -33,12 +34,14 @@ public class SpecFour extends OpModeCore {
     public static double SCORE_SPEED = 0.8;
     public static double NORMAL_SPEED = 1;
     public static double PUSH = 0.9;
+    public static double MULTI = 0.75;
 
     @Override
     public void initialize() {
         super.initialize();
         this.trajectories = new SpecFourTrajectories();
 
+        Extendo.MULTI = MULTI;
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
     }
 

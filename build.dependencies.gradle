@@ -19,7 +19,7 @@ dependencies {
 
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
 
-    implementation 'com.pedropathing:beta:1.0.9-beta1'
+    implementation 'com.pedropathing:pedro:1.0.8'
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
 }
 

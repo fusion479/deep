@@ -53,6 +53,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -78,7 +79,7 @@ public class CommandRobot {
     public static int SLAM_WAIT = 600;
     public static int SPECIMEN_WAIT = 300;
 
-    public static double ARM_THRESH = 0.56;
+    public static double ARM_THRESH = 0.61;
 
     public static double SLOW_ANG_VEL = 0.1;
     public static double SLOW_ANG_ACCEL = 0.02;
@@ -329,5 +330,13 @@ public class CommandRobot {
             Drivetrain.MAX_ANGULAR_ACCEL = 0.2;
             Drivetrain.MAX_ANGULAR_VEL = 0.6;
         }
+    }
+
+    public void logDev() {
+        TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
+        TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
+        TelemetryCore.getInstance().addData("Error", this.lift.getError());
+
+        this.lift.setConstants();
     }
 }
