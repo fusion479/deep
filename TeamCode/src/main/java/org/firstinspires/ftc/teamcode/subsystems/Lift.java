@@ -22,8 +22,8 @@ public class Lift extends SubsystemBase {
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 595;
-    public static double DRIVE_IN = 500;
+    public static double HIGH_RUNG = 675;
+    public static double DRIVE_IN = 530;
     public static double CLIMB = -Integer.MAX_VALUE;
     public static double COMPENSATE = 12.0;
 

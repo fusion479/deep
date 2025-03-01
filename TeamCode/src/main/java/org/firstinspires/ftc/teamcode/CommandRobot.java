@@ -80,6 +80,9 @@ public class CommandRobot {
 
     public static double ARM_THRESH = 0.56;
 
+    public static double SLOW_ANG_VEL = 0.1;
+    public static double SLOW_ANG_ACCEL = 0.02;
+
     private GamepadTrigger lt, rt;
 
     public CommandRobot(HardwareMap hwMap, Gamepad gamepad1, Gamepad gamepad2, TeleOpMode mode) {
@@ -131,7 +134,7 @@ public class CommandRobot {
             case KELLY:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
-                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() < ARM_THRESH)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;
@@ -320,8 +323,8 @@ public class CommandRobot {
         this.lt.update();
 
         if (this.extendo.getPosition() > 100) {
-            Drivetrain.MAX_ANGULAR_VEL = 0.4;
-            Drivetrain.MAX_ANGULAR_ACCEL = 0.1;
+            Drivetrain.MAX_ANGULAR_VEL = SLOW_ANG_VEL;
+            Drivetrain.MAX_ANGULAR_ACCEL = SLOW_ANG_ACCEL;
         } else {
             Drivetrain.MAX_ANGULAR_ACCEL = 0.2;
             Drivetrain.MAX_ANGULAR_VEL = 0.6;

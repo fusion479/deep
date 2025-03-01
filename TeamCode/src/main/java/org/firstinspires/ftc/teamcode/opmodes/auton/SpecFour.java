@@ -22,13 +22,13 @@ public class SpecFour extends OpModeCore {
     private SpecFourTrajectories trajectories;
 
     public static int HIGH_RUNG_WAIT = 250;
-    public static int SLAM_WAIT = 250;
-    public static int SPECIMEN_CLOSE_WAIT = 250;
+    public static int SLAM_WAIT = 275;
+    public static int SPECIMEN_CLOSE_WAIT = 225;
     public static int CYCLE_SPECIMEN_WAIT = 450;
     public static int INTAKE_SECOND_WAIT = 1200;
     public static int SCORE_WAIT = 275;
     public static int PARK_WAIT = 450;
-    public static int READY_WAIT = 200;
+    public static int READY_WAIT = 240;
 
     public static double SCORE_SPEED = 0.8;
     public static double NORMAL_SPEED = 1;
