@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
@@ -17,9 +18,13 @@ import java.io.StringWriter;
 
 @Config
 public class Lift extends SubsystemBase {
+    public static double MAX_ACCEL = 0.2;
+    public static double MAX_VEL = 0.7;
+    public static double MIN_VEL = 0.2;
+    public static double MAX_DEACCEL = 0.1;
+
     public static double MIN_POWER = -0.2;
 
-    //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
     public static double HIGH_RUNG = 595;
@@ -42,6 +47,8 @@ public class Lift extends SubsystemBase {
     private final DcMotorEx leftPri;
     private final VoltageSensor voltageSensor;
     private final PIDController controller;
+
+    private double power = 0.0;
 
     public Lift(final HardwareMap hwMap) {
         this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
@@ -77,27 +84,35 @@ public class Lift extends SubsystemBase {
         this.setTarget(0);
     }
 
+    private static double calculateAccel(double accel, double deaccel, double prevPower, double check) {
+        double rel;
+
+        if (Math.abs(prevPower) > Math.abs(check))
+            rel = Math.min(deaccel, Math.abs(check - prevPower));
+        else rel = Math.min(accel, Math.abs(check - prevPower));
+
+        return check - prevPower >= 0 ? Range.clip(rel, MIN_VEL, MAX_VEL) : -Range.clip(rel, MIN_VEL, MAX_VEL);
+    }
+
     public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {
-                    double power;
-
                     synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition() * (12.25 / voltageSensor.getVoltage()));
-                        this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
+                        this.power += Lift.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.power, this.controller.calculate(this.getPosition() * (12.0 / voltageSensor.getVoltage())));
+                        this.rightPri.setPower(power);
                     }
 
                     synchronized (this.rightSec) {
-                        this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
+                        this.rightSec.setPower(power);
                     }
 
                     synchronized (this.leftPri) {
-                        this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
+                        this.leftPri.setPower(power);
                     }
 
                     synchronized (this.leftSec) {
-                        this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
+                        this.leftSec.setPower(power);
                     }
 
                     Thread.sleep(50);
