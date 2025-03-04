@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
@@ -27,7 +28,6 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_ANGULAR_VEL = 0.6;
 
     public static boolean ROBOT_CENTRIC = true;
-
     private final Follower follower;
 
     private double xPower = 0.0;
@@ -35,7 +35,8 @@ public class Drivetrain extends SubsystemBase {
     private double yPower = 0.0;
 
     public Drivetrain(final HardwareMap hwMap, Pose startPose) {
-        this.follower = new Follower(hwMap, FConstants.class, LConstants.class);
+        Constants.setConstants(FConstants.class, LConstants.class);
+        this.follower = new Follower(hwMap);
         this.follower.setStartingPose(startPose);
     }
 

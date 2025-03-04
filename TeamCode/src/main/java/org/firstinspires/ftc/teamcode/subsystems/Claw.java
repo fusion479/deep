@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
 public class Claw extends SubsystemBase {
-    public static double OPEN = 0.18;
-    public static double CLOSE = 0.6;
+    public static double OPEN = 0.25;
+    public static double CLOSE = 0.8;
 
     private final Servo claw;
 

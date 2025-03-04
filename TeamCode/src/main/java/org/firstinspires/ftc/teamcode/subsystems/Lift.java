@@ -27,16 +27,17 @@ public class Lift extends SubsystemBase {
 
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 595;
-    public static double DRIVE_IN = 500;
+    public static double HIGH_RUNG = 630;
+    public static double DRIVE_IN = 530;
     public static double CLIMB = -Integer.MAX_VALUE;
+    public static double COMPENSATE = 12.0;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
     public static double SLAM = 260;
 
-    public static double kP = 0.006;
+    public static double kP = 0.0055;
     public static double kI = 0;
     public static double kD = 0;
     public static double kG = 0;

@@ -53,6 +53,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
@@ -77,6 +78,11 @@ public class CommandRobot {
     public static int ACCEPTING_WAIT = 700;
     public static int SLAM_WAIT = 600;
     public static int SPECIMEN_WAIT = 300;
+
+    public static double ARM_THRESH = 0.61;
+
+    public static double SLOW_ANG_VEL = 0.1;
+    public static double SLOW_ANG_ACCEL = 0.02;
 
     private GamepadTrigger lt, rt;
 
@@ -129,7 +135,7 @@ public class CommandRobot {
             case KELLY:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
-                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() < ARM_THRESH)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;
@@ -157,7 +163,7 @@ public class CommandRobot {
             case DEV:
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(new ConditionalCommand(this.ready(), this.accepting(), () -> {
-                            if (this.lift.getPosition() > 100 || this.arm.getPosition() > 0.93)
+                            if (this.lift.getPosition() > 100 || this.arm.getPosition() < ARM_THRESH)
                                 this.intakeToggle = true;
 
                             else this.intakeToggle = !this.intakeToggle;
@@ -318,11 +324,19 @@ public class CommandRobot {
         this.lt.update();
 
         if (this.extendo.getPosition() > 100) {
-            Drivetrain.MAX_ANGULAR_VEL = 0.4;
-            Drivetrain.MAX_ANGULAR_ACCEL = 0.1;
+            Drivetrain.MAX_ANGULAR_VEL = SLOW_ANG_VEL;
+            Drivetrain.MAX_ANGULAR_ACCEL = SLOW_ANG_ACCEL;
         } else {
             Drivetrain.MAX_ANGULAR_ACCEL = 0.2;
             Drivetrain.MAX_ANGULAR_VEL = 0.6;
         }
+    }
+
+    public void logDev() {
+        TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
+        TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
+        TelemetryCore.getInstance().addData("Error", this.lift.getError());
+
+        this.lift.setConstants();
     }
 }

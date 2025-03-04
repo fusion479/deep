@@ -23,11 +23,12 @@ public class Extendo extends SubsystemBase {
     public static int ALLOWED_ERROR = 3;
     public static int SCORE = -30;
     public static int READY = 40;
-    public static int ACCEPTING = 250;
-    public static int SPECIMEN = 90;
+    public static int ACCEPTING = 210;
+    public static int SPECIMEN = 75;
     public static int DRIVE_IN = 120;
     public static double SWEEP = 0;
     public static int TELE_OFFSET = 75;
+    public static double MULTI = 1;
 
     private double power;
     private boolean toggleController;
@@ -69,11 +70,11 @@ public class Extendo extends SubsystemBase {
                         this.power = this.controller.calculate(currPos + 360 * rotations);
                         if (!this.controller.isFinished()) {
                             synchronized (this.extendoBottom) {
-                                this.extendoBottom.setPower(-this.power);
+                                this.extendoBottom.setPower(-this.power * MULTI);
                             }
 
                             synchronized (this.extendoTop) {
-                                this.extendoTop.setPower(-this.power);
+                                this.extendoTop.setPower(-this.power * MULTI);
                             }
                         }
                     } else {
