@@ -10,7 +10,7 @@
     "lines": [
         {
             "endPoint": {
-                "x": 36,
+                "x": 34,
                 "y": 72,
                 "heading": "linear",
                 "startDeg": 0,
@@ -171,7 +171,7 @@
         },
         {
             "endPoint": {
-                "x": 31.5,
+                "x": 28,
                 "y": 67,
                 "heading": "linear",
                 "reverse": false,
@@ -192,7 +192,7 @@
         },
         {
             "endPoint": {
-                "x": 15,
+                "x": 14,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,
@@ -206,7 +206,7 @@
         },
         {
             "endPoint": {
-                "x": 34.5,
+                "x": 35,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -220,7 +220,7 @@
         },
         {
             "endPoint": {
-                "x": 15,
+                "x": 14.75,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,
@@ -235,7 +235,7 @@
         {
             "endPoint": {
                 "x": 35,
-                "y": 69,
+                "y": 70,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFourth",

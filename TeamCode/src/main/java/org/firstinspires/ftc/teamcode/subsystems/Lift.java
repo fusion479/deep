@@ -22,8 +22,8 @@ public class Lift extends SubsystemBase {
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 630;
-    public static double DRIVE_IN = 530;
+    public static double HIGH_RUNG = 620;
+    public static double DRIVE_IN = 490;
     public static double CLIMB = -Integer.MAX_VALUE;
     public static double COMPENSATE = 12.0;
 
@@ -37,38 +37,28 @@ public class Lift extends SubsystemBase {
     public static double kD = 0;
     public static double kG = 0;
 
-    private final DcMotorEx rightSec;
-    private final DcMotorEx leftSec;
-    private final DcMotorEx rightPri;
-    private final DcMotorEx leftPri;
+    private final DcMotorEx right;
+    private final DcMotorEx left;
+
     private final VoltageSensor voltageSensor;
+
     private final PIDController controller;
 
     public Lift(final HardwareMap hwMap) {
-        this.rightSec = hwMap.get(DcMotorEx.class, "rightLiftSec");
-        this.leftSec = hwMap.get(DcMotorEx.class, "leftLiftSec");
-        this.rightPri = hwMap.get(DcMotorEx.class, "rightLiftPri");
-        this.leftPri = hwMap.get(DcMotorEx.class, "leftLiftPri");
+        this.right = hwMap.get(DcMotorEx.class, "rightLiftPri");
+        this.left = hwMap.get(DcMotorEx.class, "leftLiftPri");
 
-        this.leftPri.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.rightSec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.rightPri.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.leftSec.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        this.leftSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        this.rightSec.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        this.rightPri.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        this.leftPri.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        this.leftSec.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.rightSec.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.rightPri.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        this.leftPri.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        this.left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.leftSec.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.rightSec.setDirection(DcMotorSimple.Direction.FORWARD);
-        this.rightPri.setDirection(DcMotorSimple.Direction.REVERSE);
-        this.leftPri.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.right.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.left.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(Lift.kP, Lift.kI, Lift.kD, Lift.kG);
         this.controller.setAllowedError(15);
@@ -84,21 +74,13 @@ public class Lift extends SubsystemBase {
                 try {
                     double power;
 
-                    synchronized (this.rightPri) {
-                        power = this.controller.calculate(this.getPosition() * (COMPENSATE / voltageSensor.getVoltage()));
-                        this.rightPri.setPower(Math.max(power, Lift.MIN_POWER));
+                    synchronized (this.right) {
+                        power = this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
+                        this.right.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
-                    synchronized (this.rightSec) {
-                        this.rightSec.setPower(Math.max(power, Lift.MIN_POWER));
-                    }
-
-                    synchronized (this.leftPri) {
-                        this.leftPri.setPower(Math.max(power, Lift.MIN_POWER));
-                    }
-
-                    synchronized (this.leftSec) {
-                        this.leftSec.setPower(Math.max(power, Lift.MIN_POWER));
+                    synchronized (this.left) {
+                        this.left.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
                     Thread.sleep(50);
@@ -119,7 +101,7 @@ public class Lift extends SubsystemBase {
     }
 
     public synchronized double getPosition() {
-        return -this.leftPri.getCurrentPosition();
+        return -this.left.getCurrentPosition();
     }
 
     public synchronized boolean isFinished() {

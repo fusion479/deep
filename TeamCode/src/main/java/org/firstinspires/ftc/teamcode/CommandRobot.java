@@ -81,8 +81,8 @@ public class CommandRobot {
 
     public static double ARM_THRESH = 0.61;
 
-    public static double SLOW_ANG_VEL = 0.1;
-    public static double SLOW_ANG_ACCEL = 0.02;
+    public static double SLOW_ANG_VEL = 0.4;
+    public static double SLOW_ANG_ACCEL = 0.2;
 
     private GamepadTrigger lt, rt;
 
@@ -323,7 +323,7 @@ public class CommandRobot {
         this.rt.update();
         this.lt.update();
 
-        if (this.extendo.getPosition() > 100) {
+        if (this.extendo.getActualPosition() > 100) {
             Drivetrain.MAX_ANGULAR_VEL = SLOW_ANG_VEL;
             Drivetrain.MAX_ANGULAR_ACCEL = SLOW_ANG_ACCEL;
         } else {
@@ -333,10 +333,15 @@ public class CommandRobot {
     }
 
     public void logDev() {
-        TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
-        TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
-        TelemetryCore.getInstance().addData("Error", this.lift.getError());
+        TelemetryCore.getInstance().addData("Lift Target", this.lift.getTarget());
+        TelemetryCore.getInstance().addData("Lift Position", this.lift.getPosition());
+        TelemetryCore.getInstance().addData("Lift Error", this.lift.getError());
 
+        TelemetryCore.getInstance().addData("Extendo Position", this.extendo.getPosition());
+        TelemetryCore.getInstance().addData("Extendo Target", this.extendo.getTarget());
+        TelemetryCore.getInstance().addData("Extendo Error", this.extendo.getError());
+
+        this.extendo.setConstants();
         this.lift.setConstants();
     }
 }
