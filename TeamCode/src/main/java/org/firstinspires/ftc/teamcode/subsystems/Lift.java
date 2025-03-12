@@ -75,7 +75,7 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.right) {
-                        power = this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
+                        power = -this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
                         this.right.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
