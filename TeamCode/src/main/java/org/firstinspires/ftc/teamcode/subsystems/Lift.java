@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.utils.PIDController;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
@@ -18,17 +17,13 @@ import java.io.StringWriter;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MAX_ACCEL = 0.2;
-    public static double MAX_VEL = 0.7;
-    public static double MIN_VEL = 0.2;
-    public static double MAX_DEACCEL = 0.1;
-
     public static double MIN_POWER = -0.2;
 
+    //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 630;
-    public static double DRIVE_IN = 530;
+    public static double HIGH_RUNG = 620;
+    public static double DRIVE_IN = 490;
     public static double CLIMB = -Integer.MAX_VALUE;
     public static double COMPENSATE = 12.0;
 
@@ -44,17 +39,17 @@ public class Lift extends SubsystemBase {
 
     private final DcMotorEx right;
     private final DcMotorEx left;
+
     private final VoltageSensor voltageSensor;
+
     private final PIDController controller;
 
-    private double power = 0.0;
-
     public Lift(final HardwareMap hwMap) {
-        this.left = hwMap.get(DcMotorEx.class, "leftLiftPri");
         this.right = hwMap.get(DcMotorEx.class, "rightLiftPri");
+        this.left = hwMap.get(DcMotorEx.class, "leftLiftPri");
 
-        this.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         this.right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         this.left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -73,27 +68,19 @@ public class Lift extends SubsystemBase {
         this.setTarget(0);
     }
 
-    private static double calculateAccel(double accel, double deaccel, double prevPower, double check) {
-        double rel;
-
-        if (Math.abs(prevPower) > Math.abs(check))
-            rel = Math.min(deaccel, Math.abs(check - prevPower));
-        else rel = Math.min(accel, Math.abs(check - prevPower));
-
-        return check - prevPower >= 0 ? Range.clip(rel, MIN_VEL, MAX_VEL) : -Range.clip(rel, MIN_VEL, MAX_VEL);
-    }
-
     public void startThread(CommandOpMode opMode) {
         new Thread(() -> {
             while (opMode.opModeIsActive())
                 try {
+                    double power;
+
                     synchronized (this.right) {
-                        this.power += Lift.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.power, this.controller.calculate(this.getPosition() * (12.0 / voltageSensor.getVoltage())));
-                        this.right.setPower(power);
+                        power = -this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
+                        this.right.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
                     synchronized (this.left) {
-                        this.left.setPower(power);
+                        this.left.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
                     Thread.sleep(50);
