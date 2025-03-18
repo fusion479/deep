@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.ConditionalCommand;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -28,6 +29,8 @@ import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoReady;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSpecimen;
 import org.firstinspires.ftc.teamcode.commands.extendo.ExtendoSweep;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftAccepting;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftClimb;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftClimbDown;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDriveIn;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
@@ -40,6 +43,8 @@ import org.firstinspires.ftc.teamcode.commands.pivot.PivotIntake;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotReady;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSpecimen;
 import org.firstinspires.ftc.teamcode.commands.pivot.PivotSweep;
+import org.firstinspires.ftc.teamcode.commands.sweeper.SweeperDown;
+import org.firstinspires.ftc.teamcode.commands.sweeper.SweeperUp;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristAccepting;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristBasket;
 import org.firstinspires.ftc.teamcode.commands.wrist.WristLeft;
@@ -52,6 +57,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Extendo;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Pivot;
+import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
@@ -67,6 +73,7 @@ public class CommandRobot {
     private final Pivot pivot;
     private final Wrist wrist;
     private final Arm arm;
+    private final Sweeper sweeper;
 
     private final Drivetrain drivetrain;
 
@@ -76,7 +83,7 @@ public class CommandRobot {
     private boolean intakeToggle;
 
     public static int ACCEPTING_WAIT = 700;
-    public static int SLAM_WAIT = 600;
+    public static int SLAM_WAIT = 850;
     public static int SPECIMEN_WAIT = 300;
 
     public static double ARM_THRESH = 0.61;
@@ -94,6 +101,7 @@ public class CommandRobot {
         this.pivot = new Pivot(hwMap);
         this.wrist = new Wrist(hwMap);
         this.arm = new Arm(hwMap);
+        this.sweeper = new Sweeper(hwMap);
 
         this.intakeToggle = true;
 
@@ -115,6 +123,7 @@ public class CommandRobot {
         this.pivot = new Pivot(hwMap);
         this.wrist = new Wrist(hwMap);
         this.arm = new Arm(hwMap);
+        this.sweeper = new Sweeper(hwMap);
 
         this.drivetrain = new Drivetrain(hwMap, startPose);
     }
@@ -158,6 +167,20 @@ public class CommandRobot {
                         .whenPressed(new ConditionalCommand(this.close(), this.intake(), () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                         .whenPressed(this.open());
+
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.climb());
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(
+                                new SequentialCommandGroup(
+                                        new InstantCommand(() -> Lift.CLIMB_DOWN = -1.0),
+                                        this.climbDown()
+                                )
+                        );
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.sweeperDown());
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.sweeperUp());
                 break;
 
             case DEV:
@@ -188,6 +211,15 @@ public class CommandRobot {
                         .whenPressed(new ConditionalCommand(this.close(), this.intake(), () -> this.intakeToggle));
                 this.gamepad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                         .whenPressed(this.open());
+
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(this.climb());
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(this.climbDown());
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.B)
+                        .whenPressed(this.sweeperDown());
+                this.gamepad2.getGamepadButton(GamepadKeys.Button.X)
+                        .whenPressed(this.sweeperUp());
                 break;
         }
     }
@@ -266,11 +298,7 @@ public class CommandRobot {
         return new SequentialCommandGroup(
                 new LiftSlam(this.lift),
                 new WaitCommand(SLAM_WAIT),
-                new ClawOpen(this.claw),
-                new WaitCommand(100),
-                new LiftIncrement(this.lift),
-                new LiftIncrement(this.lift),
-                new LiftIncrement(this.lift)
+                new ClawOpen(this.claw)
         );
     }
 
@@ -319,6 +347,22 @@ public class CommandRobot {
         return new WristLeft(this.wrist);
     }
 
+    public Command climb() {
+        return new LiftClimb(this.lift);
+    }
+
+    public Command climbDown() {
+        return new LiftClimbDown(this.lift);
+    }
+
+    public Command sweeperDown() {
+        return new SweeperDown(this.sweeper);
+    }
+
+    public Command sweeperUp() {
+        return new SweeperUp(this.sweeper);
+    }
+
     public void update() {
         this.rt.update();
         this.lt.update();
@@ -340,6 +384,7 @@ public class CommandRobot {
         TelemetryCore.getInstance().addData("Extendo Position", this.extendo.getPosition());
         TelemetryCore.getInstance().addData("Extendo Target", this.extendo.getTarget());
         TelemetryCore.getInstance().addData("Extendo Error", this.extendo.getError());
+        TelemetryCore.getInstance().addData("Lift Min", Lift.MIN_POWER);
 
         this.extendo.setConstants();
         this.lift.setConstants();

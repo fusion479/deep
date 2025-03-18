@@ -16,15 +16,15 @@ import java.io.StringWriter;
 
 @Config
 public class Extendo extends SubsystemBase {
-    public static double kP = 0.005;
+    public static double kP = 0.0045;
     public static double kI = 0;
     public static double kD = 0;
 
     public static double OFFSET = 238.9;
-    public static int ALLOWED_ERROR = 3;
+    public static int ALLOWED_ERROR = 5;
     public static int SCORE = -30;
     public static int READY = 40;
-    public static int ACCEPTING = 220;
+    public static int ACCEPTING = 230;
     public static int SPECIMEN = 75;
     public static int DRIVE_IN = 120;
     public static double SWEEP = 0;

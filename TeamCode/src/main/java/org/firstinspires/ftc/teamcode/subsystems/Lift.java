@@ -17,20 +17,21 @@ import java.io.StringWriter;
 
 @Config
 public class Lift extends SubsystemBase {
-    public static double MIN_POWER = -0.2;
+    public static double MIN_POWER = -0.6;
 
     //placeholder lift values
     public static double LOW_BASKET = 400;
     public static double LOW_RUNG = 400;
-    public static double HIGH_RUNG = 620;
-    public static double DRIVE_IN = 490;
-    public static double CLIMB = -Integer.MAX_VALUE;
+    public static double HIGH_RUNG = 2000;
+    public static double DRIVE_IN = 1600;
+    public static double CLIMB_DOWN = -Integer.MAX_VALUE;
+    public static double CLIMB = 3500;
     public static double COMPENSATE = 12.0;
 
     public static double ACCEPTING = 10;
     public static double INCREMENT = 50;
 
-    public static double SLAM = 260;
+    public static double SLAM = 850;
 
     public static double kP = 0.0055;
     public static double kI = 0;
@@ -75,7 +76,7 @@ public class Lift extends SubsystemBase {
                     double power;
 
                     synchronized (this.right) {
-                        power = -this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
+                        power = this.controller.calculate(this.getPosition()) * (COMPENSATE / voltageSensor.getVoltage());
                         this.right.setPower(Math.max(power, Lift.MIN_POWER));
                     }
 
@@ -96,12 +97,16 @@ public class Lift extends SubsystemBase {
         return this.controller.getTarget();
     }
 
+    public synchronized void setMinPower(double min) {
+        Lift.MIN_POWER = min;
+    }
+
     public synchronized void setTarget(double target) {
         this.controller.setTarget(target);
     }
 
     public synchronized double getPosition() {
-        return -this.left.getCurrentPosition();
+        return this.left.getCurrentPosition();
     }
 
     public synchronized boolean isFinished() {
