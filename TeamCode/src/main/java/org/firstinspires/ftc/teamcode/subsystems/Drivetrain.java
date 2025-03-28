@@ -11,6 +11,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @Config
 public class Drivetrain extends SubsystemBase {
@@ -23,6 +27,7 @@ public class Drivetrain extends SubsystemBase {
     public static double MAX_VEL = 0.75;
     public static double MAX_ANGULAR_VEL = 0.6;
 
+    public static boolean ROBOT_CENTRIC = true;
     private final Follower follower;
 
     private double xPower = 0.0;
@@ -56,12 +61,14 @@ public class Drivetrain extends SubsystemBase {
                         this.xPower += Drivetrain.calculateAccel(MAX_ACCEL, MAX_DEACCEL, this.xPower, -gamepad.getLeftX());
                         this.angPower += Drivetrain.calculateAccel(MAX_ANGULAR_ACCEL, MAX_ANGULAR_DEACCEL, this.angPower, gamepad.getRightX());
 
-                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, false);
+                        this.follower.setTeleOpMovementVectors(yPower * MAX_VEL, xPower * MAX_VEL, angPower * MAX_ANGULAR_VEL, ROBOT_CENTRIC);
                         this.follower.update();
                     }
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    StringWriter errors = new StringWriter();
+                    e.printStackTrace(new PrintWriter(errors));
+                    TelemetryCore.getInstance().addLine(errors.toString());
                 }
         }).start();
     }

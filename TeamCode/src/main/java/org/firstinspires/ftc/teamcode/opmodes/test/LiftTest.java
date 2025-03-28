@@ -6,6 +6,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.lift.LiftClimb;
+import org.firstinspires.ftc.teamcode.commands.lift.LiftClimbDown;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftDecrement;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftHighRung;
 import org.firstinspires.ftc.teamcode.commands.lift.LiftIncrement;
@@ -32,7 +34,10 @@ public class LiftTest extends OpModeCore {
         this.gamepad.getGamepadButton(GamepadKeys.Button.X).whenPressed(new LiftLowBasket(this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenPressed(new LiftIncrement(this.lift));
         this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_DOWN).whenPressed(new LiftDecrement(this.lift));
-        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> this.lift.setTarget(Lift.CLIMB)));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> this.lift.setTarget(Lift.CLIMB_DOWN)));
+
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenPressed(new LiftClimb(this.lift));
+        this.gamepad.getGamepadButton(GamepadKeys.Button.DPAD_LEFT).whenPressed(new LiftClimbDown(this.lift));
     }
 
     @Override
@@ -46,6 +51,7 @@ public class LiftTest extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            this.lift.setTarget(this.lift.getTarget());
             TelemetryCore.getInstance().addData("Target", this.lift.getTarget());
             TelemetryCore.getInstance().addData("Position", this.lift.getPosition());
             TelemetryCore.getInstance().addData("Error", this.lift.getError());

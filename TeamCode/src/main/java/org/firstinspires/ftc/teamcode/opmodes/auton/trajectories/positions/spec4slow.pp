@@ -10,7 +10,7 @@
     "lines": [
         {
             "endPoint": {
-                "x": 34,
+                "x": 35.5,
                 "y": 72,
                 "heading": "linear",
                 "startDeg": 0,
@@ -115,7 +115,7 @@
         },
         {
             "endPoint": {
-                "x": 20,
+                "x": 14,
                 "y": 13.5,
                 "heading": "linear",
                 "reverse": false,
@@ -171,7 +171,7 @@
         },
         {
             "endPoint": {
-                "x": 28,
+                "x": 31,
                 "y": 67,
                 "heading": "linear",
                 "reverse": false,
@@ -192,7 +192,7 @@
         },
         {
             "endPoint": {
-                "x": 14,
+                "x": 15,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,
@@ -206,7 +206,7 @@
         },
         {
             "endPoint": {
-                "x": 35,
+                "x": 34,
                 "y": 70,
                 "heading": "linear",
                 "reverse": false,
@@ -220,7 +220,7 @@
         },
         {
             "endPoint": {
-                "x": 14.75,
+                "x": 15,
                 "y": 39,
                 "heading": "linear",
                 "reverse": false,
@@ -234,8 +234,8 @@
         },
         {
             "endPoint": {
-                "x": 35,
-                "y": 70,
+                "x": 34.5,
+                "y": 69,
                 "heading": "linear",
                 "reverse": false,
                 "name": "scoreFourth",
@@ -248,8 +248,8 @@
         },
         {
             "endPoint": {
-                "x": 15,
-                "y": 38,
+                "x": 16,
+                "y": 39,
                 "heading": "linear",
                 "reverse": false,
                 "name": "park",

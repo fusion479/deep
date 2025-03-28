@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.utils.TelemetryCore;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 
 @TeleOp(name = "1 Dev Main")
@@ -36,10 +37,12 @@ public class DevMain extends OpModeCore {
             super.resetCycle();
             CommandScheduler.getInstance().run();
 
+            this.robot.logDev();
+
             this.robot.update();
 
             super.logCycles();
-            super.telemetry.update();
+            TelemetryCore.getInstance().update();
         }
 
         super.end();

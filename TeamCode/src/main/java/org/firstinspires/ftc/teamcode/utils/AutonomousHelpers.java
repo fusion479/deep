@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AutonomousHelpers {
@@ -65,6 +66,52 @@ public class AutonomousHelpers {
         return path;
     }
 
+    public static HashMap<String, Pose> getPosesName(String path){
+        HashMap<String, Pose> poseMap = new HashMap<>();
+        try {
+            String jsonString = "";
+
+            File file = new File(path);
+            Scanner reader = new Scanner(file);
+
+            while (reader.hasNextLine()) {
+                jsonString += reader.nextLine();
+            }
+
+            JSONObject data = new JSONObject(jsonString.toString());
+            JSONArray lines = data.getJSONArray("lines");
+
+            JSONObject startPoint = data.getJSONObject("startPoint");
+            String startName = startPoint.getString("name");
+            Pose startPose = new Pose(
+                    startPoint.getDouble("x"),
+                    startPoint.getDouble("y"),
+                    Math.toRadians(startPoint.getDouble("startDeg"))
+            );
+            poseMap.put(startName, startPose);
+
+            for (int i = 0; i < lines.length(); i++) {
+                JSONObject line = lines.getJSONObject(i);
+
+                JSONObject endPoint = line.getJSONObject("endPoint");
+                String endName = endPoint.getString("name");
+                Pose pose = getPose(endPoint);
+                poseMap.put(endName, pose);
+
+                JSONArray controlPoints = line.getJSONArray("controlPoints");
+                for (int j = 0; j < controlPoints.length(); j++) {
+                    JSONObject controlPoint = controlPoints.getJSONObject(j);
+                    String controlPointName = controlPoint.getString("name");
+                    Pose controlPointPose = getPose(controlPoint);
+                    poseMap.put(controlPointName, controlPointPose);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return poseMap;
+
+    }
     public static ArrayList<Pose> getPoses(String path) {
         try {
             ArrayList<Pose> poses = new ArrayList<Pose>();

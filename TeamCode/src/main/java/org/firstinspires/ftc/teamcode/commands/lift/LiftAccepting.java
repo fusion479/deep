@@ -20,6 +20,6 @@ public class LiftAccepting extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.lift.isFinished();
+        return true;
     }
 }

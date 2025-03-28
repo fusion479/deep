@@ -6,24 +6,24 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.CommandRobot;
-import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFiveTrajectories;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.SpecFourTrajectories;
 import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
 import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Config
-@Autonomous(name = "Push", preselectTeleOp = "Main")
-public class Push extends OpModeCore {
+@Autonomous(name = "4-Spec Path", preselectTeleOp = "Main")
+public class SpecFourPath extends OpModeCore {
     private CommandRobot robot;
-    private SpecFiveTrajectories trajectories;
+    private SpecFourTrajectories trajectories;
 
-    public static double SCORE_SPEED = 0.8;
-    public static double NORMAL_SPEED = 0.8;
-    public static double PUSH = 0.8;
+    public static double SCORE_SPEED = 1;
+    public static double NORMAL_SPEED = 1;
+    public static double PUSH = 0.9;
 
     @Override
     public void initialize() {
-        this.trajectories = new SpecFiveTrajectories();
+        this.trajectories = new SpecFourTrajectories();
 
         this.robot = new CommandRobot(super.hardwareMap, this.trajectories.getStart());
     }
@@ -47,8 +47,6 @@ public class Push extends OpModeCore {
                         new PathCommand(this.robot, this.trajectories.scoreThird, SCORE_SPEED),
                         new PathCommand(this.robot, this.trajectories.intakeFourth, NORMAL_SPEED),
                         new PathCommand(this.robot, this.trajectories.scoreFourth, SCORE_SPEED),
-                        new PathCommand(this.robot, this.trajectories.intakeFifth, NORMAL_SPEED),
-                        new PathCommand(this.robot, this.trajectories.scoreFifth, SCORE_SPEED),
                         new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )
         );

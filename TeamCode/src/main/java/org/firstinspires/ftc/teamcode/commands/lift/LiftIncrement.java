@@ -20,6 +20,6 @@ public class LiftIncrement extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return this.lift.isFinished();
+        return true;
     }
 }

@@ -12,14 +12,14 @@ import org.firstinspires.ftc.teamcode.utils.commands.PathChainCommand;
 import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
 
 @Config
-@Autonomous(name = "Push", preselectTeleOp = "Main")
-public class Push extends OpModeCore {
+@Autonomous(name = "5-Spec Path", preselectTeleOp = "Main")
+public class SpecFivePath extends OpModeCore {
     private CommandRobot robot;
     private SpecFiveTrajectories trajectories;
 
-    public static double SCORE_SPEED = 0.8;
-    public static double NORMAL_SPEED = 0.8;
-    public static double PUSH = 0.8;
+    public static double SCORE_SPEED = 1;
+    public static double NORMAL_SPEED = 1;
+    public static double PUSH = 0.9;
 
     @Override
     public void initialize() {

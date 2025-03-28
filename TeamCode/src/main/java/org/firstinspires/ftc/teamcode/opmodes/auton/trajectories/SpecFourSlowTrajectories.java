@@ -13,17 +13,17 @@ import java.io.File;
 import java.util.ArrayList;
 
 @Config
-public class SpecFourTrajectories {
+public class SpecFourSlowTrajectories {
     private final ArrayList<Pose> poses;
     public static double SCORE_PRELOAD = 1.7;
     public static double SCORE_SECOND = 5;
     public static double SCORE_THIRD = 3;
     public static double SCORE_FOURTH = 3;
 
-    public Path scorePreload, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, setupBottom, strafeBottom, pushBottom;
+    public Path scorePreload, scoreSecond, intakeThird, scoreThird, intakeFourth, scoreFourth, park, setupTop, strafeTop, pushTop, setupMid, strafeMid, pushMid, pushBottom;
 
-    public SpecFourTrajectories() {
-        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec4.pp"));
+    public SpecFourSlowTrajectories() {
+        this.poses = AutonomousHelpers.getPoses(new File("").getAbsolutePath().concat("/sdcard/FIRST/positions/spec4slow.pp"));
 
         this.scorePreload = buildCurve(
                 poses.get(0),
@@ -73,27 +73,14 @@ public class SpecFourTrajectories {
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-        this.setupBottom = buildLine(
-                poses.get(10),
-                poses.get(11),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
-        this.strafeBottom = buildLine(
-                poses.get(11),
-                poses.get(12),
-                AutonomousHelpers.HeadingInterpolation.LINEAR
-        );
-
         this.pushBottom = buildLine(
                 poses.get(12),
                 poses.get(13),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
         );
 
-
         this.scoreSecond = buildCurve(
-                poses.get(13),
+                poses.get(10),
                 AutonomousHelpers.poseToPoint(poses.get(15)),
                 poses.get(14),
                 AutonomousHelpers.HeadingInterpolation.LINEAR
