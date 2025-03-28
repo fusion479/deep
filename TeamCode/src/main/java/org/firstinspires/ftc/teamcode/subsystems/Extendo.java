@@ -24,9 +24,9 @@ public class Extendo extends SubsystemBase {
     public static int ALLOWED_ERROR = 5;
     public static int SCORE = -30;
     public static int READY = 40;
-    public static int ACCEPTING = 230;
+    public static int ACCEPTING = 300;
     public static int SPECIMEN = 75;
-    public static int DRIVE_IN = 120;
+    public static int DRIVE_IN = 225;
     public static double SWEEP = 0;
     public static int TELE_OFFSET = 75;
     public static double MULTI = 1;
